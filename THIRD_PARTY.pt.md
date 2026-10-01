@@ -1,6 +1,8 @@
 # Componentes e referências de terceiros
 
-<!-- language-navigation --> [繁體中文](THIRD_PARTY.zh-TW.md) | [English](THIRD_PARTY.md) | [日本語](THIRD_PARTY.ja.md) | [한국어](THIRD_PARTY.ko.md) | [Español](THIRD_PARTY.es.md) | [Français](THIRD_PARTY.fr.md) | [Deutsch](THIRD_PARTY.de.md) | **Português**
+<!-- language-navigation -->
+
+[繁體中文](THIRD_PARTY.zh-TW.md) | [English](THIRD_PARTY.md) | [日本語](THIRD_PARTY.ja.md) | [한국어](THIRD_PARTY.ko.md) | [Español](THIRD_PARTY.es.md) | [Français](THIRD_PARTY.fr.md) | [Deutsch](THIRD_PARTY.de.md) | **Português**
 
 O Novel OS contém código e documentação originais do projeto que interoperam com projetos de terceiros ou os descrevem. Salvo indicação explícita num ficheiro, os projetos de terceiros **não estão incorporados** neste repositório.
 

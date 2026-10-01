@@ -1,4 +1,6 @@
-<!-- language-navigation --> **繁體中文** | [English](COMMERCIAL_TERMS.md) | [日本語](COMMERCIAL_TERMS.ja.md) | [한국어](COMMERCIAL_TERMS.ko.md) | [Español](COMMERCIAL_TERMS.es.md) | [Français](COMMERCIAL_TERMS.fr.md) | [Deutsch](COMMERCIAL_TERMS.de.md) | [Português](COMMERCIAL_TERMS.pt.md)
+<!-- language-navigation -->
+
+**繁體中文** | [English](COMMERCIAL_TERMS.md) | [日本語](COMMERCIAL_TERMS.ja.md) | [한국어](COMMERCIAL_TERMS.ko.md) | [Español](COMMERCIAL_TERMS.es.md) | [Français](COMMERCIAL_TERMS.fr.md) | [Deutsch](COMMERCIAL_TERMS.de.md) | [Português](COMMERCIAL_TERMS.pt.md)
 
 # 商用分潤與付款說明
 

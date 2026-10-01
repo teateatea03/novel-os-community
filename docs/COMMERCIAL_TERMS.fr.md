@@ -1,6 +1,8 @@
 # Partage commercial des bénéfices et paiement
 
-<!-- language-navigation --> [繁體中文](COMMERCIAL_TERMS.zh-TW.md) | [English](COMMERCIAL_TERMS.md) | [日本語](COMMERCIAL_TERMS.ja.md) | [한국어](COMMERCIAL_TERMS.ko.md) | [Español](COMMERCIAL_TERMS.es.md) | **Français** | [Deutsch](COMMERCIAL_TERMS.de.md) | [Português](COMMERCIAL_TERMS.pt.md)
+<!-- language-navigation -->
+
+[繁體中文](COMMERCIAL_TERMS.zh-TW.md) | [English](COMMERCIAL_TERMS.md) | [日本語](COMMERCIAL_TERMS.ja.md) | [한국어](COMMERCIAL_TERMS.ko.md) | [Español](COMMERCIAL_TERMS.es.md) | **Français** | [Deutsch](COMMERCIAL_TERMS.de.md) | [Português](COMMERCIAL_TERMS.pt.md)
 
 Concédant : teateatea03. Version applicable : [licence Novel OS de code source accessible et de partage commercial des bénéfices 1.0](../LICENSE.fr.md). Cette page rassemble les informations de paiement ; les conditions de licence sont régies par LICENSE.
 

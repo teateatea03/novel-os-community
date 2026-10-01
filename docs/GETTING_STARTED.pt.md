@@ -1,6 +1,8 @@
 # Configuração local e instalação portátil
 
-<!-- language-navigation --> [繁體中文](GETTING_STARTED.zh-TW.md) | [English](GETTING_STARTED.md) | [日本語](GETTING_STARTED.ja.md) | [한국어](GETTING_STARTED.ko.md) | [Español](GETTING_STARTED.es.md) | [Français](GETTING_STARTED.fr.md) | [Deutsch](GETTING_STARTED.de.md) | **Português**
+<!-- language-navigation -->
+
+[繁體中文](GETTING_STARTED.zh-TW.md) | [English](GETTING_STARTED.md) | [日本語](GETTING_STARTED.ja.md) | [한국어](GETTING_STARTED.ko.md) | [Español](GETTING_STARTED.es.md) | [Français](GETTING_STARTED.fr.md) | [Deutsch](GETTING_STARTED.de.md) | **Português**
 
 Este guia abrange o ambiente de execução local e o pacote portátil. A utilização e a redistribuição são regidas por [LICENSE](../LICENSE.pt.md); os detalhes de declaração comercial e pagamento estão em [COMMERCIAL_TERMS.pt.md](COMMERCIAL_TERMS.pt.md).
 

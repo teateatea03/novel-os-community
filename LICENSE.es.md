@@ -2,7 +2,9 @@ Licencia de código fuente disponible y participación en beneficios comerciales
 Fecha de esta versión: 2026-10-01
 Copyright (c) 2026 teateatea03
 
-<!-- language-navigation --> [繁體中文](LICENSE.zh-TW.md) | [English](LICENSE) | [日本語](LICENSE.ja.md) | [한국어](LICENSE.ko.md) | **Español** | [Français](LICENSE.fr.md) | [Deutsch](LICENSE.de.md) | [Português](LICENSE.pt.md)
+<!-- language-navigation -->
+
+[繁體中文](LICENSE.zh-TW.md) | [English](LICENSE) | [日本語](LICENSE.ja.md) | [한국어](LICENSE.ko.md) | **Español** | [Français](LICENSE.fr.md) | [Deutsch](LICENSE.de.md) | [Português](LICENSE.pt.md)
 
 Esta es una licencia personalizada de código fuente disponible, no la licencia MIT, GPL ni una licencia de código abierto estándar de la OSI.
 

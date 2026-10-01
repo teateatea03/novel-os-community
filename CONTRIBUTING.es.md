@@ -1,6 +1,8 @@
 # Contribuir a Novel OS
 
-<!-- language-navigation --> [繁體中文](CONTRIBUTING.zh-TW.md) | [English](CONTRIBUTING.md) | [日本語](CONTRIBUTING.ja.md) | [한국어](CONTRIBUTING.ko.md) | **Español** | [Français](CONTRIBUTING.fr.md) | [Deutsch](CONTRIBUTING.de.md) | [Português](CONTRIBUTING.pt.md)
+<!-- language-navigation -->
+
+[繁體中文](CONTRIBUTING.zh-TW.md) | [English](CONTRIBUTING.md) | [日本語](CONTRIBUTING.ja.md) | [한국어](CONTRIBUTING.ko.md) | **Español** | [Français](CONTRIBUTING.fr.md) | [Deutsch](CONTRIBUTING.de.md) | [Português](CONTRIBUTING.pt.md)
 
 [Plantilla de solicitud de cambios](.github/PULL_REQUEST_TEMPLATE/es.md)
 

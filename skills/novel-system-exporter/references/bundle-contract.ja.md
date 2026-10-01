@@ -1,6 +1,8 @@
 # 可搬 Novel OS バンドル契約
 
-<!-- language-navigation --> [繁體中文](bundle-contract.md) | [English](bundle-contract.en.md) | **日本語** | [한국어](bundle-contract.ko.md) | [Español](bundle-contract.es.md) | [Français](bundle-contract.fr.md) | [Deutsch](bundle-contract.de.md) | [Português](bundle-contract.pt.md)
+<!-- language-navigation -->
+
+[繁體中文](bundle-contract.md) | [English](bundle-contract.en.md) | **日本語** | [한국어](bundle-contract.ko.md) | [Español](bundle-contract.es.md) | [Français](bundle-contract.fr.md) | [Deutsch](bundle-contract.de.md) | [Português](bundle-contract.pt.md)
 
 `novel-os-portable-v<version>/` のパッケージ構造では、`skills/` に調整役 1 個と専門スキル 16 個を含めます。`public-web-research/` は安全で再開可能な公開 HTTP(S) 取得と Evidence Run 候補のステージングを提供します。`novel-model-capability-compatibility/` はモデル能力 probe・L0–L5・fallback 契約を保持します。`novel-reality-state-engine/` はイベント → 状態 → 能力 → 行動 → 本文の検証ツールを保持します。`novel-world-database-builder/` は世界データベースのスキーマ、バッチテンプレート、引継ぎパッケージ、クエリ仕様を保持します。`special-object-database-builder/` は小道具・鎧・機体・装置の版、能力、仕様、ライフサイクルのスキーマを保持します。
 

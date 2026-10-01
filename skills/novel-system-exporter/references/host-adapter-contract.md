@@ -1,6 +1,8 @@
 # Novel OS Host Adapter Contract
 
-<!-- language-navigation --> **繁體中文** | [English](host-adapter-contract.en.md) | [日本語](host-adapter-contract.ja.md) | [한국어](host-adapter-contract.ko.md) | [Español](host-adapter-contract.es.md) | [Français](host-adapter-contract.fr.md) | [Deutsch](host-adapter-contract.de.md) | [Português](host-adapter-contract.pt.md)
+<!-- language-navigation -->
+
+**繁體中文** | [English](host-adapter-contract.en.md) | [日本語](host-adapter-contract.ja.md) | [한국어](host-adapter-contract.ko.md) | [Español](host-adapter-contract.es.md) | [Français](host-adapter-contract.fr.md) | [Deutsch](host-adapter-contract.de.md) | [Português](host-adapter-contract.pt.md)
 
 
 這份契約給「不是 Minis」的 AI 框架整合者。Novel OS 不是把 ZIP 上傳後就能自行取得檔案權限、模型權限或跨對話記憶的插件；宿主必須提供下列能力，才能稱為自動化部署。

@@ -1,6 +1,8 @@
 # Contrato do pacote portátil do Novel OS
 
-<!-- language-navigation --> [繁體中文](bundle-contract.md) | [English](bundle-contract.en.md) | [日本語](bundle-contract.ja.md) | [한국어](bundle-contract.ko.md) | [Español](bundle-contract.es.md) | [Français](bundle-contract.fr.md) | [Deutsch](bundle-contract.de.md) | **Português**
+<!-- language-navigation -->
+
+[繁體中文](bundle-contract.md) | [English](bundle-contract.en.md) | [日本語](bundle-contract.ja.md) | [한국어](bundle-contract.ko.md) | [Español](bundle-contract.es.md) | [Français](bundle-contract.fr.md) | [Deutsch](bundle-contract.de.md) | **Português**
 
 Na estrutura do pacote `novel-os-portable-v<version>/`, `skills/` contém um coordenador e 16 skills especializadas. `public-web-research/` fornece aquisição segura e retomável de HTTP(S) público e preparação de candidatos para Evidence Run. `novel-model-capability-compatibility/` mantém os contratos de testes de capacidade do modelo/L0–L5/alternativas. `novel-reality-state-engine/` mantém as ferramentas de validação evento → estado → capacidade → comportamento → prosa. `novel-world-database-builder/` mantém esquemas de bancos de dados de mundos, modelos de lotes, pacotes de entrega e especificações de consulta. `special-object-database-builder/` mantém esquemas de versões, capacidades, especificações e ciclos de vida de objetos/armaduras/mechas/dispositivos.
 

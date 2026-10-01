@@ -2,7 +2,9 @@ Licence Novel OS de code source accessible et de partage commercial des bénéfi
 Date de la version applicable : 2026-10-01
 Copyright (c) 2026 teateatea03
 
-<!-- language-navigation --> [繁體中文](LICENSE.zh-TW.md) | [English](LICENSE) | [日本語](LICENSE.ja.md) | [한국어](LICENSE.ko.md) | [Español](LICENSE.es.md) | **Français** | [Deutsch](LICENSE.de.md) | [Português](LICENSE.pt.md)
+<!-- language-navigation -->
+
+[繁體中文](LICENSE.zh-TW.md) | [English](LICENSE) | [日本語](LICENSE.ja.md) | [한국어](LICENSE.ko.md) | [Español](LICENSE.es.md) | **Français** | [Deutsch](LICENSE.de.md) | [Português](LICENSE.pt.md)
 
 Il s’agit d’une licence personnalisée de code source accessible, et non d’une licence MIT, GPL ou open source standard conforme à l’OSI.
 

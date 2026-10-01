@@ -1,6 +1,8 @@
 # Importing and Deploying Novel OS
 
-<!-- language-navigation --> [繁體中文](portable-install.md) | **English** | [日本語](portable-install.ja.md) | [한국어](portable-install.ko.md) | [Español](portable-install.es.md) | [Français](portable-install.fr.md) | [Deutsch](portable-install.de.md) | [Português](portable-install.pt.md)
+<!-- language-navigation -->
+
+[繁體中文](portable-install.md) | **English** | [日本語](portable-install.ja.md) | [한국어](portable-install.ko.md) | [Español](portable-install.es.md) | [Français](portable-install.fr.md) | [Deutsch](portable-install.de.md) | [Português](portable-install.pt.md)
 
 ## Start with a capability inventory: choose the right deployment mode
 

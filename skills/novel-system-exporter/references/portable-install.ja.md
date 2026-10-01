@@ -1,6 +1,8 @@
 # Novel OS のインポートと展開
 
-<!-- language-navigation --> [繁體中文](portable-install.md) | [English](portable-install.en.md) | **日本語** | [한국어](portable-install.ko.md) | [Español](portable-install.es.md) | [Français](portable-install.fr.md) | [Deutsch](portable-install.de.md) | [Português](portable-install.pt.md)
+<!-- language-navigation -->
+
+[繁體中文](portable-install.md) | [English](portable-install.en.md) | **日本語** | [한국어](portable-install.ko.md) | [Español](portable-install.es.md) | [Français](portable-install.fr.md) | [Deutsch](portable-install.de.md) | [Português](portable-install.pt.md)
 
 ## まず機能を棚卸しし、適切な展開モードを選ぶ
 

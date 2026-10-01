@@ -1,6 +1,8 @@
 # 本機設定與可攜式安裝
 
-<!-- language-navigation --> **繁體中文** | [English](GETTING_STARTED.md) | [日本語](GETTING_STARTED.ja.md) | [한국어](GETTING_STARTED.ko.md) | [Español](GETTING_STARTED.es.md) | [Français](GETTING_STARTED.fr.md) | [Deutsch](GETTING_STARTED.de.md) | [Português](GETTING_STARTED.pt.md)
+<!-- language-navigation -->
+
+**繁體中文** | [English](GETTING_STARTED.md) | [日本語](GETTING_STARTED.ja.md) | [한국어](GETTING_STARTED.ko.md) | [Español](GETTING_STARTED.es.md) | [Français](GETTING_STARTED.fr.md) | [Deutsch](GETTING_STARTED.de.md) | [Português](GETTING_STARTED.pt.md)
 
 本指南涵蓋本機執行環境及可攜式套件。使用與再散布須遵守[授權條款](../LICENSE.zh-TW.md)；商用申報及付款詳情見[商用分潤與付款說明](COMMERCIAL_TERMS.zh-TW.md)。
 

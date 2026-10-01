@@ -1,6 +1,8 @@
 # Novel OS への貢献
 
-<!-- language-navigation --> [繁體中文](CONTRIBUTING.zh-TW.md) | [English](CONTRIBUTING.md) | **日本語** | [한국어](CONTRIBUTING.ko.md) | [Español](CONTRIBUTING.es.md) | [Français](CONTRIBUTING.fr.md) | [Deutsch](CONTRIBUTING.de.md) | [Português](CONTRIBUTING.pt.md)
+<!-- language-navigation -->
+
+[繁體中文](CONTRIBUTING.zh-TW.md) | [English](CONTRIBUTING.md) | **日本語** | [한국어](CONTRIBUTING.ko.md) | [Español](CONTRIBUTING.es.md) | [Français](CONTRIBUTING.fr.md) | [Deutsch](CONTRIBUTING.de.md) | [Português](CONTRIBUTING.pt.md)
 
 [プルリクエスト用テンプレート](.github/PULL_REQUEST_TEMPLATE/ja.md)
 

@@ -1,6 +1,8 @@
 # Portable Novel OS Bundle Contract
 
-<!-- language-navigation --> [繁體中文](bundle-contract.md) | **English** | [日本語](bundle-contract.ja.md) | [한국어](bundle-contract.ko.md) | [Español](bundle-contract.es.md) | [Français](bundle-contract.fr.md) | [Deutsch](bundle-contract.de.md) | [Português](bundle-contract.pt.md)
+<!-- language-navigation -->
+
+[繁體中文](bundle-contract.md) | **English** | [日本語](bundle-contract.ja.md) | [한국어](bundle-contract.ko.md) | [Español](bundle-contract.es.md) | [Français](bundle-contract.fr.md) | [Deutsch](bundle-contract.de.md) | [Português](bundle-contract.pt.md)
 
 In the `novel-os-portable-v<version>/` package layout, `skills/` contains one coordinator and 16 specialized skills. `public-web-research/` provides safe, resumable public HTTP(S) acquisition and Evidence Run candidate staging. `novel-model-capability-compatibility/` maintains the model-capability probe/L0–L5/fallback contracts. `novel-reality-state-engine/` maintains the event → state → capability → behavior → prose validation tools. `novel-world-database-builder/` maintains world-database schemas, batch templates, handoff packages, and query specifications. `special-object-database-builder/` maintains version, capability, specification, and lifecycle schemas for props/armor/mechs/devices.
 

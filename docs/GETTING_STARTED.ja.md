@@ -1,6 +1,8 @@
 # ローカル設定と可搬インストール
 
-<!-- language-navigation --> [繁體中文](GETTING_STARTED.zh-TW.md) | [English](GETTING_STARTED.md) | **日本語** | [한국어](GETTING_STARTED.ko.md) | [Español](GETTING_STARTED.es.md) | [Français](GETTING_STARTED.fr.md) | [Deutsch](GETTING_STARTED.de.md) | [Português](GETTING_STARTED.pt.md)
+<!-- language-navigation -->
+
+[繁體中文](GETTING_STARTED.zh-TW.md) | [English](GETTING_STARTED.md) | **日本語** | [한국어](GETTING_STARTED.ko.md) | [Español](GETTING_STARTED.es.md) | [Français](GETTING_STARTED.fr.md) | [Deutsch](GETTING_STARTED.de.md) | [Português](GETTING_STARTED.pt.md)
 
 本ガイドはローカルランタイムと可搬バンドルを扱います。利用・再配布は [LICENSE](../LICENSE.ja.md)、商用申告と支払の詳細は [COMMERCIAL_TERMS.ja.md](COMMERCIAL_TERMS.ja.md) に従います。
 

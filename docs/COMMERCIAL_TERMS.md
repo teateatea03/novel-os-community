@@ -1,6 +1,8 @@
 # Commercial profit sharing and payment
 
-<!-- language-navigation --> [繁體中文](COMMERCIAL_TERMS.zh-TW.md) | **English** | [日本語](COMMERCIAL_TERMS.ja.md) | [한국어](COMMERCIAL_TERMS.ko.md) | [Español](COMMERCIAL_TERMS.es.md) | [Français](COMMERCIAL_TERMS.fr.md) | [Deutsch](COMMERCIAL_TERMS.de.md) | [Português](COMMERCIAL_TERMS.pt.md)
+<!-- language-navigation -->
+
+[繁體中文](COMMERCIAL_TERMS.zh-TW.md) | **English** | [日本語](COMMERCIAL_TERMS.ja.md) | [한국어](COMMERCIAL_TERMS.ko.md) | [Español](COMMERCIAL_TERMS.es.md) | [Français](COMMERCIAL_TERMS.fr.md) | [Deutsch](COMMERCIAL_TERMS.de.md) | [Português](COMMERCIAL_TERMS.pt.md)
 
 Licensor: teateatea03. Applicable version: [Novel OS Source-Available and Commercial Profit-Sharing License 1.0](../LICENSE). This page collects payment details; the license terms are governed by LICENSE.
 

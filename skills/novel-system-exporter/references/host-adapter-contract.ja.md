@@ -1,6 +1,8 @@
 # Novel OS ホストアダプター契約
 
-<!-- language-navigation --> [繁體中文](host-adapter-contract.md) | [English](host-adapter-contract.en.md) | **日本語** | [한국어](host-adapter-contract.ko.md) | [Español](host-adapter-contract.es.md) | [Français](host-adapter-contract.fr.md) | [Deutsch](host-adapter-contract.de.md) | [Português](host-adapter-contract.pt.md)
+<!-- language-navigation -->
+
+[繁體中文](host-adapter-contract.md) | [English](host-adapter-contract.en.md) | **日本語** | [한국어](host-adapter-contract.ko.md) | [Español](host-adapter-contract.es.md) | [Français](host-adapter-contract.fr.md) | [Deutsch](host-adapter-contract.de.md) | [Português](host-adapter-contract.pt.md)
 
 本契約は Minis 以外の AI フレームワークの統合担当者向けです。Novel OS は ZIP をアップロードするだけでファイル権限、モデル権限、会話間の記憶を獲得するプラグインではありません。自動展開と呼ぶには、ホストが以下の能力を提供する必要があります。
 

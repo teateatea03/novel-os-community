@@ -1,6 +1,8 @@
 # Importação e implantação do Novel OS
 
-<!-- language-navigation --> [繁體中文](portable-install.md) | [English](portable-install.en.md) | [日本語](portable-install.ja.md) | [한국어](portable-install.ko.md) | [Español](portable-install.es.md) | [Français](portable-install.fr.md) | [Deutsch](portable-install.de.md) | **Português**
+<!-- language-navigation -->
+
+[繁體中文](portable-install.md) | [English](portable-install.en.md) | [日本語](portable-install.ja.md) | [한국어](portable-install.ko.md) | [Español](portable-install.es.md) | [Français](portable-install.fr.md) | [Deutsch](portable-install.de.md) | **Português**
 
 ## Comece com um inventário de capacidades: escolha o modo de implantação adequado
 

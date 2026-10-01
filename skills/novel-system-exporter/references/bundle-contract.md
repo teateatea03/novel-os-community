@@ -1,6 +1,8 @@
 # 可攜式 Novel OS 套件規約
 
-<!-- language-navigation --> **繁體中文** | [English](bundle-contract.en.md) | [日本語](bundle-contract.ja.md) | [한국어](bundle-contract.ko.md) | [Español](bundle-contract.es.md) | [Français](bundle-contract.fr.md) | [Deutsch](bundle-contract.de.md) | [Português](bundle-contract.pt.md)
+<!-- language-navigation -->
+
+**繁體中文** | [English](bundle-contract.en.md) | [日本語](bundle-contract.ja.md) | [한국어](bundle-contract.ko.md) | [Español](bundle-contract.es.md) | [Français](bundle-contract.fr.md) | [Deutsch](bundle-contract.de.md) | [Português](bundle-contract.pt.md)
 
 `novel-os-portable-v<version>/` 套件 layout 內，`skills/` 會包含 1 個總入口與 16 個專業技能；其中 `public-web-research/` 提供安全、可恢復的公開 HTTP(S) acquisition 與 Evidence Run candidate staging，`novel-model-capability-compatibility/` 保存模型能力 probe／L0–L5／fallback 契約，`novel-reality-state-engine/` 保存事件→狀態→能力→行為→正文驗證工具，`novel-world-database-builder/` 保存世界資料庫 schema、批次模板、交接包與查詢規格，`special-object-database-builder/` 保存道具／鎧甲／機體／裝置的版本、能力、規格與生命週期 schema。
 

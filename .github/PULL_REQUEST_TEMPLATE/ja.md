@@ -1,4 +1,6 @@
-<!-- language-navigation --> [繁體中文](zh-TW.md) | [English](en.md) | **日本語** | [한국어](ko.md) | [Español](es.md) | [Français](fr.md) | [Deutsch](de.md) | [Português](pt.md)
+<!-- language-navigation -->
+
+[繁體中文](zh-TW.md) | [English](en.md) | **日本語** | [한국어](ko.md) | [Español](es.md) | [Français](fr.md) | [Deutsch](de.md) | [Português](pt.md)
 
 ## 概要
 

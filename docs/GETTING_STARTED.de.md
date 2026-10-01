@@ -1,6 +1,8 @@
 # Lokale Einrichtung und portable Installation
 
-<!-- language-navigation --> [繁體中文](GETTING_STARTED.zh-TW.md) | [English](GETTING_STARTED.md) | [日本語](GETTING_STARTED.ja.md) | [한국어](GETTING_STARTED.ko.md) | [Español](GETTING_STARTED.es.md) | [Français](GETTING_STARTED.fr.md) | **Deutsch** | [Português](GETTING_STARTED.pt.md)
+<!-- language-navigation -->
+
+[繁體中文](GETTING_STARTED.zh-TW.md) | [English](GETTING_STARTED.md) | [日本語](GETTING_STARTED.ja.md) | [한국어](GETTING_STARTED.ko.md) | [Español](GETTING_STARTED.es.md) | [Français](GETTING_STARTED.fr.md) | **Deutsch** | [Português](GETTING_STARTED.pt.md)
 
 Dieser Leitfaden beschreibt die lokale Laufzeitumgebung und das portable Paket. Nutzung und Weiterverbreitung unterliegen der [Lizenz](../LICENSE.de.md); Angaben zur kommerziellen Meldung und Zahlung stehen in [COMMERCIAL_TERMS.de.md](COMMERCIAL_TERMS.de.md).
 

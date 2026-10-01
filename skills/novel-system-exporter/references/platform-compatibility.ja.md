@@ -1,6 +1,8 @@
 # Novel OS プラットフォーム互換性・依存関係一覧
 
-<!-- language-navigation --> [繁體中文](platform-compatibility.md) | [English](platform-compatibility.en.md) | **日本語** | [한국어](platform-compatibility.ko.md) | [Español](platform-compatibility.es.md) | [Français](platform-compatibility.fr.md) | [Deutsch](platform-compatibility.de.md) | [Português](platform-compatibility.pt.md)
+<!-- language-navigation -->
+
+[繁體中文](platform-compatibility.md) | [English](platform-compatibility.en.md) | **日本語** | [한국어](platform-compatibility.ko.md) | [Español](platform-compatibility.es.md) | [Français](platform-compatibility.fr.md) | [Deutsch](platform-compatibility.de.md) | [Português](platform-compatibility.pt.md)
 
 本書は ZIP と一緒に引き渡してください。Novel OS は**スキル指示＋ローカルテンプレート・Python 検証器**の集合であり、独立モデル、チャット基盤、ベクトルデータベース、クラウドサービスではありません。「自動展開」の可否は、対象 AI フレームワークが複数ファイルのスキル読込、ファイル書込、コマンド実行、任意のモデル呼出し・ネットワーク接続を許すかに依存します。
 

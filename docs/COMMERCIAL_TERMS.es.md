@@ -1,6 +1,8 @@
 # Participación en beneficios comerciales y pago
 
-<!-- language-navigation --> [繁體中文](COMMERCIAL_TERMS.zh-TW.md) | [English](COMMERCIAL_TERMS.md) | [日本語](COMMERCIAL_TERMS.ja.md) | [한국어](COMMERCIAL_TERMS.ko.md) | **Español** | [Français](COMMERCIAL_TERMS.fr.md) | [Deutsch](COMMERCIAL_TERMS.de.md) | [Português](COMMERCIAL_TERMS.pt.md)
+<!-- language-navigation -->
+
+[繁體中文](COMMERCIAL_TERMS.zh-TW.md) | [English](COMMERCIAL_TERMS.md) | [日本語](COMMERCIAL_TERMS.ja.md) | [한국어](COMMERCIAL_TERMS.ko.md) | **Español** | [Français](COMMERCIAL_TERMS.fr.md) | [Deutsch](COMMERCIAL_TERMS.de.md) | [Português](COMMERCIAL_TERMS.pt.md)
 
 Licenciante: teateatea03. Versión aplicable: [Licencia de código fuente disponible y participación en beneficios comerciales de Novel OS 1.0](../LICENSE.es.md). Esta página reúne los datos de pago; las condiciones de licencia se rigen por LICENSE.
 

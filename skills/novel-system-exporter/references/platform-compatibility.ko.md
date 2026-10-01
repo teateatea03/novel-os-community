@@ -1,6 +1,8 @@
 # Novel OS 플랫폼 호환성 및 의존성 표
 
-<!-- language-navigation --> [繁體中文](platform-compatibility.md) | [English](platform-compatibility.en.md) | [日本語](platform-compatibility.ja.md) | **한국어** | [Español](platform-compatibility.es.md) | [Français](platform-compatibility.fr.md) | [Deutsch](platform-compatibility.de.md) | [Português](platform-compatibility.pt.md)
+<!-- language-navigation -->
+
+[繁體中文](platform-compatibility.md) | [English](platform-compatibility.en.md) | [日本語](platform-compatibility.ja.md) | **한국어** | [Español](platform-compatibility.es.md) | [Français](platform-compatibility.fr.md) | [Deutsch](platform-compatibility.de.md) | [Português](platform-compatibility.pt.md)
 
 이 문서는 ZIP과 함께 전달해야 합니다. Novel OS는 **스킬 지침+로컬 템플릿·Python 검증기** 모음이며 독립 모델, 채팅 플랫폼, 벡터 데이터베이스 또는 클라우드 서비스가 아닙니다. “자동 배포” 가능 여부는 대상 AI 프레임워크가 다중 파일 스킬 읽기, 파일 쓰기, 명령 실행 및 선택적 모델 호출·네트워크 접근을 허용하는지에 달렸습니다.
 

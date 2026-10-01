@@ -1,6 +1,8 @@
 # Kommerzielle Gewinnbeteiligung und Zahlung
 
-<!-- language-navigation --> [繁體中文](COMMERCIAL_TERMS.zh-TW.md) | [English](COMMERCIAL_TERMS.md) | [日本語](COMMERCIAL_TERMS.ja.md) | [한국어](COMMERCIAL_TERMS.ko.md) | [Español](COMMERCIAL_TERMS.es.md) | [Français](COMMERCIAL_TERMS.fr.md) | **Deutsch** | [Português](COMMERCIAL_TERMS.pt.md)
+<!-- language-navigation -->
+
+[繁體中文](COMMERCIAL_TERMS.zh-TW.md) | [English](COMMERCIAL_TERMS.md) | [日本語](COMMERCIAL_TERMS.ja.md) | [한국어](COMMERCIAL_TERMS.ko.md) | [Español](COMMERCIAL_TERMS.es.md) | [Français](COMMERCIAL_TERMS.fr.md) | **Deutsch** | [Português](COMMERCIAL_TERMS.pt.md)
 
 Lizenzgeber: teateatea03. Geltende Version: [Novel OS Lizenz für verfügbaren Quellcode und kommerzielle Gewinnbeteiligung 1.0](../LICENSE.de.md). Diese Seite bündelt Zahlungsangaben; maßgeblich für die Lizenzbedingungen ist LICENSE.
 

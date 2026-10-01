@@ -1,6 +1,8 @@
 # Política de segurança e privacidade
 
-<!-- language-navigation --> [繁體中文](SECURITY.zh-TW.md) | [English](SECURITY.md) | [日本語](SECURITY.ja.md) | [한국어](SECURITY.ko.md) | [Español](SECURITY.es.md) | [Français](SECURITY.fr.md) | [Deutsch](SECURITY.de.md) | **Português**
+<!-- language-navigation -->
+
+[繁體中文](SECURITY.zh-TW.md) | [English](SECURITY.md) | [日本語](SECURITY.ja.md) | [한국어](SECURITY.ko.md) | [Español](SECURITY.es.md) | [Français](SECURITY.fr.md) | [Deutsch](SECURITY.de.md) | **Português**
 
 ## Versões suportadas
 

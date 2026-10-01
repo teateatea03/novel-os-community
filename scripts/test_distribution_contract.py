@@ -141,12 +141,34 @@ class PublicDocumentationTests(unittest.TestCase):
                 with self.subTest(path=path.relative_to(ROOT)):
                     self.assertTrue(path.is_file())
                     text = path.read_text(encoding="utf-8")
-                    navigation = next(line for line in text.splitlines()
-                                      if line.startswith("<!-- language-navigation -->"))
+                    lines = text.splitlines()
+                    marker = "<!-- language-navigation -->"
+                    self.assertEqual(lines.count(marker), 1,
+                                     "Keep the HTML marker on its own line")
+                    marker_index = lines.index(marker)
+                    self.assertEqual(lines[marker_index + 1], "",
+                                     "Blank line prevents GitHub treating navigation as raw HTML")
+                    navigation = lines[marker_index + 2]
+                    self.assertEqual(lines[marker_index + 3], "",
+                                     "Keep language links separate from the document introduction")
+                    self.assertEqual(len(re.findall(r"\[[^\]]+\]\([^)]+\)", navigation)), 7)
+                    self.assertEqual(len(re.findall(r"\*\*[^*]+\*\*", navigation)), 1)
                     for target in family.values():
                         if target != path:
                             self.assertIn(f"({target.name})", navigation)
                     self.assertGreater(len(text.splitlines()), 20)
+
+    def test_pull_request_language_navigation_is_a_separate_markdown_paragraph(self):
+        for language in self.LANGUAGES:
+            path = ROOT / ".github/PULL_REQUEST_TEMPLATE" / f"{language}.md"
+            text = path.read_text(encoding="utf-8")
+            marker = "<!-- language-navigation -->"
+            self.assertEqual(text.count(marker), 1)
+            self.assertIn(marker + "\n\n", text)
+            navigation = text.split(marker + "\n\n", 1)[1].split("\n\n", 1)[0]
+            self.assertNotIn("\n", navigation)
+            self.assertEqual(len(re.findall(r"\[[^\]]+\]\([^)]+\)", navigation)), 7)
+            self.assertEqual(len(re.findall(r"\*\*[^*]+\*\*", navigation)), 1)
 
     def test_public_document_relative_links_resolve(self):
         for family in self.families():

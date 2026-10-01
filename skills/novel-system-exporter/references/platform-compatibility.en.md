@@ -1,6 +1,8 @@
 # Novel OS Platform Compatibility and Dependency Matrix
 
-<!-- language-navigation --> [繁體中文](platform-compatibility.md) | **English** | [日本語](platform-compatibility.ja.md) | [한국어](platform-compatibility.ko.md) | [Español](platform-compatibility.es.md) | [Français](platform-compatibility.fr.md) | [Deutsch](platform-compatibility.de.md) | [Português](platform-compatibility.pt.md)
+<!-- language-navigation -->
+
+[繁體中文](platform-compatibility.md) | **English** | [日本語](platform-compatibility.ja.md) | [한국어](platform-compatibility.ko.md) | [Español](platform-compatibility.es.md) | [Français](platform-compatibility.fr.md) | [Deutsch](platform-compatibility.de.md) | [Português](platform-compatibility.pt.md)
 
 
 This document must be delivered with the ZIP. Novel OS is a collection of **skill instructions + local templates/Python validators**, not a standalone model, chat platform, vector database, or cloud service. Whether it can be “automatically deployed” depends on whether the target AI framework permits reading multi-file skills, writing files, running commands, and optionally calling models/accessing the network.

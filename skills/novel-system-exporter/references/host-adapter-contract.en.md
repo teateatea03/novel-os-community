@@ -1,6 +1,8 @@
 # Novel OS Host Adapter Contract
 
-<!-- language-navigation --> [繁體中文](host-adapter-contract.md) | **English** | [日本語](host-adapter-contract.ja.md) | [한국어](host-adapter-contract.ko.md) | [Español](host-adapter-contract.es.md) | [Français](host-adapter-contract.fr.md) | [Deutsch](host-adapter-contract.de.md) | [Português](host-adapter-contract.pt.md)
+<!-- language-navigation -->
+
+[繁體中文](host-adapter-contract.md) | **English** | [日本語](host-adapter-contract.ja.md) | [한국어](host-adapter-contract.ko.md) | [Español](host-adapter-contract.es.md) | [Français](host-adapter-contract.fr.md) | [Deutsch](host-adapter-contract.de.md) | [Português](host-adapter-contract.pt.md)
 
 
 This contract is for integrators of AI frameworks other than Minis. Novel OS is not a plugin that can acquire file access, model access, or cross-conversation memory simply by uploading a ZIP. The host must provide the following capabilities for the deployment to qualify as automated.

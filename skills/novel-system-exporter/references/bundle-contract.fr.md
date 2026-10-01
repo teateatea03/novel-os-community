@@ -1,6 +1,8 @@
 # Contrat du paquet portable Novel OS
 
-<!-- language-navigation --> [繁體中文](bundle-contract.md) | [English](bundle-contract.en.md) | [日本語](bundle-contract.ja.md) | [한국어](bundle-contract.ko.md) | [Español](bundle-contract.es.md) | **Français** | [Deutsch](bundle-contract.de.md) | [Português](bundle-contract.pt.md)
+<!-- language-navigation -->
+
+[繁體中文](bundle-contract.md) | [English](bundle-contract.en.md) | [日本語](bundle-contract.ja.md) | [한국어](bundle-contract.ko.md) | [Español](bundle-contract.es.md) | **Français** | [Deutsch](bundle-contract.de.md) | [Português](bundle-contract.pt.md)
 
 Dans l’arborescence `novel-os-portable-v<version>/`, `skills/` contient un coordinateur et 16 compétences spécialisées. `public-web-research/` assure l’acquisition HTTP(S) publique sûre et reprenable ainsi que la préparation de candidats Evidence Run. `novel-model-capability-compatibility/` maintient les contrats de sondes de capacité des modèles/L0–L5/repli. `novel-reality-state-engine/` maintient les outils de validation événement → état → capacité → comportement → prose. `novel-world-database-builder/` maintient les schémas de bases d’univers, modèles de lots, paquets de transmission et spécifications de requête. `special-object-database-builder/` maintient les schémas de versions, capacités, spécifications et cycles de vie des accessoires/armures/mechas/appareils.
 

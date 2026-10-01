@@ -1,6 +1,8 @@
 # Contributing to Novel OS
 
-<!-- language-navigation --> [繁體中文](CONTRIBUTING.zh-TW.md) | **English** | [日本語](CONTRIBUTING.ja.md) | [한국어](CONTRIBUTING.ko.md) | [Español](CONTRIBUTING.es.md) | [Français](CONTRIBUTING.fr.md) | [Deutsch](CONTRIBUTING.de.md) | [Português](CONTRIBUTING.pt.md)
+<!-- language-navigation -->
+
+[繁體中文](CONTRIBUTING.zh-TW.md) | **English** | [日本語](CONTRIBUTING.ja.md) | [한국어](CONTRIBUTING.ko.md) | [Español](CONTRIBUTING.es.md) | [Français](CONTRIBUTING.fr.md) | [Deutsch](CONTRIBUTING.de.md) | [Português](CONTRIBUTING.pt.md)
 
 [Pull request template](.github/PULL_REQUEST_TEMPLATE/en.md)
 

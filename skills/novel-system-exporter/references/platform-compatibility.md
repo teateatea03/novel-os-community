@@ -1,6 +1,8 @@
 # Novel OS 平台相容性與依賴矩陣
 
-<!-- language-navigation --> **繁體中文** | [English](platform-compatibility.en.md) | [日本語](platform-compatibility.ja.md) | [한국어](platform-compatibility.ko.md) | [Español](platform-compatibility.es.md) | [Français](platform-compatibility.fr.md) | [Deutsch](platform-compatibility.de.md) | [Português](platform-compatibility.pt.md)
+<!-- language-navigation -->
+
+**繁體中文** | [English](platform-compatibility.en.md) | [日本語](platform-compatibility.ja.md) | [한국어](platform-compatibility.ko.md) | [Español](platform-compatibility.es.md) | [Français](platform-compatibility.fr.md) | [Deutsch](platform-compatibility.de.md) | [Português](platform-compatibility.pt.md)
 
 
 本文件必須和 ZIP 一起交付。Novel OS 是一組**技能說明＋本地模板／Python 驗證器**，不是獨立模型、聊天平台、向量資料庫或雲端服務。它能否「自動佈置」取決於目標 AI 框架是否允許：讀取多檔技能、寫入檔案、執行命令，以及（選用）呼叫模型／網路。

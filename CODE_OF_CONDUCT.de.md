@@ -1,6 +1,8 @@
 # Verhaltenskodex
 
-<!-- language-navigation --> [繁體中文](CODE_OF_CONDUCT.zh-TW.md) | [English](CODE_OF_CONDUCT.md) | [日本語](CODE_OF_CONDUCT.ja.md) | [한국어](CODE_OF_CONDUCT.ko.md) | [Español](CODE_OF_CONDUCT.es.md) | [Français](CODE_OF_CONDUCT.fr.md) | **Deutsch** | [Português](CODE_OF_CONDUCT.pt.md)
+<!-- language-navigation -->
+
+[繁體中文](CODE_OF_CONDUCT.zh-TW.md) | [English](CODE_OF_CONDUCT.md) | [日本語](CODE_OF_CONDUCT.ja.md) | [한국어](CODE_OF_CONDUCT.ko.md) | [Español](CODE_OF_CONDUCT.es.md) | [Français](CODE_OF_CONDUCT.fr.md) | **Deutsch** | [Português](CODE_OF_CONDUCT.pt.md)
 
 ## Unser Versprechen
 

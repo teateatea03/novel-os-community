@@ -1,6 +1,8 @@
 # Novel-OS-Hostadapter-Vertrag
 
-<!-- language-navigation --> [繁體中文](host-adapter-contract.md) | [English](host-adapter-contract.en.md) | [日本語](host-adapter-contract.ja.md) | [한국어](host-adapter-contract.ko.md) | [Español](host-adapter-contract.es.md) | [Français](host-adapter-contract.fr.md) | **Deutsch** | [Português](host-adapter-contract.pt.md)
+<!-- language-navigation -->
+
+[繁體中文](host-adapter-contract.md) | [English](host-adapter-contract.en.md) | [日本語](host-adapter-contract.ja.md) | [한국어](host-adapter-contract.ko.md) | [Español](host-adapter-contract.es.md) | [Français](host-adapter-contract.fr.md) | **Deutsch** | [Português](host-adapter-contract.pt.md)
 
 Dieser Vertrag richtet sich an Integratoren von KI-Frameworks außerhalb von Minis. Novel OS ist kein Plugin, das allein durch Hochladen einer ZIP-Datei Datei- oder Modellzugriff oder ein gesprächsübergreifendes Gedächtnis erhält. Damit eine Bereitstellung als automatisiert gilt, muss der Host die folgenden Fähigkeiten liefern.
 

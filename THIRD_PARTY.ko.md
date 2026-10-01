@@ -1,6 +1,8 @@
 # 제삼자 구성 요소 및 참고 자료
 
-<!-- language-navigation --> [繁體中文](THIRD_PARTY.zh-TW.md) | [English](THIRD_PARTY.md) | [日本語](THIRD_PARTY.ja.md) | **한국어** | [Español](THIRD_PARTY.es.md) | [Français](THIRD_PARTY.fr.md) | [Deutsch](THIRD_PARTY.de.md) | [Português](THIRD_PARTY.pt.md)
+<!-- language-navigation -->
+
+[繁體中文](THIRD_PARTY.zh-TW.md) | [English](THIRD_PARTY.md) | [日本語](THIRD_PARTY.ja.md) | **한국어** | [Español](THIRD_PARTY.es.md) | [Français](THIRD_PARTY.fr.md) | [Deutsch](THIRD_PARTY.de.md) | [Português](THIRD_PARTY.pt.md)
 
 Novel OS에는 제삼자 프로젝트와 연동하거나 이를 설명하는 프로젝트 자체 코드와 문서가 포함됩니다. 파일에 명시적으로 달리 적혀 있지 않다면 제삼자 프로젝트 소스 사본은 이 저장소에 **포함되지 않습니다**.
 

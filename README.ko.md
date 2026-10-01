@@ -1,6 +1,8 @@
 # Novel OS
 
-<!-- language-navigation --> [繁體中文](README.zh-TW.md) | [English](README.md) | [日本語](README.ja.md) | **한국어** | [Español](README.es.md) | [Français](README.fr.md) | [Deutsch](README.de.md) | [Português](README.pt.md)
+<!-- language-navigation -->
+
+[繁體中文](README.zh-TW.md) | [English](README.md) | [日本語](README.ja.md) | **한국어** | [Español](README.es.md) | [Français](README.fr.md) | [Deutsch](README.de.md) | [Português](README.pt.md)
 
 Novel OS는 장편 소설, 대화형 소설, 연속성, 인물·세계 연구, 행동 일관성, 출처를 추적하는 그래프 및 서사 검증을 위한 재사용 가능한 AI 에이전트 스킬과 로컬 Python 도구 모음입니다.
 

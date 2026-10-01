@@ -1,6 +1,8 @@
 # Novel OS importieren und bereitstellen
 
-<!-- language-navigation --> [繁體中文](portable-install.md) | [English](portable-install.en.md) | [日本語](portable-install.ja.md) | [한국어](portable-install.ko.md) | [Español](portable-install.es.md) | [Français](portable-install.fr.md) | **Deutsch** | [Português](portable-install.pt.md)
+<!-- language-navigation -->
+
+[繁體中文](portable-install.md) | [English](portable-install.en.md) | [日本語](portable-install.ja.md) | [한국어](portable-install.ko.md) | [Español](portable-install.es.md) | [Français](portable-install.fr.md) | **Deutsch** | [Português](portable-install.pt.md)
 
 ## Zuerst Fähigkeiten erfassen: den richtigen Bereitstellungsmodus wählen
 

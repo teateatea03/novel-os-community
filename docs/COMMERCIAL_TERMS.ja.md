@@ -1,6 +1,8 @@
 # 商用利益分配と支払
 
-<!-- language-navigation --> [繁體中文](COMMERCIAL_TERMS.zh-TW.md) | [English](COMMERCIAL_TERMS.md) | **日本語** | [한국어](COMMERCIAL_TERMS.ko.md) | [Español](COMMERCIAL_TERMS.es.md) | [Français](COMMERCIAL_TERMS.fr.md) | [Deutsch](COMMERCIAL_TERMS.de.md) | [Português](COMMERCIAL_TERMS.pt.md)
+<!-- language-navigation -->
+
+[繁體中文](COMMERCIAL_TERMS.zh-TW.md) | [English](COMMERCIAL_TERMS.md) | **日本語** | [한국어](COMMERCIAL_TERMS.ko.md) | [Español](COMMERCIAL_TERMS.es.md) | [Français](COMMERCIAL_TERMS.fr.md) | [Deutsch](COMMERCIAL_TERMS.de.md) | [Português](COMMERCIAL_TERMS.pt.md)
 
 許諾者：teateatea03。適用版：[Novel OS ソース公開・商用利益分配ライセンス 1.0](../LICENSE.ja.md)。本ページは支払情報をまとめたものです。ライセンス条件は LICENSE に従います。
 

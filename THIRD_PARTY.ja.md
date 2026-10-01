@@ -1,6 +1,8 @@
 # 第三者のコンポーネントと参考資料
 
-<!-- language-navigation --> [繁體中文](THIRD_PARTY.zh-TW.md) | [English](THIRD_PARTY.md) | **日本語** | [한국어](THIRD_PARTY.ko.md) | [Español](THIRD_PARTY.es.md) | [Français](THIRD_PARTY.fr.md) | [Deutsch](THIRD_PARTY.de.md) | [Português](THIRD_PARTY.pt.md)
+<!-- language-navigation -->
+
+[繁體中文](THIRD_PARTY.zh-TW.md) | [English](THIRD_PARTY.md) | **日本語** | [한국어](THIRD_PARTY.ko.md) | [Español](THIRD_PARTY.es.md) | [Français](THIRD_PARTY.fr.md) | [Deutsch](THIRD_PARTY.de.md) | [Português](THIRD_PARTY.pt.md)
 
 Novel OS には、第三者プロジェクトと連携する、またはそれらについて説明する独自のコードと文書が含まれます。ファイルに明示されている場合を除き、第三者プロジェクトのソース副本は本リポジトリに**同梱されていません**。
 

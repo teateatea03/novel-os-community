@@ -1,6 +1,8 @@
 # Novel OS
 
-<!-- language-navigation --> [繁體中文](README.zh-TW.md) | **English** | [日本語](README.ja.md) | [한국어](README.ko.md) | [Español](README.es.md) | [Français](README.fr.md) | [Deutsch](README.de.md) | [Português](README.pt.md)
+<!-- language-navigation -->
+
+[繁體中文](README.zh-TW.md) | **English** | [日本語](README.ja.md) | [한국어](README.ko.md) | [Español](README.es.md) | [Français](README.fr.md) | [Deutsch](README.de.md) | [Português](README.pt.md)
 
 Novel OS is a reusable collection of AI-agent skills and local Python tooling for long-form fiction, interactive fiction, continuity, character/world research, behavioral consistency, provenance-aware graphs, and narrative validation.
 

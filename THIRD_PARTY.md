@@ -1,6 +1,8 @@
 # Third-party components and references
 
-<!-- language-navigation --> [繁體中文](THIRD_PARTY.zh-TW.md) | **English** | [日本語](THIRD_PARTY.ja.md) | [한국어](THIRD_PARTY.ko.md) | [Español](THIRD_PARTY.es.md) | [Français](THIRD_PARTY.fr.md) | [Deutsch](THIRD_PARTY.de.md) | [Português](THIRD_PARTY.pt.md)
+<!-- language-navigation -->
+
+[繁體中文](THIRD_PARTY.zh-TW.md) | **English** | [日本語](THIRD_PARTY.ja.md) | [한국어](THIRD_PARTY.ko.md) | [Español](THIRD_PARTY.es.md) | [Français](THIRD_PARTY.fr.md) | [Deutsch](THIRD_PARTY.de.md) | [Português](THIRD_PARTY.pt.md)
 
 Novel OS contains original project code and documentation that interoperates with, or discusses, third-party projects. Unless a file explicitly says otherwise, third-party projects are **not vendored** into this repository.
 

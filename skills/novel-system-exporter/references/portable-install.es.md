@@ -1,6 +1,8 @@
 # Importación y despliegue de Novel OS
 
-<!-- language-navigation --> [繁體中文](portable-install.md) | [English](portable-install.en.md) | [日本語](portable-install.ja.md) | [한국어](portable-install.ko.md) | **Español** | [Français](portable-install.fr.md) | [Deutsch](portable-install.de.md) | [Português](portable-install.pt.md)
+<!-- language-navigation -->
+
+[繁體中文](portable-install.md) | [English](portable-install.en.md) | [日本語](portable-install.ja.md) | [한국어](portable-install.ko.md) | **Español** | [Français](portable-install.fr.md) | [Deutsch](portable-install.de.md) | [Português](portable-install.pt.md)
 
 ## Empezar con un inventario de capacidades: elegir el modo de despliegue adecuado
 

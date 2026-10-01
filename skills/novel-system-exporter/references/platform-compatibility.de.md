@@ -1,6 +1,8 @@
 # Novel OS: Plattformkompatibilität und Abhängigkeitsmatrix
 
-<!-- language-navigation --> [繁體中文](platform-compatibility.md) | [English](platform-compatibility.en.md) | [日本語](platform-compatibility.ja.md) | [한국어](platform-compatibility.ko.md) | [Español](platform-compatibility.es.md) | [Français](platform-compatibility.fr.md) | **Deutsch** | [Português](platform-compatibility.pt.md)
+<!-- language-navigation -->
+
+[繁體中文](platform-compatibility.md) | [English](platform-compatibility.en.md) | [日本語](platform-compatibility.ja.md) | [한국어](platform-compatibility.ko.md) | [Español](platform-compatibility.es.md) | [Français](platform-compatibility.fr.md) | **Deutsch** | [Português](platform-compatibility.pt.md)
 
 Dieses Dokument muss mit der ZIP-Datei ausgeliefert werden. Novel OS ist eine Sammlung aus **Skill-Anweisungen + lokalen Vorlagen/Python-Validatoren**, kein eigenständiges Modell, keine Chatplattform, Vektordatenbank oder kein Clouddienst. Ob „automatische Bereitstellung“ möglich ist, hängt davon ab, ob das Ziel-KI-Framework mehrteilige Skills lesen, Dateien schreiben, Befehle ausführen und optional Modelle aufrufen/auf das Netzwerk zugreifen darf.
 

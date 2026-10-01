@@ -1,6 +1,8 @@
 # Novel OS ソース公開・商用利益分配ライセンス 1.0
 
-<!-- language-navigation --> [繁體中文](LICENSE.zh-TW.md) | [English](LICENSE) | **日本語** | [한국어](LICENSE.ko.md) | [Español](LICENSE.es.md) | [Français](LICENSE.fr.md) | [Deutsch](LICENSE.de.md) | [Português](LICENSE.pt.md)
+<!-- language-navigation -->
+
+[繁體中文](LICENSE.zh-TW.md) | [English](LICENSE) | **日本語** | [한국어](LICENSE.ko.md) | [Español](LICENSE.es.md) | [Français](LICENSE.fr.md) | [Deutsch](LICENSE.de.md) | [Português](LICENSE.pt.md)
 
 発効版の日付：2026-10-01
 Copyright (c) 2026 teateatea03

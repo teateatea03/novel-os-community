@@ -1,6 +1,8 @@
 # Drittkomponenten und Referenzen
 
-<!-- language-navigation --> [繁體中文](THIRD_PARTY.zh-TW.md) | [English](THIRD_PARTY.md) | [日本語](THIRD_PARTY.ja.md) | [한국어](THIRD_PARTY.ko.md) | [Español](THIRD_PARTY.es.md) | [Français](THIRD_PARTY.fr.md) | **Deutsch** | [Português](THIRD_PARTY.pt.md)
+<!-- language-navigation -->
+
+[繁體中文](THIRD_PARTY.zh-TW.md) | [English](THIRD_PARTY.md) | [日本語](THIRD_PARTY.ja.md) | [한국어](THIRD_PARTY.ko.md) | [Español](THIRD_PARTY.es.md) | [Français](THIRD_PARTY.fr.md) | **Deutsch** | [Português](THIRD_PARTY.pt.md)
 
 Novel OS enthält eigenen Projektcode und eigene Dokumentation, die mit Drittprojekten zusammenarbeiten oder sie erläutern. Sofern eine Datei nicht ausdrücklich etwas anderes angibt, werden Drittprojekte **nicht in dieses Repository eingebunden**.
 

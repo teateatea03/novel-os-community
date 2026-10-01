@@ -1,4 +1,6 @@
-<!-- language-navigation --> [繁體中文](zh-TW.md) | **English** | [日本語](ja.md) | [한국어](ko.md) | [Español](es.md) | [Français](fr.md) | [Deutsch](de.md) | [Português](pt.md)
+<!-- language-navigation -->
+
+[繁體中文](zh-TW.md) | **English** | [日本語](ja.md) | [한국어](ko.md) | [Español](es.md) | [Français](fr.md) | [Deutsch](de.md) | [Português](pt.md)
 
 ## Summary
 

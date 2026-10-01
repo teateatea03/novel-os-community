@@ -1,6 +1,8 @@
 # Compatibilité des plateformes et matrice des dépendances de Novel OS
 
-<!-- language-navigation --> [繁體中文](platform-compatibility.md) | [English](platform-compatibility.en.md) | [日本語](platform-compatibility.ja.md) | [한국어](platform-compatibility.ko.md) | [Español](platform-compatibility.es.md) | **Français** | [Deutsch](platform-compatibility.de.md) | [Português](platform-compatibility.pt.md)
+<!-- language-navigation -->
+
+[繁體中文](platform-compatibility.md) | [English](platform-compatibility.en.md) | [日本語](platform-compatibility.ja.md) | [한국어](platform-compatibility.ko.md) | [Español](platform-compatibility.es.md) | **Français** | [Deutsch](platform-compatibility.de.md) | [Português](platform-compatibility.pt.md)
 
 Ce document doit accompagner le ZIP. Novel OS est un ensemble d’**instructions de compétences + modèles locaux/validateurs Python**, et non un modèle autonome, une plateforme de chat, une base vectorielle ou un service cloud. La possibilité d’un « déploiement automatique » dépend de l’autorisation du framework d’IA cible de lire des compétences multifichiers, d’écrire des fichiers, d’exécuter des commandes et, éventuellement, d’appeler des modèles/d’accéder au réseau.
 

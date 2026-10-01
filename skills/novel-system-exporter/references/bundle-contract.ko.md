@@ -1,6 +1,8 @@
 # 휴대형 Novel OS 번들 계약
 
-<!-- language-navigation --> [繁體中文](bundle-contract.md) | [English](bundle-contract.en.md) | [日本語](bundle-contract.ja.md) | **한국어** | [Español](bundle-contract.es.md) | [Français](bundle-contract.fr.md) | [Deutsch](bundle-contract.de.md) | [Português](bundle-contract.pt.md)
+<!-- language-navigation -->
+
+[繁體中文](bundle-contract.md) | [English](bundle-contract.en.md) | [日本語](bundle-contract.ja.md) | **한국어** | [Español](bundle-contract.es.md) | [Français](bundle-contract.fr.md) | [Deutsch](bundle-contract.de.md) | [Português](bundle-contract.pt.md)
 
 `novel-os-portable-v<version>/` 패키지 구조의 `skills/`에는 조정자 1개와 전문 스킬 16개가 있습니다. `public-web-research/`는 안전하고 재개 가능한 공개 HTTP(S) 수집 및 Evidence Run 후보 스테이징을 제공합니다. `novel-model-capability-compatibility/`는 모델 능력 probe·L0–L5·fallback 계약을 유지합니다. `novel-reality-state-engine/`은 이벤트 → 상태 → 능력 → 행동 → 본문 검증 도구를 유지합니다. `novel-world-database-builder/`는 세계 데이터베이스 스키마, 배치 템플릿, 인계 패키지 및 질의 명세를 유지합니다. `special-object-database-builder/`는 소품·갑옷·기체·장치의 버전, 능력, 사양 및 수명주기 스키마를 유지합니다.
 

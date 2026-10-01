@@ -1,6 +1,8 @@
 # Novel OS 호스트 어댑터 계약
 
-<!-- language-navigation --> [繁體中文](host-adapter-contract.md) | [English](host-adapter-contract.en.md) | [日本語](host-adapter-contract.ja.md) | **한국어** | [Español](host-adapter-contract.es.md) | [Français](host-adapter-contract.fr.md) | [Deutsch](host-adapter-contract.de.md) | [Português](host-adapter-contract.pt.md)
+<!-- language-navigation -->
+
+[繁體中文](host-adapter-contract.md) | [English](host-adapter-contract.en.md) | [日本語](host-adapter-contract.ja.md) | **한국어** | [Español](host-adapter-contract.es.md) | [Français](host-adapter-contract.fr.md) | [Deutsch](host-adapter-contract.de.md) | [Português](host-adapter-contract.pt.md)
 
 이 계약은 Minis 외 AI 프레임워크 통합 담당자를 위한 것입니다. Novel OS는 ZIP 업로드만으로 파일 접근, 모델 접근 또는 대화 간 기억을 얻는 플러그인이 아닙니다. 자동 배포라고 하려면 호스트가 다음 기능을 제공해야 합니다.
 

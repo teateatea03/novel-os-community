@@ -1,6 +1,8 @@
 # 로컬 설정 및 휴대형 설치
 
-<!-- language-navigation --> [繁體中文](GETTING_STARTED.zh-TW.md) | [English](GETTING_STARTED.md) | [日本語](GETTING_STARTED.ja.md) | **한국어** | [Español](GETTING_STARTED.es.md) | [Français](GETTING_STARTED.fr.md) | [Deutsch](GETTING_STARTED.de.md) | [Português](GETTING_STARTED.pt.md)
+<!-- language-navigation -->
+
+[繁體中文](GETTING_STARTED.zh-TW.md) | [English](GETTING_STARTED.md) | [日本語](GETTING_STARTED.ja.md) | **한국어** | [Español](GETTING_STARTED.es.md) | [Français](GETTING_STARTED.fr.md) | [Deutsch](GETTING_STARTED.de.md) | [Português](GETTING_STARTED.pt.md)
 
 이 안내는 로컬 런타임과 휴대형 번들을 다룹니다. 사용 및 재배포는 [LICENSE](../LICENSE.ko.md)를 따르며 상업적 신고와 지급 상세는 [COMMERCIAL_TERMS.ko.md](COMMERCIAL_TERMS.ko.md)에 있습니다.
 

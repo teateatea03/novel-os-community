@@ -1,6 +1,8 @@
 # 보안 및 개인정보 정책
 
-<!-- language-navigation --> [繁體中文](SECURITY.zh-TW.md) | [English](SECURITY.md) | [日本語](SECURITY.ja.md) | **한국어** | [Español](SECURITY.es.md) | [Français](SECURITY.fr.md) | [Deutsch](SECURITY.de.md) | [Português](SECURITY.pt.md)
+<!-- language-navigation -->
+
+[繁體中文](SECURITY.zh-TW.md) | [English](SECURITY.md) | [日本語](SECURITY.ja.md) | **한국어** | [Español](SECURITY.es.md) | [Français](SECURITY.fr.md) | [Deutsch](SECURITY.de.md) | [Português](SECURITY.pt.md)
 
 ## 지원 버전
 

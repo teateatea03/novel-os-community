@@ -1,6 +1,8 @@
 # 安全與隱私政策
 
-<!-- language-navigation --> **繁體中文** | [English](SECURITY.md) | [日本語](SECURITY.ja.md) | [한국어](SECURITY.ko.md) | [Español](SECURITY.es.md) | [Français](SECURITY.fr.md) | [Deutsch](SECURITY.de.md) | [Português](SECURITY.pt.md)
+<!-- language-navigation -->
+
+**繁體中文** | [English](SECURITY.md) | [日本語](SECURITY.ja.md) | [한국어](SECURITY.ko.md) | [Español](SECURITY.es.md) | [Français](SECURITY.fr.md) | [Deutsch](SECURITY.de.md) | [Português](SECURITY.pt.md)
 
 ## 支援的版本
 

@@ -2,7 +2,9 @@ Novel OS Lizenz für verfügbaren Quellcode und kommerzielle Gewinnbeteiligung 1
 Datum der geltenden Version: 2026-10-01
 Copyright (c) 2026 teateatea03
 
-<!-- language-navigation --> [繁體中文](LICENSE.zh-TW.md) | [English](LICENSE) | [日本語](LICENSE.ja.md) | [한국어](LICENSE.ko.md) | [Español](LICENSE.es.md) | [Français](LICENSE.fr.md) | **Deutsch** | [Português](LICENSE.pt.md)
+<!-- language-navigation -->
+
+[繁體中文](LICENSE.zh-TW.md) | [English](LICENSE) | [日本語](LICENSE.ja.md) | [한국어](LICENSE.ko.md) | [Español](LICENSE.es.md) | [Français](LICENSE.fr.md) | **Deutsch** | [Português](LICENSE.pt.md)
 
 Dies ist eine individuelle Source-available-Lizenz, keine MIT-, GPL- oder standardisierte OSI-Open-Source-Lizenz.
 

@@ -1,6 +1,8 @@
 # Importer et déployer Novel OS
 
-<!-- language-navigation --> [繁體中文](portable-install.md) | [English](portable-install.en.md) | [日本語](portable-install.ja.md) | [한국어](portable-install.ko.md) | [Español](portable-install.es.md) | **Français** | [Deutsch](portable-install.de.md) | [Português](portable-install.pt.md)
+<!-- language-navigation -->
+
+[繁體中文](portable-install.md) | [English](portable-install.en.md) | [日本語](portable-install.ja.md) | [한국어](portable-install.ko.md) | [Español](portable-install.es.md) | **Français** | [Deutsch](portable-install.de.md) | [Português](portable-install.pt.md)
 
 ## Commencer par un inventaire des capacités : choisir le bon mode de déploiement
 

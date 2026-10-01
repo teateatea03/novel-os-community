@@ -1,6 +1,8 @@
 # Novel OS 가져오기 및 배포
 
-<!-- language-navigation --> [繁體中文](portable-install.md) | [English](portable-install.en.md) | [日本語](portable-install.ja.md) | **한국어** | [Español](portable-install.es.md) | [Français](portable-install.fr.md) | [Deutsch](portable-install.de.md) | [Português](portable-install.pt.md)
+<!-- language-navigation -->
+
+[繁體中文](portable-install.md) | [English](portable-install.en.md) | [日本語](portable-install.ja.md) | **한국어** | [Español](portable-install.es.md) | [Français](portable-install.fr.md) | [Deutsch](portable-install.de.md) | [Português](portable-install.pt.md)
 
 ## 먼저 기능을 조사하고 배포 모드를 선택하세요
 
