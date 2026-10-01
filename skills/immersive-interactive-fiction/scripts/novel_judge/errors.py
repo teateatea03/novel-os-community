@@ -1,0 +1,49 @@
+from __future__ import annotations
+
+from dataclasses import dataclass, field
+from typing import Any
+
+
+@dataclass
+class JudgeError(Exception):
+    code: str
+    message: str
+    path: str | None = None
+    details: dict[str, Any] = field(default_factory=dict)
+
+    def __post_init__(self) -> None:
+        super().__init__(self.message)
+
+    def as_dict(self) -> dict[str, Any]:
+        result: dict[str, Any] = {
+            "code": self.code,
+            "message": self.message,
+            "details": self.details,
+        }
+        if self.path is not None:
+            result["path"] = self.path
+        return result
+
+
+SCHEMA_ERROR = "SCHEMA_ERROR"
+NOT_FOUND = "ACTOR_OR_ENTITY_NOT_FOUND"
+ILLEGAL_ACTION = "ILLEGAL_ACTION"
+PRECONDITION_FAILED = "PRECONDITION_FAILED"
+CAPACITY_BLOCKED = "CAPACITY_BLOCKED"
+COGNITIVE_BUDGET_EXCEEDED = "COGNITIVE_BUDGET_EXCEEDED"
+MACRO_INTENT_REQUIRES_EXPANSION = "MACRO_INTENT_REQUIRES_EXPANSION"
+NARRATIVE_CAPACITY_VIOLATION = "NARRATIVE_CAPACITY_VIOLATION"
+KNOWLEDGE_BOUNDARY = "KNOWLEDGE_BOUNDARY"
+PLAYER_SOVEREIGNTY = "PLAYER_SOVEREIGNTY"
+DELTA_PATH_FORBIDDEN = "DELTA_PATH_FORBIDDEN"
+STATE_HASH_MISMATCH = "STATE_HASH_MISMATCH"
+DUPLICATE_EVENT = "DUPLICATE_EVENT"
+BRANCH_ISOLATION = "BRANCH_ISOLATION"
+GATE_FAILED = "NARRATIVE_GATE_FAILED"
+RECOVERY_REQUIRED = "RECOVERY_REQUIRED"
+DEFERRED = "DEFERRED_FOR_AUTHOR_DECISION"
+PRODUCTION_AUTHORITY_REQUIRED = "PRODUCTION_AUTHORITY_REQUIRED"
+PRODUCTION_CONFORMANCE_FAILED = "PRODUCTION_CONFORMANCE_FAILED"
+GATE_AUTHORIZATION_FAILED = "GATE_AUTHORIZATION_FAILED"
+GATE_ENVELOPE_INVALID = "GATE_ENVELOPE_INVALID"
+GATE_OVERRIDE_INVALID = "GATE_OVERRIDE_INVALID"

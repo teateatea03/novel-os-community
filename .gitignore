@@ -1,0 +1,51 @@
+# Private Novel OS source repository
+# Stage active source skills and reusable Novel OS system material only.
+# Deliberately excludes fiction, interactive sessions, character/world databases,
+# real-person research, agent memories, credentials, backups, release archives,
+# and machine-local state.
+
+# Secrets and local credentials
+.env
+.env.*
+!.env.example
+*.pem
+*.key
+*.p12
+*.pfx
+id_*
+*.token
+*secret*
+*credential*
+
+# Local/runtime state and backups
+.git/
+__pycache__/
+*.py[cod]
+.pytest_cache/
+.venv/
+venv/
+env/
+*.bak
+*.bak-*/
+backups/
+.novel-os-stage-*/
+
+# Generated/binary release artifacts
+*.zip
+*.tar
+*.tar.gz
+*.gz
+*.sqlite
+*.db
+
+# Private creative and research data (defense in depth)
+novels/
+interactive-fiction/
+novel-character-database/
+novel-character-research/
+novel-world-database/
+novel-special-object-database/
+interactive/
+
+# iOS / editor clutter
+.DS_Store

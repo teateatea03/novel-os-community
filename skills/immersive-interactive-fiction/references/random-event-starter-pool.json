@@ -1,0 +1,150 @@
+{
+  "schema": "minis.random-event-pool.v1",
+  "pool_id": "starter-direction-pool",
+  "version": 1,
+  "no_event_weight": 8,
+  "events": [
+    {
+      "id": "ambient-trace",
+      "category": "ambient",
+      "triggers": ["scene_boundary", "transition", "travel", "downtime"],
+      "frequency_weight": 12,
+      "urgency": "normal",
+      "focus_kind": "location",
+      "function": "環境跡象或氣氛偏移",
+      "pressure_direction": "讓原有地點或資源出現可查證的小異常",
+      "exposure": "聲音、痕跡、物件位置或公共訊息",
+      "dedup_key": "ambient-trace"
+    },
+    {
+      "id": "general-opportunity",
+      "category": "opportunity",
+      "triggers": ["scene_boundary", "transition", "travel", "downtime"],
+      "frequency_weight": 8,
+      "urgency": "normal",
+      "focus_kind": "current_goal",
+      "function": "與既有目標相連的可選機會",
+      "pressure_direction": "讓一項資源、資訊或合作窗口短暫可用，但不要求接受",
+      "exposure": "邀請、空缺、可交換資源或限時公開資訊",
+      "dedup_key": "general-opportunity"
+    },
+    {
+      "id": "thread-nudge",
+      "category": "thread_move",
+      "triggers": ["scene_boundary", "transition", "post_scene", "post_chapter"],
+      "frequency_weight": 10,
+      "urgency": "normal",
+      "focus_kind": "open_thread",
+      "function": "未結線的提醒或偏移",
+      "pressure_direction": "讓既有承諾、疑問或延遲後果浮出一項新跡象",
+      "exposure": "消息、重複細節、未完成物件或第三方提及",
+      "conditions": {"requires_open_thread": true},
+      "dedup_key": "thread-nudge"
+    },
+    {
+      "id": "character-hook-opportunity",
+      "category": "character_hook",
+      "triggers": ["travel", "downtime", "transition", "scene_boundary"],
+      "frequency_weight": 8,
+      "urgency": "normal",
+      "focus_kind": "npc",
+      "function": "角色背景或能力的可選機會",
+      "pressure_direction": "讓某位合格 NPC 的既有鉤子出現試探、邀請或負擔",
+      "exposure": "邀請、偶遇前兆、工作需求或熟人消息",
+      "required_roles": {
+        "focus_npc": {"kind": "npc", "not_player": true, "required_tags": ["random_hook_eligible"]}
+      },
+      "dedup_key": "character-hook-opportunity"
+    },
+    {
+      "id": "relationship-test",
+      "category": "relationship",
+      "triggers": ["scene_boundary", "transition", "downtime"],
+      "frequency_weight": 7,
+      "urgency": "normal",
+      "focus_kind": "npc",
+      "function": "既有關係張力的小型試探",
+      "pressure_direction": "用資訊不對稱、時間安排或第三方需求測試一段既有關係",
+      "exposure": "改口、延期、請託或需要確認的矛盾訊息",
+      "required_roles": {
+        "focus_npc": {"kind": "npc", "not_player": true, "present": true}
+      },
+      "dedup_key": "relationship-test"
+    },
+    {
+      "id": "recovery-opening",
+      "category": "recovery",
+      "triggers": ["scene_boundary", "downtime", "post_scene", "post_chapter"],
+      "frequency_weight": 9,
+      "urgency": "normal",
+      "focus_kind": "current_group",
+      "function": "恢復、整理或重新取得掌控的窗口",
+      "pressure_direction": "提供一個不必立刻使用的喘息或修復機會",
+      "exposure": "空檔、安全地點、可用資源或暫時停止的外部壓力",
+      "dedup_key": "recovery-opening"
+    },
+    {
+      "id": "remote-world-signal",
+      "category": "faction_world",
+      "triggers": ["world_pulse", "post_chapter"],
+      "frequency_weight": 6,
+      "urgency": "normal",
+      "focus_kind": "remote_world",
+      "function": "遠端派系或公共世界的變化方向",
+      "pressure_direction": "讓既有世界矛盾出現一則尚待查證的外部訊號",
+      "exposure": "新聞、傳聞、價格、交通或官方公告",
+      "dedup_key": "remote-world-signal"
+    },
+    {
+      "id": "telegraphed-threat-pressure",
+      "category": "threat",
+      "triggers": ["telegraphed_threat_due"],
+      "frequency_weight": 5,
+      "urgency": "high",
+      "focus_kind": "existing_threat",
+      "function": "既有預警的下一步壓力方向",
+      "pressure_direction": "縮短反應窗口或增加一項可感知的徵兆，但保留介入與查證",
+      "exposure": "倒數、重複警訊、資源惡化或對手準備跡象",
+      "dedup_key": "telegraphed-threat-pressure"
+    },
+    {
+      "id": "action-complication-oracle",
+      "category": "complication",
+      "triggers": ["action_resolution"],
+      "frequency_weight": 7,
+      "urgency": "normal",
+      "focus_kind": "resolved_action",
+      "function": "結果不明時的額外代價方向",
+      "pressure_direction": "讓時間、資訊、位置或資源其中一項增加可回應的摩擦",
+      "exposure": "延遲、噪音、錯過窗口或局部資訊缺口",
+      "dedup_key": "action-complication-oracle"
+    },
+    {
+      "id": "background-npc-signal",
+      "category": "background_npc",
+      "triggers": ["world_pulse", "post_chapter"],
+      "frequency_weight": 5,
+      "urgency": "normal",
+      "focus_kind": "npc",
+      "function": "背景 NPC 生活或工作變化的可選訊號",
+      "pressure_direction": "讓背景人物的既有目標產生一項可追蹤、但未定案的變化方向",
+      "exposure": "摘要、消息、共同熟人或下次重逢的前兆",
+      "required_roles": {
+        "focus_npc": {"kind": "npc", "not_player": true, "required_tags": ["background_simulation_eligible"]}
+      },
+      "dedup_key": "background-npc-signal"
+    },
+    {
+      "id": "thematic-accident",
+      "category": "thematic_accident",
+      "triggers": ["scene_boundary", "transition", "travel"],
+      "frequency_weight": 4,
+      "urgency": "low",
+      "focus_kind": "current_theme",
+      "function": "與當前主題呼應的小型偶然",
+      "pressure_direction": "用對照、重複或錯位讓主題被看見，而不替角色解釋",
+      "exposure": "路人片段、物件巧合、公共廣播或環境對照",
+      "dedup_key": "thematic-accident"
+    }
+  ]
+}

@@ -1,0 +1,24 @@
+{
+  "active_model": "fixture-model",
+  "endpoint_kind": "chat_completions",
+  "timestamp": "fixture",
+  "probes": {
+    "text": {
+      "passed": true
+    },
+    "structured_json": {
+      "passed": true
+    },
+    "tool_call": {
+      "passed": true
+    },
+    "state_scripts": {
+      "passed": true
+    },
+    "multi_step_agent": {
+      "passed": true
+    }
+  },
+  "synthetic": true,
+  "description": "Invented positive probe outcomes for gate unit tests; not a real model evaluation."
+}

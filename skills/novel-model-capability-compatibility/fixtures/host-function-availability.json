@@ -1,0 +1,36 @@
+{
+  "schema": "minis.host-function-availability.v1",
+  "contract_version": "1.0.0",
+  "model_independent": true,
+  "authority": {
+    "event_log": "host_full",
+    "state": "host_full",
+    "graphify": "host_full",
+    "reality": "host_full",
+    "knowledge": "host_full",
+    "agency": "host_full",
+    "gate": "host_full",
+    "canonical_commit": "host_only"
+  },
+  "fallbacks": {
+    "intent_extract": ["deterministic_router", "author_clarification", "model_candidate"],
+    "npc_plan": ["storylet_candidate", "rule_candidate", "model_candidate"],
+    "scene_manifest": ["host_scene_skeleton", "field_fill_model", "model_candidate"],
+    "render": ["deterministic_skeleton", "author_text", "verified_fallback_model", "local_model_fragment"],
+    "repair": ["deterministic_issue_patch", "author_revision", "local_model_issue_bound"],
+    "blind_read": ["deterministic_checks", "author_review", "model_review"]
+  },
+  "failure_policy": "preserve_durable_activity_and_fail_closed",
+  "disabled_by_model_failure": [
+    "none_of_event_state_graph_reality_gate_or_commit",
+    "only_the_failed_candidate_task_and_its_dependent_output"
+  ],
+  "evidence_required": [
+    "task_hash",
+    "source_state_hash",
+    "context_hash",
+    "selected_source_ids",
+    "capability_profile",
+    "admission_record"
+  ]
+}

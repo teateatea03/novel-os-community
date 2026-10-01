@@ -1,0 +1,23 @@
+{
+  "schema": "novel-world-database-link.v1",
+  "world_id": "world:example",
+  "project_id": "project:example",
+  "database_root": "<WORLD_DATABASE_ROOT>/example",
+  "classification": {
+    "subject_category": "anime",
+    "subject_subcategory": "manga_cyberpunk",
+    "subject_kind": "fictional_world",
+    "source_medium": ["manga"],
+    "canon_scope": "manga_canon",
+    "version_scope": "請填寫具體作品／版本",
+    "franchise": "請填寫系列名或 null",
+    "genre": ["請填寫題材"],
+    "classification_basis": "請填寫分類理由",
+    "classification_confidence": "EXTRACTED"
+  },
+  "canon_sources": ["world-bible.md", "world-rules.md", "timeline.md"],
+  "sync_policy": "canon-first-graph-derived",
+  "last_synced_at": null,
+  "include_statuses": ["[LOCKED]", "[CANON]", "[PLAN]", "[DRAFT]"],
+  "notes": "世界資料庫是衍生索引，不取代小說專案正典。"
+}

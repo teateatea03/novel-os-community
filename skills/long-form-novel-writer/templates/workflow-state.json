@@ -1,0 +1,16 @@
+{
+  "schema": "minis.novel-workflow.v1",
+  "project": "{{slug}}",
+  "updated_at": null,
+  "phase": "planning",
+  "chapter": null,
+  "scene": null,
+  "last_successful_step": "initialized",
+  "pending_gates": [],
+  "uncommitted_drafts": [],
+  "latest_snapshot": null,
+  "index_status": "missing",
+  "cascade_status": "clear",
+  "author_decisions_needed": [],
+  "notes": "State is operational metadata; canon remains in manuscript and ledgers."
+}

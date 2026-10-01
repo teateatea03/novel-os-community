@@ -1,0 +1,117 @@
+{
+  "fixture": {
+    "synthetic": true,
+    "description": "Invented observatory equipment inventory exercise; not derived from a manuscript or a real person."
+  },
+  "session": {
+    "turn": 3,
+    "mode": "pure_novel",
+    "intensity": "standard"
+  },
+  "world": {
+    "now": "shift-1, late afternoon",
+    "resources": {
+      "water": "available",
+      "food": "none"
+    },
+    "environment": {
+      "temperature": "cold",
+      "wet": true
+    }
+  },
+  "events": [
+    {
+      "id": "OBS-001",
+      "valid_time": {
+        "start": "shift-1",
+        "end": "shift-1",
+        "precision": "shift"
+      },
+      "status": "CANON",
+      "actor": "observer",
+      "action": "inventory_canteen",
+      "observed_by": [
+        "observer"
+      ],
+      "facts": {
+        "water": "plain",
+        "equipment": "canteen"
+      },
+      "confidence": "EXTRACTED",
+      "provenance": [
+        "synthetic-fixture"
+      ]
+    },
+    {
+      "id": "OBS-002",
+      "valid_time": {
+        "start": "shift-1",
+        "end": "shift-1",
+        "precision": "shift"
+      },
+      "status": "CANON",
+      "actor": "weather",
+      "action": "rain_at_open_dome",
+      "observed_by": [
+        "observer"
+      ],
+      "facts": {
+        "temperature": "cold",
+        "wet": true,
+        "equipment": "telescope_cover"
+      },
+      "confidence": "EXTRACTED",
+      "provenance": [
+        "synthetic-fixture"
+      ]
+    },
+    {
+      "id": "OBS-003",
+      "valid_time": {
+        "start": "shift-1",
+        "end": "shift-1",
+        "precision": "shift"
+      },
+      "status": "CANON",
+      "actor": "observer",
+      "action": "check_supply_crate",
+      "observed_by": [
+        "observer"
+      ],
+      "facts": {
+        "food": "none",
+        "equipment": "sealed_battery_case"
+      },
+      "confidence": "EXTRACTED",
+      "provenance": [
+        "synthetic-fixture"
+      ]
+    }
+  ],
+  "npcs": {
+    "characters": [
+      {
+        "id": "observer",
+        "current_psychology": {
+          "dominant_need": "take a warm, dry rest break",
+          "dominant_threat": "wind could damage the uncovered instrument",
+          "approach_avoidance_conflict": "finish the equipment count or return indoors first",
+          "active_self_story": "a careful inventory is more useful than a hurried guess"
+        }
+      }
+    ]
+  },
+  "knowledge_ledger": {
+    "observer": {
+      "known": [
+        "the canteen contains water",
+        "the telescope cover is wet",
+        "the supply crate contains no food"
+      ],
+      "unknown": [
+        "the spare battery charge",
+        "whether the replacement cover fits"
+      ]
+    }
+  }
+}

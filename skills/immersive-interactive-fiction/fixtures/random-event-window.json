@@ -1,0 +1,16 @@
+{
+  "input_kind": "world_action",
+  "natural_break": true,
+  "direct_consequence_pending": false,
+  "deterministic_consequence_available": false,
+  "emotional_closure_active": false,
+  "high_intensity_active": false,
+  "telegraphed": false,
+  "randomness_needed": false,
+  "present_actor_ids": [],
+  "protected_actor_ids": [],
+  "protected_fact_ids": [],
+  "pending_categories": [],
+  "recent_dedup_keys": [],
+  "excluded_categories": []
+}

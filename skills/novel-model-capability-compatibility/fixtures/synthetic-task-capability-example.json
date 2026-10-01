@@ -1,0 +1,51 @@
+{
+  "schema": "minis.model-capability-report.v2",
+  "synthetic": true,
+  "fixture_kind": "illustrative_not_measurement",
+  "description": "Invented task-routing examples. Model names, limits, and outcomes are illustrative; none is a benchmark result.",
+  "endpoint_context_declared": {
+    "synthetic-model-alpha": 4096,
+    "synthetic-model-beta": 8192
+  },
+  "models": {
+    "synthetic-model-alpha": {
+      "illustrative_retrieval": {
+        "1024": "pass",
+        "2048": "pass"
+      },
+      "illustrative_task_outcomes": {
+        "intent_extract": "candidate_text_only",
+        "npc_plan": "schema_invalid",
+        "scene_manifest": "empty",
+        "render": "candidate_text_only",
+        "repair": "candidate_text_only",
+        "blind_read": "unverified"
+      },
+      "task_level": "unrated_synthetic_example",
+      "production_authority": "host_only",
+      "notes": "A retrieval pass alone must not promote any generation task."
+    },
+    "synthetic-model-beta": {
+      "illustrative_retrieval": {
+        "1024": "pass",
+        "4096": "wrong_answer"
+      },
+      "illustrative_task_outcomes": {
+        "intent_extract": "semantic_invalid",
+        "npc_plan": "empty",
+        "scene_manifest": "candidate_text_only",
+        "render": "empty",
+        "repair": "unverified",
+        "blind_read": "candidate_text_only"
+      },
+      "task_level": "unrated_synthetic_example",
+      "production_authority": "host_only",
+      "notes": "Schema acceptance alone must not promote a task that fails semantics."
+    }
+  },
+  "limitations": [
+    "All values were authored for documentation and tests, not observed from an endpoint.",
+    "These examples do not establish compatibility, quality, speed, or capacity of any real model.",
+    "Actual task authorization requires separately saved validated probe artifacts."
+  ]
+}

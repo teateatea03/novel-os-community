@@ -1,0 +1,51 @@
+{
+  "schema": "minis.relationship-graph.extraction.v1",
+  "nodes": [
+    {
+      "id": "person:alice",
+      "label": "Alice",
+      "entity_type": "person",
+      "file_type": "concept",
+      "aliases": ["A"],
+      "properties": {"role": "editor"},
+      "status": "active",
+      "valid_from": null,
+      "valid_to": null,
+      "confidence": "EXTRACTED",
+      "confidence_score": 1.0,
+      "source_file": "source.md",
+      "source_location": "L1-L5",
+      "source_url": null,
+      "captured_at": "2026-07-31T00:00:00Z",
+      "evidence": [
+        {"source_file": "source.md", "source_location": "L1-L5", "quote": "Short evidence quote"}
+      ]
+    }
+  ],
+  "links": [
+    {
+      "id": "edge:stable-id",
+      "key": "edge:stable-id",
+      "source": "person:alice",
+      "target": "project:x",
+      "relation": "leads",
+      "relation_category": "authority",
+      "inverse_relation": "led_by",
+      "directed": true,
+      "polarity": "neutral",
+      "properties": {},
+      "status": "active",
+      "valid_from": "2026-01-01",
+      "valid_to": null,
+      "transaction_from": "2026-07-31T00:00:00Z",
+      "transaction_to": null,
+      "confidence": "EXTRACTED",
+      "confidence_score": 1.0,
+      "source_file": "source.md",
+      "source_location": "L6",
+      "source_url": null,
+      "evidence": []
+    }
+  ],
+  "hyperedges": []
+}

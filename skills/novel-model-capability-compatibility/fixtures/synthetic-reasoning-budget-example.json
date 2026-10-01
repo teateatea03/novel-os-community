@@ -1,0 +1,38 @@
+{
+  "schema": "minis.local-model-reasoning-diagnosis.v1",
+  "synthetic": true,
+  "fixture_kind": "illustrative_not_measurement",
+  "description": "Invented response shapes for an output-budget diagnostic. No provider was contacted and no settings were changed.",
+  "provider": "synthetic-provider",
+  "model": "synthetic-reasoner",
+  "endpoint": "https://example.invalid/v1/chat/completions",
+  "illustrative_observations": {
+    "budget_exhausted": {
+      "finish_reason": "length",
+      "content_chars": 0,
+      "reasoning_tokens": 120,
+      "completion_tokens": 128
+    },
+    "text_returned": {
+      "finish_reason": "stop",
+      "content_chars": 24,
+      "reasoning_tokens": 0,
+      "completion_tokens": 16
+    }
+  },
+  "illustrated_checks": [
+    "empty prose is not a successful render",
+    "response shape alone does not establish causal diagnosis",
+    "a changed setting requires a fresh endpoint probe",
+    "synthetic numbers cannot justify model promotion"
+  ],
+  "required_route": {
+    "host_context_admission": true,
+    "renderer_only": true,
+    "repetition_gate": true,
+    "max_repairs": 2,
+    "canonical_commit": "host_only"
+  },
+  "settings_change": null,
+  "no_canonical_write": true
+}

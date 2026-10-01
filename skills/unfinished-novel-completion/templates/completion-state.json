@@ -1,0 +1,14 @@
+{
+  "schema": "minis.unfinished-completion-state.v1",
+  "project": "{{slug}}",
+  "completion_mode": "undecided",
+  "branch_id": null,
+  "phase": "intake",
+  "status": "DRAFT",
+  "rights_status": "unknown",
+  "purpose": "private-only",
+  "source_count": 0,
+  "last_gate": null,
+  "pending_decisions": [],
+  "updated_at": null
+}

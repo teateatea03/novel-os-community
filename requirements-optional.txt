@@ -1,0 +1,8 @@
+# Core runtime is Python 3.10+ standard library.
+# Optional features and included tests use these packages.
+networkx>=3.2,<4
+PyYAML>=6,<7
+mcp>=1.0,<2
+
+# Optional Graphify analysis/export integration is distributed separately as
+# the `graphifyy` project; follow its installation and license documentation.

@@ -1,0 +1,25 @@
+{
+  "session": {
+    "id": "fixture",
+    "mode": "pure_novel",
+    "intensity": "standard",
+    "viewpoint": "second_present",
+    "player_character": "player",
+    "turn": 1,
+    "canon_scope": "session"
+  },
+  "world": {
+    "now": "2026-08-01 21:00",
+    "location": "kitchen",
+    "atmosphere": "rain",
+    "present": ["player", "npc"],
+    "exits": ["hall"],
+    "objects": [],
+    "pressures": []
+  },
+  "player": {"condition": "unhurt", "inventory": [], "knowledge": [], "secrets_held": [], "commitments": []},
+  "npcs": {"characters": [{"id": "npc", "immediate_goal": "obtain letter", "knowledge": []}]},
+  "threads": {"open": [], "resolved": []},
+  "knowledge_ledger": {"player_knows": [], "npc_knows": {}, "reader_knows": [], "contradictions_to_check": []},
+  "events": []
+}

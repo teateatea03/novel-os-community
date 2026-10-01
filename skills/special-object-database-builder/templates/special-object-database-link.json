@@ -1,0 +1,23 @@
+{
+  "schema": "special-object-database-link.v1",
+  "database_id": "special-object:example",
+  "project_id": "project:example",
+  "database_root": "<SPECIAL_OBJECT_DATABASE_ROOT>/example",
+  "classification": {
+    "subject_category": "anime",
+    "subject_subcategory": "anime_mecha",
+    "subject_kind": "fictional_object_catalog",
+    "source_medium": ["tv_anime"],
+    "canon_scope": "anime_canon",
+    "version_scope": "請填寫具體作品／版本／宇宙",
+    "franchise": "請填寫系列名或 null",
+    "genre": ["mecha", "science_fiction"],
+    "classification_basis": "請填寫分類理由",
+    "classification_confidence": "AMBIGUOUS"
+  },
+  "canon_sources": ["world-bible.md", "world-rules.md", "object-catalog.md"],
+  "sync_policy": "canon-first-graph-derived",
+  "last_synced_at": null,
+  "include_statuses": ["[LOCKED]", "[CANON]", "[PLAN]", "[DRAFT]"],
+  "notes": "特殊物資料庫是物件本體與狀態的衍生索引；世界聖經、角色檔與定稿正文優先。"
+}
