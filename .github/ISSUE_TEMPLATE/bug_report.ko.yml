@@ -1,0 +1,39 @@
+name: 버그 신고 (한국어)
+description: 재현 가능한 Novel OS 결함을 신고합니다
+title: '[Bug]: '
+labels:
+- bug
+body:
+- type: markdown
+  attributes:
+    value: 비공개 원고, 세션, 개인정보, 인증 정보 또는 미발표 연구를 포함하지 마세요.
+- type: textarea
+  id: summary
+  attributes:
+    label: 요약
+    description: 무엇이 실패했으며 어떤 결과를 예상했나요?
+  validations:
+    required: true
+- type: textarea
+  id: reproduce
+  attributes:
+    label: 최소 재현 절차
+    description: 합성 자료만 사용하세요.
+  validations:
+    required: true
+- type: input
+  id: version
+  attributes:
+    label: 커밋 또는 버전
+- type: textarea
+  id: environment
+  attributes:
+    label: 환경
+    description: OS, Python 버전 및 선택적 연동을 적고 사용자 이름과 로컬 경로는 제거하세요.
+- type: checkboxes
+  id: privacy
+  attributes:
+    label: 개인정보 확인
+    options:
+    - label: 사적인 창작 자료, 개인정보, 인증 정보 및 로컬 엔드포인트를 제거했습니다.
+      required: true

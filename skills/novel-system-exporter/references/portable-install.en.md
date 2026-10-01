@@ -1,6 +1,6 @@
 # Importing and Deploying Novel OS
 
-Languages: **English** | [繁體中文](portable-install.md)
+<!-- language-navigation --> [繁體中文](portable-install.md) | **English** | [日本語](portable-install.ja.md) | [한국어](portable-install.ko.md) | [Español](portable-install.es.md) | [Français](portable-install.fr.md) | [Deutsch](portable-install.de.md) | [Português](portable-install.pt.md)
 
 ## Start with a capability inventory: choose the right deployment mode
 
@@ -32,7 +32,7 @@ Choose according to the answers: **A: full installation** (Skills + shell + stor
 
 ### Licensing and third-party notices
 
-The complete ZIP must retain the root `LICENSE`, `LICENSE.zh-TW.md`, `THIRD_PARTY.md`, `THIRD_PARTY.zh-TW.md`, `docs/COMMERCIAL_TERMS.md`, and `docs/COMMERCIAL_TERMS.zh-TW.md`, together with each skill's original third-party license files. The installer stores these notices under `<target>/novel-operating-system/DISTRIBUTION_NOTICES/`, preserving their original relative paths so license links in the documents continue to work. Upstream notices within skills also remain in their original locations. It does not overwrite the host's root `LICENSE` or `docs/`. Pre-upgrade notices are saved with the original skills in that upgrade's backup.
+The complete ZIP must retain all eight language versions of the root license, third-party guide, and commercial terms (24 documents; exact names in the bundle contract), together with each skill's original third-party license files. The installer stores these notices under `<target>/novel-operating-system/DISTRIBUTION_NOTICES/`, preserving their original relative paths so license links in the documents continue to work. Upstream notices within skills also remain in their original locations. It does not overwrite the host's root `LICENSE` or `docs/`. Pre-upgrade notices are saved with the original skills in that upgrade's backup.
 
 `novel-operating-system/INSTALLATION.json` records each notice's source/installed paths, SHA-256, and byte count. After installation, run this read-only check from the extracted ZIP:
 

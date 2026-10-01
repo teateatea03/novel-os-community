@@ -1,6 +1,6 @@
 # 匯入與部署 Novel OS
 
-語言：[English](portable-install.en.md) | **繁體中文**
+<!-- language-navigation --> **繁體中文** | [English](portable-install.en.md) | [日本語](portable-install.ja.md) | [한국어](portable-install.ko.md) | [Español](portable-install.es.md) | [Français](portable-install.fr.md) | [Deutsch](portable-install.de.md) | [Português](portable-install.pt.md)
 
 ## 先做能力盤點：選擇正確部署模式
 
@@ -32,7 +32,7 @@
 
 ### 授權與第三方聲明
 
-完整 ZIP 必須保留根目錄的 `LICENSE`、`LICENSE.zh-TW.md`、`THIRD_PARTY.md`、`THIRD_PARTY.zh-TW.md`、`docs/COMMERCIAL_TERMS.md` 與 `docs/COMMERCIAL_TERMS.zh-TW.md`，以及各技能原有的第三方授權文件。安裝器將這些聲明存到 `<target>/novel-operating-system/DISTRIBUTION_NOTICES/`，保留原相對路徑，讓文件中的授權連結繼續有效；各技能內的上游聲明也留在原位。它不會覆寫宿主根目錄的 `LICENSE` 或 `docs/`。更新前的聲明隨原技能一起保存在該次備份。
+完整 ZIP 必須保留根目錄授權、第三方指南及商用條款的全部八語版本（共 24 份文件；確切名稱見套件規約），以及各技能原有的第三方授權文件。安裝器將這些聲明存到 `<target>/novel-operating-system/DISTRIBUTION_NOTICES/`，保留原相對路徑，讓文件中的授權連結繼續有效；各技能內的上游聲明也留在原位。它不會覆寫宿主根目錄的 `LICENSE` 或 `docs/`。更新前的聲明隨原技能一起保存在該次備份。
 
 `novel-operating-system/INSTALLATION.json` 記錄各聲明的來源／安裝路徑、SHA-256 與位元組數。安裝完成後可從解壓的 ZIP 執行唯讀檢查：
 

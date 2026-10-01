@@ -1,0 +1,28 @@
+name: Contacter le mainteneur — Français
+description: Organiser une licence ou un canal de signalement privé sans détails sensibles
+title: "[Contact] "
+body:
+  - type: markdown
+    attributes:
+      value: |
+        Cette issue est publique. N’incluez pas de revenus, états financiers,
+        justificatifs de paiement, empreintes de transaction, identifiants d’accès,
+        manuscrits privés, détails d’exploitation de vulnérabilités ou coordonnées personnelles.
+        Demandez uniquement au mainteneur d’organiser un canal privé approprié.
+  - type: dropdown
+    id: topic
+    attributes:
+      label: Sujet
+      options:
+        - Reconnaissance de la version de licence commerciale et déclaration privée
+        - Canal privé de signalement de sécurité ou de confidentialité
+        - Autre prise de contact avec le mainteneur
+    validations:
+      required: true
+  - type: checkboxes
+    id: privacy
+    attributes:
+      label: Informations publiques uniquement
+      options:
+        - label: Je n’ai inclus aucun détail privé, financier ou sensible pour la sécurité
+          required: true

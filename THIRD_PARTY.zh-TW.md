@@ -1,6 +1,6 @@
 # 第三方元件與參考資料
 
-[English](THIRD_PARTY.md) | 繁體中文
+<!-- language-navigation --> **繁體中文** | [English](THIRD_PARTY.md) | [日本語](THIRD_PARTY.ja.md) | [한국어](THIRD_PARTY.ko.md) | [Español](THIRD_PARTY.es.md) | [Français](THIRD_PARTY.fr.md) | [Deutsch](THIRD_PARTY.de.md) | [Português](THIRD_PARTY.pt.md)
 
 Novel OS 包含與第三方專案互通或討論第三方專案的原創程式碼與文件。除非個別檔案明確另有說明，第三方專案**沒有以原始碼副本形式納入**本儲存庫。
 

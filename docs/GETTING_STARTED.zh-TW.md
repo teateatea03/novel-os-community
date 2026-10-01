@@ -1,12 +1,12 @@
 # 本機設定與可攜式安裝
 
-語言：[English](GETTING_STARTED.md) | **繁體中文**
+<!-- language-navigation --> **繁體中文** | [English](GETTING_STARTED.md) | [日本語](GETTING_STARTED.ja.md) | [한국어](GETTING_STARTED.ko.md) | [Español](GETTING_STARTED.es.md) | [Français](GETTING_STARTED.fr.md) | [Deutsch](GETTING_STARTED.de.md) | [Português](GETTING_STARTED.pt.md)
 
 本指南涵蓋本機執行環境及可攜式套件。使用與再散布須遵守[授權條款](../LICENSE.zh-TW.md)；商用申報及付款詳情見[商用分潤與付款說明](COMMERCIAL_TERMS.zh-TW.md)。
 
 ## 語言涵蓋範圍
 
-公開文件提供英文與繁體中文版本。執行用技能、模板及其中的技術參考文件目前保留原有語言。本次雙語文件發布不包含執行用內容的翻譯。
+公開文件提供繁體中文、英文、日文、韓文、西班牙文、法文、德文及葡萄牙文版本。執行用技能、模板及其中的技術參考文件目前保留原有語言。本次八語文件發布不包含執行用內容的翻譯。
 
 ## 選擇模式
 
@@ -60,7 +60,7 @@ python3 "$EXPORTER/build_novel_os_bundle.py" build \
   --output "$BUNDLE_WORK/novel-os-review.zip"
 ```
 
-套件清單會列出所有封裝檔案並記錄其雜湊值，包括專案授權、商用條款與第三方指南的兩種語言版本，以及 Humanizer-zh 改編技能內未更動的聲明。請在封存檔及安裝內容中保留這些聲明。安裝工具會將專案層級的聲明保存在 `novel-operating-system/DISTRIBUTION_NOTICES/`，不會覆寫宿主根目錄的授權檔。
+套件清單會列出所有封裝檔案並記錄其雜湊值，包括專案授權、商用條款與第三方指南的八種語言版本，以及 Humanizer-zh 改編技能內未更動的聲明。請在封存檔及安裝內容中保留這些聲明。安裝工具會將專案層級的聲明保存在 `novel-operating-system/DISTRIBUTION_NOTICES/`，不會覆寫宿主根目錄的授權檔。
 
 ## 選用功能
 

@@ -1,6 +1,6 @@
 # Novel OS
 
-Languages: **English** | [繁體中文](README.zh-TW.md)
+<!-- language-navigation --> [繁體中文](README.zh-TW.md) | **English** | [日本語](README.ja.md) | [한국어](README.ko.md) | [Español](README.es.md) | [Français](README.fr.md) | [Deutsch](README.de.md) | [Português](README.pt.md)
 
 Novel OS is a reusable collection of AI-agent skills and local Python tooling for long-form fiction, interactive fiction, continuity, character/world research, behavioral consistency, provenance-aware graphs, and narrative validation.
 
@@ -10,7 +10,7 @@ For commercial-use and dual-token payment details, see [commercial profit sharin
 
 ## Language coverage
 
-Public documentation is available in English and Traditional Chinese. Runtime skills, templates, and their technical references currently retain their original language. This bilingual documentation release does not translate the runtime.
+Public documentation is available in Traditional Chinese, English, Japanese, Korean, Spanish, French, German, and Portuguese. Runtime skills, templates, and their technical references currently retain their original language. This eight-language documentation release does not translate the runtime.
 
 ## Privacy boundary
 
@@ -93,10 +93,10 @@ The research skills are designed for lawful, publicly accessible material and mu
 
 Read:
 
-- `CONTRIBUTING.md`
-- `CODE_OF_CONDUCT.md`
-- `SECURITY.md`
-- `THIRD_PARTY.md`
+- [CONTRIBUTING.md](CONTRIBUTING.md)
+- [CODE_OF_CONDUCT.md](CODE_OF_CONDUCT.md)
+- [SECURITY.md](SECURITY.md)
+- [THIRD_PARTY.md](THIRD_PARTY.md)
 
 ## License and contributions
 

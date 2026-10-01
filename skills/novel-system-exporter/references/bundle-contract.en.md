@@ -1,6 +1,6 @@
 # Portable Novel OS Bundle Contract
 
-Languages: **English** | [繁體中文](bundle-contract.md)
+<!-- language-navigation --> [繁體中文](bundle-contract.md) | **English** | [日本語](bundle-contract.ja.md) | [한국어](bundle-contract.ko.md) | [Español](bundle-contract.es.md) | [Français](bundle-contract.fr.md) | [Deutsch](bundle-contract.de.md) | [Português](bundle-contract.pt.md)
 
 In the `novel-os-portable-v<version>/` package layout, `skills/` contains one coordinator and 16 specialized skills. `public-web-research/` provides safe, resumable public HTTP(S) acquisition and Evidence Run candidate staging. `novel-model-capability-compatibility/` maintains the model-capability probe/L0–L5/fallback contracts. `novel-reality-state-engine/` maintains the event → state → capability → behavior → prose validation tools. `novel-world-database-builder/` maintains world-database schemas, batch templates, handoff packages, and query specifications. `special-object-database-builder/` maintains version, capability, specification, and lifecycle schemas for props/armor/mechs/devices.
 
@@ -8,21 +8,21 @@ In the `novel-os-portable-v<version>/` package layout, `skills/` contains one co
 novel-os-portable-v<version>/
 ├── MANIFEST.json
 ├── LICENSE
-├── LICENSE.zh-TW.md
+├── LICENSE.{zh-TW,ja,ko,es,fr,de,pt}.md
 ├── THIRD_PARTY.md
-├── THIRD_PARTY.zh-TW.md
+├── THIRD_PARTY.{zh-TW,ja,ko,es,fr,de,pt}.md
 ├── docs/
 │   ├── COMMERCIAL_TERMS.md
-│   └── COMMERCIAL_TERMS.zh-TW.md
+│   └── COMMERCIAL_TERMS.{zh-TW,ja,ko,es,fr,de,pt}.md
 ├── references/
 │   ├── portable-install.md
-│   ├── portable-install.en.md
+│   ├── portable-install.{en,ja,ko,es,fr,de,pt}.md
 │   ├── platform-compatibility.md
-│   ├── platform-compatibility.en.md
+│   ├── platform-compatibility.{en,ja,ko,es,fr,de,pt}.md
 │   ├── host-adapter-contract.md
-│   ├── host-adapter-contract.en.md
+│   ├── host-adapter-contract.{en,ja,ko,es,fr,de,pt}.md
 │   ├── bundle-contract.md
-│   └── bundle-contract.en.md
+│   └── bundle-contract.{en,ja,ko,es,fr,de,pt}.md
 ├── skills/
 │   ├── novel-operating-system/      # mandatory single entry point
 │   ├── long-form-novel-writer/
@@ -47,11 +47,13 @@ novel-os-portable-v<version>/
     └── build_novel_os_bundle.py
 ```
 
+The braces in the layout abbreviate separate files for each listed language.
+
 `MANIFEST.json` contains: bundle schema/version, package list, source skill versions, a SHA-256 digest and byte count for every payload file, a separate `distribution_notices` inventory, build time, exclusions, and runtime dependency declarations. The payload also includes a portable copy of the **platform compatibility guide**. It contains no secret, local absolute path, story project, account configuration, or world database.
 
 ## License and notice retention
 
-- `--source-root` names the source `skills/` directory. Its repository parent must contain `LICENSE`, `LICENSE.zh-TW.md`, `THIRD_PARTY.md`, `THIRD_PARTY.zh-TW.md`, `docs/COMMERCIAL_TERMS.md`, and `docs/COMMERCIAL_TERMS.zh-TW.md`. Refresh refuses a missing, non-file, or symlinked required document before changing the payload. These are owner-selected project terms; upstream notices retain their own scope.
+- `--source-root` names the source `skills/` directory. Its repository parent must contain all 24 required notices: `LICENSE`, `THIRD_PARTY.md`, and `docs/COMMERCIAL_TERMS.md` in English, plus `LICENSE.<language>.md`, `THIRD_PARTY.<language>.md`, and `docs/COMMERCIAL_TERMS.<language>.md` for each of `zh-TW`, `ja`, `ko`, `es`, `fr`, `de`, and `pt`. Refresh refuses a missing, non-file, or symlinked required document before changing the payload. These are owner-selected project terms; upstream notices retain their own scope.
 - The additional explicit allowlist is `LICENSE.md`, `LICENSE.txt`, `NOTICE`, `NOTICE.md`, `NOTICE.txt`, and `docs/COMMERCIAL_LICENSE.md`. If present, each is copied byte-for-byte. No other root `docs/` files are exported. In particular, `docs/COMMERCIAL_LICENSE_DISCUSSION.zh-TW.md` is a non-operative discussion draft and is not exported as a license or commercial terms.
 - Skill-local `LICENSE`, `LICENSE.md`, `LICENSE.txt`, `COPYING`, `COPYING.md`, `COPYING.txt`, `NOTICE`, `NOTICE.md`, `NOTICE.txt`, `THIRD_PARTY.md`, and every file under `THIRD_PARTY_LICENSES/` are retained with the skill and declared in `distribution_notices`. Refresh checks their bytes against the source; build and install reject absent declarations, missing files, altered bytes, unsafe paths, or missing digest entries.
 - The existing adapted Humanizer-zh material specifically requires `skills/novel-human-voice-editor/THIRD_PARTY_LICENSES/Humanizer-zh-MIT.txt`. It cannot be removed from the source or manifest while that material is distributed.
@@ -62,7 +64,7 @@ novel-os-portable-v<version>/
 
 ## Runtime dependency declaration
 
-Every release must ship all eight explicitly allowlisted portability references: `references/portable-install.md`, `references/portable-install.en.md`, `references/platform-compatibility.md`, `references/platform-compatibility.en.md`, `references/host-adapter-contract.md`, `references/host-adapter-contract.en.md`, `references/bundle-contract.md`, and `references/bundle-contract.en.md`. Declare these levels truthfully:
+Every release must ship all 32 explicitly allowlisted portability references: each of `portable-install`, `platform-compatibility`, `host-adapter-contract`, and `bundle-contract` under `references/`, with `.md` for Traditional Chinese and `.<language>.md` for each of `en`, `ja`, `ko`, `es`, `fr`, `de`, and `pt`. Declare these levels truthfully:
 
 - **Baseline document workflow**: an LLM that can read the Skill files; no code execution required.
 - **Automated local workflow (v2.7)**: Python 3.10+ (3.11+ recommended), a shell/process runner, persistent UTF-8 files, multi-skill discovery or an equivalent router, a branch lock, a single `ProjectRuntimeAdapter.commit()` production authority, seven Gates, typed semantic events, project readiness/projection freshness, author-feedback Quality Eval, and extraction capability if distributed as a ZIP. World databases additionally require writable `WORLD_DATABASE_ROOT`/`WORLD_DATABASE_WORK_ROOT`; special-object databases additionally require writable `SPECIAL_OBJECT_DATABASE_ROOT`/`SPECIAL_OBJECT_DATABASE_WORK_ROOT`.

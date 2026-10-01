@@ -1,0 +1,26 @@
+name: Contactar con el responsable (Español)
+description: Acordar licencias o un canal privado sin detalles sensibles
+title: '[Contact] '
+body:
+- type: markdown
+  attributes:
+    value: Esta incidencia es pública. No incluya ingresos, estados financieros, registros de pago, hashes
+      de transacciones, credenciales, manuscritos privados, detalles de explotación de vulnerabilidades
+      ni datos personales de contacto. Solicite únicamente acordar un canal privado adecuado con el responsable.
+- type: dropdown
+  id: topic
+  attributes:
+    label: Tema
+    options:
+    - Aceptación de la versión de licencia comercial y declaración privada
+    - Canal privado para comunicar problemas de seguridad o privacidad
+    - Otro contacto con el responsable
+  validations:
+    required: true
+- type: checkboxes
+  id: privacy
+  attributes:
+    label: Solo información pública
+    options:
+    - label: No he incluido detalles privados, financieros ni sensibles para la seguridad
+      required: true

@@ -1,0 +1,26 @@
+name: Contactar o responsável (Português)
+description: Combinar licenciamento ou um canal privado sem detalhes sensíveis
+title: '[Contact] '
+body:
+- type: markdown
+  attributes:
+    value: Esta issue é pública. Não inclua receitas, demonstrações financeiras, registos de pagamento,
+      hashes de transações, credenciais, manuscritos privados, detalhes de exploração de vulnerabilidades
+      ou contactos pessoais. Peça apenas para combinar um canal privado adequado com o responsável.
+- type: dropdown
+  id: topic
+  attributes:
+    label: Tema
+    options:
+    - Aceitação da versão de licença comercial e declaração privada
+    - Canal privado para comunicação de segurança ou privacidade
+    - Outro contacto com o responsável
+  validations:
+    required: true
+- type: checkboxes
+  id: privacy
+  attributes:
+    label: Apenas informação pública
+    options:
+    - label: Não incluí detalhes privados, financeiros ou sensíveis para a segurança
+      required: true

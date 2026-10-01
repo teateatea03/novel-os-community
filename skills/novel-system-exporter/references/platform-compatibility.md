@@ -1,8 +1,7 @@
 # Novel OS 平台相容性與依賴矩陣
 
-語言：[English](platform-compatibility.en.md) | **繁體中文**
+<!-- language-navigation --> **繁體中文** | [English](platform-compatibility.en.md) | [日本語](platform-compatibility.ja.md) | [한국어](platform-compatibility.ko.md) | [Español](platform-compatibility.es.md) | [Français](platform-compatibility.fr.md) | [Deutsch](platform-compatibility.de.md) | [Português](platform-compatibility.pt.md)
 
-**原文一致性註記：**第 4B 節與驗收清單仍保留舊有「十五個」技能數，第 4B 節另有「11 份 Skill 文件」，與本文件其他段落及現行套件的「1 個總入口＋16 個協作技能，合計 17 個 runtime Skill」不一致。雙語版本保留這些原文數字並明示差異，待契約審查時統一，不因此改變 runtime 清單。
 
 本文件必須和 ZIP 一起交付。Novel OS 是一組**技能說明＋本地模板／Python 驗證器**，不是獨立模型、聊天平台、向量資料庫或雲端服務。它能否「自動佈置」取決於目標 AI 框架是否允許：讀取多檔技能、寫入檔案、執行命令，以及（選用）呼叫模型／網路。
 
@@ -108,7 +107,7 @@ python3 scripts/install_novel_os.py --target <SKILLS_DIR> --smoke-test
 **框架整合者要做：**
 
 1. 把 `novel-operating-system/SKILL.md` 放進 agent 的 system/developer instructions；保留 YAML description 作路由規則。
-2. 把其餘**十五個** skill 作為可檢索 reference 文件，或為它們建立 router：依使用者意圖載入對應 `SKILL.md`。
+2. 把其餘**十六個** skill 作為可檢索 reference 文件，或為它們建立 router：依使用者意圖載入對應 `SKILL.md`。
 3. 映射工具：
    - shell → Python scripts；
    - read/write/list files → 專案檔與 state；
@@ -116,7 +115,7 @@ python3 scripts/install_novel_os.py --target <SKILLS_DIR> --smoke-test
    - second-model/sub-agent → `independent_review.py` 的替代 adapter。
 4. 把 Minis 專用 `minis-model-use` 呼叫替換為自己的模型客戶端。必須保留原有 JSON 審稿 schema、失敗 artifact 和「machine_suggestion 不自動升正典」原則。
 5. 指定 durable storage key／工作區，將同一作品的檔案在不同對話／worker 間帶回。
-6. 實作或明確關閉 skill 自動觸發；不能只把**11 份 Skill 文件**塞進 context 卻聲稱會自動協作。
+6. 實作或明確關閉 skill 自動觸發；不能只把**17 份 Skill 文件**塞進 context 卻聲稱會自動協作。
 
 ### C｜只支援上傳知識檔／自訂指令的聊天 AI（文件模式）
 
@@ -149,7 +148,7 @@ python3 scripts/install_novel_os.py --target <SKILLS_DIR> --smoke-test
 
 整合完成後，由宿主或整合者逐項確認：
 
-- [ ] 能讀到 `novel-operating-system` 與十五個相鄰專業技能。
+- [ ] 能讀到 `novel-operating-system` 與十六個相鄰專業技能。
 - [ ] 寫入測試檔後，新 agent run／新對話仍能讀回。
 - [ ] `python3 --version` ≥ 3.10；若要跑圖譜 exporter，`networkx`／`graphifyy` 可 import。
 - [ ] `python3 scripts/install_novel_os.py --target <SKILLS_DIR> --smoke-test` 通過；或已明確記錄無法執行的項目。

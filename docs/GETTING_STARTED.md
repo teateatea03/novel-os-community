@@ -1,12 +1,12 @@
 # Local setup and portable installation
 
-Languages: **English** | [繁體中文](GETTING_STARTED.zh-TW.md)
+<!-- language-navigation --> [繁體中文](GETTING_STARTED.zh-TW.md) | **English** | [日本語](GETTING_STARTED.ja.md) | [한국어](GETTING_STARTED.ko.md) | [Español](GETTING_STARTED.es.md) | [Français](GETTING_STARTED.fr.md) | [Deutsch](GETTING_STARTED.de.md) | [Português](GETTING_STARTED.pt.md)
 
 This guide covers the local runtime and portable bundle. Use and redistribution are governed by [LICENSE](../LICENSE); commercial reporting and payment details are in [COMMERCIAL_TERMS.md](COMMERCIAL_TERMS.md).
 
 ## Language coverage
 
-Public documentation is available in English and Traditional Chinese. Runtime skills, templates, and their technical references currently retain their original language. This bilingual documentation release does not translate the runtime.
+Public documentation is available in Traditional Chinese, English, Japanese, Korean, Spanish, French, German, and Portuguese. Runtime skills, templates, and their technical references currently retain their original language. This eight-language documentation release does not translate the runtime.
 
 ## Choose a mode
 
@@ -60,7 +60,7 @@ python3 "$EXPORTER/build_novel_os_bundle.py" build \
   --output "$BUNDLE_WORK/novel-os-review.zip"
 ```
 
-The manifest lists and hashes all packaged files, including both language versions of the project license, commercial terms, and third-party guide, plus the unchanged Humanizer-zh notice inside its adapted skill. Keep those notices with the archive and installation. The installer retains project-level notices under `novel-operating-system/DISTRIBUTION_NOTICES/` rather than overwriting the host's root license.
+The manifest lists and hashes all packaged files, including all eight language versions of the project license, commercial terms, and third-party guide, plus the unchanged Humanizer-zh notice inside its adapted skill. Keep those notices with the archive and installation. The installer retains project-level notices under `novel-operating-system/DISTRIBUTION_NOTICES/` rather than overwriting the host's root license.
 
 ## Optional features
 

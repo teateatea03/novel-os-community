@@ -1,0 +1,24 @@
+name: 관리자에게 연락 (한국어)
+description: 민감한 세부 내용 없이 라이선스나 비공개 신고 경로를 마련합니다
+title: '[Contact] '
+body:
+- type: markdown
+  attributes:
+    value: 이 issue는 공개됩니다. 수입, 재무제표, 지급 기록, 거래 해시, 인증 정보, 비공개 원고, 보안 취약점 악용 상세 또는 사적인 연락처를 넣지 마세요. 관리자에게 적절한 비공개 경로를 마련해 달라고 요청하는 데만 사용하세요.
+- type: dropdown
+  id: topic
+  attributes:
+    label: 주제
+    options:
+    - 상업적 라이선스 버전 동의 확인 및 비공개 신고
+    - 보안·개인정보 비공개 신고 경로
+    - 기타 관리자 연락
+  validations:
+    required: true
+- type: checkboxes
+  id: privacy
+  attributes:
+    label: 공개 정보만
+    options:
+    - label: 비공개, 재무 또는 보안상 민감한 세부 내용을 포함하지 않았습니다.
+      required: true

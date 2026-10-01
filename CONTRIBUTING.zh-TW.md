@@ -1,6 +1,8 @@
 # 參與 Novel OS 開發
 
-[English](CONTRIBUTING.md) | 繁體中文
+<!-- language-navigation --> **繁體中文** | [English](CONTRIBUTING.md) | [日本語](CONTRIBUTING.ja.md) | [한국어](CONTRIBUTING.ko.md) | [Español](CONTRIBUTING.es.md) | [Français](CONTRIBUTING.fr.md) | [Deutsch](CONTRIBUTING.de.md) | [Português](CONTRIBUTING.pt.md)
+
+[拉取請求範本](.github/PULL_REQUEST_TEMPLATE/zh-TW.md)
 
 感謝你協助改進 Novel OS。所有貢獻都必須保留本專案的原始碼公開商用條款與隱私界線。
 

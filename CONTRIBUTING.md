@@ -1,6 +1,8 @@
 # Contributing to Novel OS
 
-English | [繁體中文](CONTRIBUTING.zh-TW.md)
+<!-- language-navigation --> [繁體中文](CONTRIBUTING.zh-TW.md) | **English** | [日本語](CONTRIBUTING.ja.md) | [한국어](CONTRIBUTING.ko.md) | [Español](CONTRIBUTING.es.md) | [Français](CONTRIBUTING.fr.md) | [Deutsch](CONTRIBUTING.de.md) | [Português](CONTRIBUTING.pt.md)
+
+[Pull request template](.github/PULL_REQUEST_TEMPLATE/en.md)
 
 Thank you for helping improve Novel OS. Contributions must preserve the project's source-available commercial terms and the privacy boundary.
 

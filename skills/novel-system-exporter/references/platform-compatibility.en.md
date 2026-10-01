@@ -1,8 +1,7 @@
 # Novel OS Platform Compatibility and Dependency Matrix
 
-Languages: **English** | [繁體中文](platform-compatibility.md)
+<!-- language-navigation --> [繁體中文](platform-compatibility.md) | **English** | [日本語](platform-compatibility.ja.md) | [한국어](platform-compatibility.ko.md) | [Español](platform-compatibility.es.md) | [Français](platform-compatibility.fr.md) | [Deutsch](platform-compatibility.de.md) | [Português](platform-compatibility.pt.md)
 
-**Source consistency note:** section 4B and the acceptance checklist retain the source's older “fifteen” skill count; section 4B also refers to “11 Skill documents.” These conflict with the current inventory stated elsewhere in this document: one coordinator plus sixteen collaborating skills, 17 runtime Skills in total. They are preserved here for faithful translation and require source-contract reconciliation, not a change to the runtime inventory.
 
 This document must be delivered with the ZIP. Novel OS is a collection of **skill instructions + local templates/Python validators**, not a standalone model, chat platform, vector database, or cloud service. Whether it can be “automatically deployed” depends on whether the target AI framework permits reading multi-file skills, writing files, running commands, and optionally calling models/accessing the network.
 
@@ -106,7 +105,7 @@ For frameworks with a system prompt, function calling, and file tools, but no un
 **The framework integrator must:**
 
 1. Put `novel-operating-system/SKILL.md` into the agent's system/developer instructions; retain the YAML description as routing rules.
-2. Make the remaining **fifteen** skills retrievable reference documents, or build a router for them that loads the appropriate `SKILL.md` according to user intent.
+2. Make the remaining **sixteen** skills retrievable reference documents, or build a router for them that loads the appropriate `SKILL.md` according to user intent.
 3. Map tools:
    - shell → Python scripts;
    - read/write/list files → project files and state;
@@ -114,7 +113,7 @@ For frameworks with a system prompt, function calling, and file tools, but no un
    - second-model/sub-agent → a replacement adapter for `independent_review.py`.
 4. Replace the Minis-specific `minis-model-use` call with the framework's own model client. Preserve the original JSON review schema, failure artifacts, and principle that “machine_suggestion is not automatically promoted to canon.”
 5. Specify a durable storage key/workspace so the same work's files are carried across conversations/workers.
-6. Implement automatic skill triggering or explicitly disable it; putting **11 Skill documents** into context does not justify claiming they will automatically collaborate.
+6. Implement automatic skill triggering or explicitly disable it; putting **17 Skill documents** into context does not justify claiming they will automatically collaborate.
 
 ### C | Chat AI supporting only knowledge-file uploads/custom instructions (document mode)
 
@@ -147,7 +146,7 @@ These names illustrate integration types only. Product versions, plans, and perm
 
 After integration, the host or integrator should verify each item:
 
-- [ ] `novel-operating-system` and fifteen neighboring specialized skills can be read.
+- [ ] `novel-operating-system` and sixteen neighboring specialized skills can be read.
 - [ ] After writing a test file, a new agent run/conversation can read it back.
 - [ ] `python3 --version` is ≥ 3.10; if graph exporters are needed, `networkx`/`graphifyy` can be imported.
 - [ ] `python3 scripts/install_novel_os.py --target <SKILLS_DIR> --smoke-test` passes, or items that cannot run are explicitly documented.

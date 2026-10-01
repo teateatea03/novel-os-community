@@ -1,0 +1,38 @@
+name: Signaler un bug — Français
+description: Signaler un défaut reproductible de Novel OS
+title: "[Bug]: "
+labels: [bug]
+body:
+  - type: markdown
+    attributes:
+      value: "N’incluez aucun manuscrit privé, session, donnée personnelle, identifiant d’accès ou recherche non publiée."
+  - type: textarea
+    id: summary
+    attributes:
+      label: Résumé
+      description: Qu’est-ce qui a échoué et quel résultat attendiez-vous ?
+    validations:
+      required: true
+  - type: textarea
+    id: reproduce
+    attributes:
+      label: Reproduction minimale
+      description: Utilisez uniquement des données synthétiques.
+    validations:
+      required: true
+  - type: input
+    id: version
+    attributes:
+      label: Commit ou version
+  - type: textarea
+    id: environment
+    attributes:
+      label: Environnement
+      description: Système d’exploitation, version Python et intégrations facultatives ; supprimez les noms d’utilisateur et chemins locaux.
+  - type: checkboxes
+    id: privacy
+    attributes:
+      label: Confirmation de confidentialité
+      options:
+        - label: J’ai retiré les créations privées, données personnelles, identifiants d’accès et points de terminaison locaux.
+          required: true

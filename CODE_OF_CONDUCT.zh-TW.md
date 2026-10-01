@@ -1,6 +1,6 @@
 # 行為準則
 
-[English](CODE_OF_CONDUCT.md) | 繁體中文
+<!-- language-navigation --> **繁體中文** | [English](CODE_OF_CONDUCT.md) | [日本語](CODE_OF_CONDUCT.ja.md) | [한국어](CODE_OF_CONDUCT.ko.md) | [Español](CODE_OF_CONDUCT.es.md) | [Français](CODE_OF_CONDUCT.fr.md) | [Deutsch](CODE_OF_CONDUCT.de.md) | [Português](CODE_OF_CONDUCT.pt.md)
 
 ## 我們的承諾
 

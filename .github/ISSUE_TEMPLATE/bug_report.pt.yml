@@ -1,0 +1,40 @@
+name: Relatório de erro (Português)
+description: Comunicar um defeito reproduzível do Novel OS
+title: '[Bug]: '
+labels:
+- bug
+body:
+- type: markdown
+  attributes:
+    value: Não inclua manuscritos privados, sessões, dados pessoais, credenciais ou investigação inédita.
+- type: textarea
+  id: summary
+  attributes:
+    label: Resumo
+    description: O que falhou e qual era o resultado esperado?
+  validations:
+    required: true
+- type: textarea
+  id: reproduce
+  attributes:
+    label: Reprodução mínima
+    description: Utilize apenas dados sintéticos.
+  validations:
+    required: true
+- type: input
+  id: version
+  attributes:
+    label: Commit ou versão
+- type: textarea
+  id: environment
+  attributes:
+    label: Ambiente
+    description: Sistema operativo, versão de Python e integrações opcionais; remova nomes de utilizador
+      e caminhos locais.
+- type: checkboxes
+  id: privacy
+  attributes:
+    label: Confirmação de privacidade
+    options:
+    - label: Removi material criativo privado, dados pessoais, credenciais e endpoints locais.
+      required: true

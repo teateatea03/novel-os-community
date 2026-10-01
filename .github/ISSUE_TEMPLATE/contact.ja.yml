@@ -1,0 +1,24 @@
+name: 管理者への連絡（日本語）
+description: 機密情報を含めず、許諾や非公開報告の経路を相談します
+title: '[Contact] '
+body:
+- type: markdown
+  attributes:
+    value: この issue は公開されます。収入、財務諸表、支払記録、取引ハッシュ、認証情報、非公開原稿、脆弱性悪用の詳細、私的な連絡先を含めないでください。適切な非公開経路の用意だけを管理者に依頼してください。
+- type: dropdown
+  id: topic
+  attributes:
+    label: 話題
+    options:
+    - 商用ライセンス版への同意確認と非公開申告
+    - セキュリティ・プライバシーの非公開報告経路
+    - その他の管理者への連絡
+  validations:
+    required: true
+- type: checkboxes
+  id: privacy
+  attributes:
+    label: 公開情報のみ
+    options:
+    - label: 私的、財務的、セキュリティ上の機密情報は含めていません。
+      required: true

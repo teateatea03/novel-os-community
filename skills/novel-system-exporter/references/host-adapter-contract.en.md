@@ -1,8 +1,7 @@
 # Novel OS Host Adapter Contract
 
-Languages: **English** | [繁體中文](host-adapter-contract.md)
+<!-- language-navigation --> [繁體中文](host-adapter-contract.md) | **English** | [日本語](host-adapter-contract.ja.md) | [한국어](host-adapter-contract.ko.md) | [Español](host-adapter-contract.es.md) | [Français](host-adapter-contract.fr.md) | [Deutsch](host-adapter-contract.de.md) | [Português](host-adapter-contract.pt.md)
 
-**Source consistency note:** the Skill router row below says “fifteen specialized skills,” while section C and the current bundle inventory specify one coordinator plus sixteen specialized skills (17 total). This translation preserves the source wording rather than silently changing the contract; reconcile the discrepancy when reviewing the source contract.
 
 This contract is for integrators of AI frameworks other than Minis. Novel OS is not a plugin that can acquire file access, model access, or cross-conversation memory simply by uploading a ZIP. The host must provide the following capabilities for the deployment to qualify as automated.
 
@@ -10,7 +9,7 @@ This contract is for integrators of AI frameworks other than Minis. Novel OS is 
 
 | Capability | Minimum operations | Novel OS use | If unavailable |
 |---|---|---|---|
-| Skill router | `load_skill(name)`/read resource files | The coordinator loads fifteen specialized skills by intent | Manually include the appropriate Skill in the prompt |
+| Skill router | `load_skill(name)`/read resource files | The coordinator loads sixteen specialized skills by intent | Manually include the appropriate Skill in the prompt |
 | Persistent storage | `read(path)`, `write(path)`, `list(path)`, `mkdir(path)` | Project bible, chapters, ledgers, state, graphs, and snapshots | Document-only mode; no guarantee of continuity across runs |
 | Process runner | `run(argv, cwd)` | Run Python initializer, gate, state, and graph tools | Use templates and checklists manually; do not claim validation has run |
 | Project identity | Stable `project_id` → storage root | Read the same novel's state in a new conversation/worker | The user manually supplies files/summaries each time |

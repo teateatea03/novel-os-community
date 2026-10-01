@@ -1,8 +1,7 @@
 # Novel OS Host Adapter Contract
 
-語言：[English](host-adapter-contract.en.md) | **繁體中文**
+<!-- language-navigation --> **繁體中文** | [English](host-adapter-contract.en.md) | [日本語](host-adapter-contract.ja.md) | [한국어](host-adapter-contract.ko.md) | [Español](host-adapter-contract.es.md) | [Français](host-adapter-contract.fr.md) | [Deutsch](host-adapter-contract.de.md) | [Português](host-adapter-contract.pt.md)
 
-**原文一致性註記：**下方 Skill router 列仍寫「十五個專業技能」，但第 C 節及現行套件清單為 1 個總入口＋16 個專業技能（合計 17 個）。雙語版本保留原文措辭並明示差異，待原契約審查時統一，不以翻譯逕改契約。
 
 這份契約給「不是 Minis」的 AI 框架整合者。Novel OS 不是把 ZIP 上傳後就能自行取得檔案權限、模型權限或跨對話記憶的插件；宿主必須提供下列能力，才能稱為自動化部署。
 
@@ -10,7 +9,7 @@
 
 | 能力 | 最小操作 | Novel OS 用途 | 缺少時 |
 |---|---|---|---|
-| Skill router | `load_skill(name)`／讀取資源檔 | 由總入口按意圖載入十五個專業技能 | 改為手動把對應 Skill 放入 prompt |
+| Skill router | `load_skill(name)`／讀取資源檔 | 由總入口按意圖載入十六個專業技能 | 改為手動把對應 Skill 放入 prompt |
 
 | 持久儲存 | `read(path)`、`write(path)`、`list(path)`、`mkdir(path)` | 專案聖經、章節、帳本、state、圖譜與快照 | 僅文件模式，不能承諾跨 run 連續性 |
 | Process runner | `run(argv, cwd)` | 執行 Python initializer、gate、state、graph 工具 | 手工使用模板與 checklist，不可聲稱驗證已跑 |

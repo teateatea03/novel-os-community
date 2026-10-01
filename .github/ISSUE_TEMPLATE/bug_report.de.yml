@@ -1,0 +1,38 @@
+name: Fehler melden — Deutsch
+description: Einen reproduzierbaren Fehler in Novel OS melden
+title: "[Bug]: "
+labels: [bug]
+body:
+  - type: markdown
+    attributes:
+      value: "Keine privaten Manuskripte, Sitzungen, personenbezogenen Daten, Zugangsdaten oder unveröffentlichten Recherchen angeben."
+  - type: textarea
+    id: summary
+    attributes:
+      label: Zusammenfassung
+      description: Was ist fehlgeschlagen und welches Ergebnis haben Sie erwartet?
+    validations:
+      required: true
+  - type: textarea
+    id: reproduce
+    attributes:
+      label: Minimales Reproduktionsbeispiel
+      description: Nur synthetische Daten verwenden.
+    validations:
+      required: true
+  - type: input
+    id: version
+    attributes:
+      label: Commit oder Version
+  - type: textarea
+    id: environment
+    attributes:
+      label: Umgebung
+      description: Betriebssystem, Python-Version und optionale Integrationen; Benutzernamen und lokale Pfade entfernen.
+  - type: checkboxes
+    id: privacy
+    attributes:
+      label: Datenschutzbestätigung
+      options:
+        - label: Ich habe private kreative Inhalte, personenbezogene Daten, Zugangsdaten und lokale Endpunkte entfernt.
+          required: true

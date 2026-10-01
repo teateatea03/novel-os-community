@@ -1,6 +1,6 @@
 # Novel OS
 
-語言：[English](README.md) | **繁體中文**
+<!-- language-navigation --> **繁體中文** | [English](README.md) | [日本語](README.ja.md) | [한국어](README.ko.md) | [Español](README.es.md) | [Français](README.fr.md) | [Deutsch](README.de.md) | [Português](README.pt.md)
 
 Novel OS 是一套可重複使用的 AI 代理技能與本機 Python 工具，適用於長篇小說、互動小說、情節連貫性、角色／世界觀研究、行為一致性、具來源追溯能力的圖譜，以及敘事驗證。
 
@@ -10,7 +10,7 @@ Novel OS 是一套可重複使用的 AI 代理技能與本機 Python 工具，�
 
 ## 語言涵蓋範圍
 
-公開文件提供英文與繁體中文版本。執行用技能、模板及其中的技術參考文件目前保留原有語言。本次雙語文件發布不包含執行用內容的翻譯。
+公開文件提供繁體中文、英文、日文、韓文、西班牙文、法文、德文及葡萄牙文版本。執行用技能、模板及其中的技術參考文件目前保留原有語言。本次八語文件發布不包含執行用內容的翻譯。
 
 ## 隱私邊界
 

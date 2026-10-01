@@ -65,15 +65,16 @@ class DistributionContractTests(unittest.TestCase):
             manifest_path.write_text(json.dumps(manifest), encoding="utf-8")
             self.assertIn("runtime build drift", builder.verify_root(payload))
 
-    def test_bilingual_notices_and_portability_guides_survive_distribution(self):
+    def test_eight_language_notices_and_portability_guides_survive_distribution(self):
         builder = load("build_novel_os_bundle")
         installer = load("install_novel_os")
-        pairs = (("LICENSE", "LICENSE.zh-TW.md"),
-                 ("THIRD_PARTY.md", "THIRD_PARTY.zh-TW.md"),
-                 ("docs/COMMERCIAL_TERMS.md", "docs/COMMERCIAL_TERMS.zh-TW.md"))
-        for pair in pairs:
-            for rel in pair:
-                self.assertIn(rel, builder.REQUIRED_ROOT_NOTICES)
+        expected_notices = {"LICENSE", "THIRD_PARTY.md", "docs/COMMERCIAL_TERMS.md"}
+        for language in ("zh-TW", "ja", "ko", "es", "fr", "de", "pt"):
+            expected_notices.update((f"LICENSE.{language}.md", f"THIRD_PARTY.{language}.md",
+                                     f"docs/COMMERCIAL_TERMS.{language}.md"))
+        self.assertEqual(set(builder.REQUIRED_ROOT_NOTICES), expected_notices)
+        self.assertEqual(len(builder.PORTABILITY_DOCUMENTS), 32)
+        pairs = (sorted(expected_notices),)
         with tempfile.TemporaryDirectory() as tmp:
             with contextlib.redirect_stdout(io.StringIO()):
                 builder.refresh(types.SimpleNamespace(source_root=str(ROOT / "skills"), bundle_root=tmp))
@@ -81,7 +82,7 @@ class DistributionContractTests(unittest.TestCase):
                 target = Path(tmp) / "installed"
                 installer.install(types.SimpleNamespace(bundle_root=str(payload), target=str(target),
                                                         upgrade=False, smoke_test=False))
-                archive = Path(tmp) / "bilingual.zip"
+                archive = Path(tmp) / "eight-language.zip"
                 builder.build(types.SimpleNamespace(bundle_root=str(payload), source_root=None,
                                                     output=str(archive), refresh=False))
             with zipfile.ZipFile(archive) as zipped:
@@ -95,9 +96,11 @@ class DistributionContractTests(unittest.TestCase):
                         for link in re.findall(r"\[[^\]]*\]\(([^)]+)\)", installed.read_text(encoding="utf-8")):
                             if "://" not in link and not link.startswith("#"):
                                 self.assertTrue((installed.parent / link.split("#", 1)[0]).is_file(), link)
-            for name in builder.PORTABILITY_DOCUMENTS:
-                self.assertEqual((payload / "references" / name).read_bytes(),
-                                 (EXPORTER / "references" / name).read_bytes())
+                for name in builder.PORTABILITY_DOCUMENTS:
+                    expected = (EXPORTER / "references" / name).read_bytes()
+                    self.assertEqual((payload / "references" / name).read_bytes(), expected)
+                    self.assertEqual(zipped.read(f"novel-os-portable-v{builder.VERSION}/references/{name}"),
+                                     expected)
             self.assertEqual(installer.verify_installed_notices(target), [])
 
     def test_runtime_version_is_read_without_execution(self):
@@ -111,6 +114,64 @@ class DistributionContractTests(unittest.TestCase):
             source.write_text('RUNTIME_BUILD = str("novel-judge/1.2.3")\n', encoding="utf-8")
             with self.assertRaises(ValueError):
                 builder.runtime_build(root)
+
+
+class PublicDocumentationTests(unittest.TestCase):
+    LANGUAGES = ("en", "zh-TW", "ja", "ko", "es", "fr", "de", "pt")
+    ROOT_STEMS = ("README", "LICENSE", "CONTRIBUTING", "CODE_OF_CONDUCT",
+                  "SECURITY", "THIRD_PARTY", "docs/GETTING_STARTED", "docs/COMMERCIAL_TERMS")
+    REFERENCE_STEMS = ("portable-install", "platform-compatibility",
+                       "host-adapter-contract", "bundle-contract")
+
+    def families(self):
+        for stem in self.ROOT_STEMS:
+            yield {language: ROOT / (stem + ("" if stem == "LICENSE" else ".md")
+                   if language == "en" else f"{stem}.{language}.md")
+                   for language in self.LANGUAGES}
+        for stem in self.REFERENCE_STEMS:
+            yield {language: EXPORTER / "references" /
+                   f"{stem}{'' if language == 'zh-TW' else '.' + language}.md"
+                   for language in self.LANGUAGES}
+
+    def test_all_96_full_documents_have_eight_language_navigation(self):
+        families = list(self.families())
+        self.assertEqual(len(families), 12)
+        for family in families:
+            for language, path in family.items():
+                with self.subTest(path=path.relative_to(ROOT)):
+                    self.assertTrue(path.is_file())
+                    text = path.read_text(encoding="utf-8")
+                    navigation = next(line for line in text.splitlines()
+                                      if line.startswith("<!-- language-navigation -->"))
+                    for target in family.values():
+                        if target != path:
+                            self.assertIn(f"({target.name})", navigation)
+                    self.assertGreater(len(text.splitlines()), 20)
+
+    def test_public_document_relative_links_resolve(self):
+        for family in self.families():
+            for path in family.values():
+                for link in re.findall(r"\[[^\]]*\]\(([^)]+)\)", path.read_text(encoding="utf-8")):
+                    if "://" not in link and not link.startswith("#"):
+                        self.assertTrue((path.parent / link.split("#", 1)[0]).is_file(),
+                                        f"{path.relative_to(ROOT)} -> {link}")
+
+    def test_translated_payment_identifiers_and_license_sections(self):
+        addresses = ("0xE35023A45F4d7c8e070D335Db6Cc4C5c9a3Fe4Bd",
+                     "0x55d398326f99059ff775485246999027b3197955",
+                     "0x8AC76a51cc950d9822D68b83fE1Ad97B32Cd580d")
+        for language in self.LANGUAGES:
+            suffix = "" if language == "en" else "." + language
+            terms = (ROOT / f"docs/COMMERCIAL_TERMS{suffix}.md").read_text(encoding="utf-8")
+            for address in addresses:
+                self.assertIn(address, terms)
+            license_path = ROOT / ("LICENSE" if language == "en" else f"LICENSE.{language}.md")
+            license_text = license_path.read_text(encoding="utf-8")
+            self.assertRegex(license_text, r"0[.,]5\s*%")
+            self.assertRegex(license_text, r"0[.,]005")
+            self.assertIn("2026-10-01", license_text)
+            self.assertIn("teateatea03", license_text)
+            self.assertEqual(len(re.findall(r"^(?:## )?[1-6][.、]", license_text, re.M)), 6)
 
 
 class NoticeRetentionTests(unittest.TestCase):

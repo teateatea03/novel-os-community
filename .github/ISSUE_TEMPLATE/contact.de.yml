@@ -1,0 +1,28 @@
+name: Maintainer kontaktieren — Deutsch
+description: Lizenzierung oder privaten Meldekanal ohne sensible Angaben vereinbaren
+title: "[Contact] "
+body:
+  - type: markdown
+    attributes:
+      value: |
+        Dieses Issue ist öffentlich. Keine Einnahmen, Finanzaufstellungen,
+        Zahlungsbelege, Transaktionshashes, Zugangsdaten, privaten Manuskripte,
+        Details zur Ausnutzung von Sicherheitslücken oder persönlichen Kontaktdaten angeben.
+        Bitten Sie nur um einen geeigneten privaten Kanal mit dem Maintainer.
+  - type: dropdown
+    id: topic
+    attributes:
+      label: Thema
+      options:
+        - Anerkennung der kommerziellen Lizenzversion und private Meldung
+        - Privater Meldekanal für Sicherheit oder Datenschutz
+        - Anderer Kontakt mit dem Maintainer
+    validations:
+      required: true
+  - type: checkboxes
+    id: privacy
+    attributes:
+      label: Nur öffentliche Informationen
+      options:
+        - label: Ich habe keine privaten, finanziellen oder sicherheitssensiblen Angaben aufgenommen
+          required: true

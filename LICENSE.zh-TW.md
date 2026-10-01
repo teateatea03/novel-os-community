@@ -1,4 +1,4 @@
-[English](LICENSE) | 繁體中文
+<!-- language-navigation --> **繁體中文** | [English](LICENSE) | [日本語](LICENSE.ja.md) | [한국어](LICENSE.ko.md) | [Español](LICENSE.es.md) | [Français](LICENSE.fr.md) | [Deutsch](LICENSE.de.md) | [Português](LICENSE.pt.md)
 
 Novel OS 原始碼公開與商業分潤授權 1.0
 生效版本日期：2026-10-01
