@@ -1,5 +1,7 @@
 # Security and privacy policy
 
+English | [繁體中文](SECURITY.zh-TW.md)
+
 ## Supported versions
 
 Security and privacy fixes target the current `main` branch.

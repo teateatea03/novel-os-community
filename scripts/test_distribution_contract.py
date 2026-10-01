@@ -7,6 +7,7 @@ import contextlib
 import io
 import json
 import os
+import re
 from pathlib import Path
 import tempfile
 import types
@@ -63,6 +64,41 @@ class DistributionContractTests(unittest.TestCase):
             manifest["runtime_build"] = "novel-judge/0.0.0"
             manifest_path.write_text(json.dumps(manifest), encoding="utf-8")
             self.assertIn("runtime build drift", builder.verify_root(payload))
+
+    def test_bilingual_notices_and_portability_guides_survive_distribution(self):
+        builder = load("build_novel_os_bundle")
+        installer = load("install_novel_os")
+        pairs = (("LICENSE", "LICENSE.zh-TW.md"),
+                 ("THIRD_PARTY.md", "THIRD_PARTY.zh-TW.md"),
+                 ("docs/COMMERCIAL_TERMS.md", "docs/COMMERCIAL_TERMS.zh-TW.md"))
+        for pair in pairs:
+            for rel in pair:
+                self.assertIn(rel, builder.REQUIRED_ROOT_NOTICES)
+        with tempfile.TemporaryDirectory() as tmp:
+            with contextlib.redirect_stdout(io.StringIO()):
+                builder.refresh(types.SimpleNamespace(source_root=str(ROOT / "skills"), bundle_root=tmp))
+                payload = Path(tmp) / "payload"
+                target = Path(tmp) / "installed"
+                installer.install(types.SimpleNamespace(bundle_root=str(payload), target=str(target),
+                                                        upgrade=False, smoke_test=False))
+                archive = Path(tmp) / "bilingual.zip"
+                builder.build(types.SimpleNamespace(bundle_root=str(payload), source_root=None,
+                                                    output=str(archive), refresh=False))
+            with zipfile.ZipFile(archive) as zipped:
+                for pair in pairs:
+                    for rel in pair:
+                        expected = (ROOT / rel).read_bytes()
+                        self.assertEqual((payload / rel).read_bytes(), expected)
+                        installed = target / installer.NOTICE_DIR / rel
+                        self.assertEqual(installed.read_bytes(), expected)
+                        self.assertEqual(zipped.read(f"novel-os-portable-v{builder.VERSION}/{rel}"), expected)
+                        for link in re.findall(r"\[[^\]]*\]\(([^)]+)\)", installed.read_text(encoding="utf-8")):
+                            if "://" not in link and not link.startswith("#"):
+                                self.assertTrue((installed.parent / link.split("#", 1)[0]).is_file(), link)
+            for name in builder.PORTABILITY_DOCUMENTS:
+                self.assertEqual((payload / "references" / name).read_bytes(),
+                                 (EXPORTER / "references" / name).read_bytes())
+            self.assertEqual(installer.verify_installed_notices(target), [])
 
     def test_runtime_version_is_read_without_execution(self):
         builder = load("build_novel_os_bundle")

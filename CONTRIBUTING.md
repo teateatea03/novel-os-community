@@ -1,5 +1,7 @@
 # Contributing to Novel OS
 
+English | [繁體中文](CONTRIBUTING.zh-TW.md)
+
 Thank you for helping improve Novel OS. Contributions must preserve the project's source-available commercial terms and the privacy boundary.
 
 ## Privacy and rights are release blockers

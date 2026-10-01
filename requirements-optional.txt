@@ -1,8 +1,9 @@
-# Core runtime is Python 3.10+ standard library.
-# Optional features and included tests use these packages.
+# Core runtime is Python 3.10+ standard library. / 核心執行環境為 Python 3.10+ 標準函式庫。
+# Optional features and included tests use these packages. / 選用功能與相關測試使用以下套件。
 networkx>=3.2,<4
 PyYAML>=6,<7
 mcp>=1.0,<2
 
 # Optional Graphify analysis/export integration is distributed separately as
 # the `graphifyy` project; follow its installation and license documentation.
+# 選用 Graphify 分析／匯出整合以 graphifyy 專案另行散布；請遵循其安裝及授權文件。

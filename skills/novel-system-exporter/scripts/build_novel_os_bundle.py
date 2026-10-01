@@ -28,13 +28,17 @@ IGNORE_PARTS = {".git", ".DS_Store", "__pycache__", "node_modules", "dist", "bui
 IGNORE_SUFFIXES = {".pyc", ".pyo"}
 # Deliberately enumerate approved distribution documents, never export docs/*.
 # The discussion draft is not an operative license and is not in this list.
-REQUIRED_ROOT_NOTICES = ("LICENSE", "THIRD_PARTY.md", "docs/COMMERCIAL_TERMS.md")
+REQUIRED_ROOT_NOTICES = ("LICENSE", "LICENSE.zh-TW.md", "THIRD_PARTY.md",
+                         "THIRD_PARTY.zh-TW.md", "docs/COMMERCIAL_TERMS.md",
+                         "docs/COMMERCIAL_TERMS.zh-TW.md")
 REQUIRED_SKILL_NOTICES = ("skills/novel-human-voice-editor/THIRD_PARTY_LICENSES/Humanizer-zh-MIT.txt",)
 ROOT_NOTICE_PATHS = (*REQUIRED_ROOT_NOTICES, "LICENSE.md", "LICENSE.txt",
                      "NOTICE", "NOTICE.md", "NOTICE.txt", "docs/COMMERCIAL_LICENSE.md")
 NOTICE_NAMES = {"LICENSE", "LICENSE.md", "LICENSE.txt", "COPYING", "COPYING.md",
                 "COPYING.txt", "NOTICE", "NOTICE.md", "NOTICE.txt", "THIRD_PARTY.md"}
-PORTABILITY_DOCUMENTS = ("portable-install.md", "platform-compatibility.md", "host-adapter-contract.md", "bundle-contract.md")
+PORTABILITY_DOCUMENTS = ("portable-install.md", "platform-compatibility.md", "host-adapter-contract.md", "bundle-contract.md",
+                         "portable-install.en.md", "platform-compatibility.en.md",
+                         "host-adapter-contract.en.md", "bundle-contract.en.md")
 RELEASE_SCRIPTS = ("build_novel_os_bundle.py", "install_novel_os.py", "verify_novel_os.py")
 
 HERE = Path(__file__).resolve().parent

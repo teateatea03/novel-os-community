@@ -1,10 +1,16 @@
 # Novel OS
 
+Languages: **English** | [繁體中文](README.zh-TW.md)
+
 Novel OS is a reusable collection of AI-agent skills and local Python tooling for long-form fiction, interactive fiction, continuity, character/world research, behavioral consistency, provenance-aware graphs, and narrative validation.
 
 > **License:** source-available under the [Novel OS commercial profit-share license](LICENSE), copyright teateatea03. Noncommercial use is free; commercial use owes 0.5% of annual related positive net profit. Modifications and redistribution keep the same terms and notices. This is not MIT, GPL, or an OSI-open-source license.
 
-商用與雙幣收款資料見 [商用分潤與付款說明](docs/COMMERCIAL_TERMS.md)。使用者的小說及其他產出權利不轉移給系統方。
+For commercial-use and dual-token payment details, see [commercial profit sharing and payment information](docs/COMMERCIAL_TERMS.md). Rights to users’ novels and other outputs are not transferred to the system owner.
+
+## Language coverage
+
+Public documentation is available in English and Traditional Chinese. Runtime skills, templates, and their technical references currently retain their original language. This bilingual documentation release does not translate the runtime.
 
 ## Privacy boundary
 

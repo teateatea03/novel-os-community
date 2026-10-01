@@ -1,5 +1,5 @@
-name: Contact the maintainer
-description: Arrange licensing or a private reporting channel without sensitive details
+name: Contact the maintainer / 聯絡維護者
+description: Arrange licensing or a private reporting channel without sensitive details / 安排授權或私下通報管道，不附敏感細節
 title: "[Contact] "
 body:
   - type: markdown
@@ -9,20 +9,23 @@ body:
         payment records, transaction hashes, credentials, private manuscripts,
         security exploit details, or personal contact information.
         Ask only to arrange an appropriate private channel with the maintainer.
+        此 issue 是公開的。請勿包含收入、財務報表、付款紀錄、交易雜湊、憑證、
+        私人小說原稿、安全漏洞利用細節或私人聯絡資料。
+        僅請維護者安排適當的私下管道。
   - type: dropdown
     id: topic
     attributes:
-      label: Topic
+      label: Topic / 主題
       options:
-        - Commercial license version acknowledgment and private reporting
-        - Private security or privacy reporting channel
-        - Other maintainer contact
+        - Commercial license version acknowledgment and private reporting / 商用授權版本確認與私下申報
+        - Private security or privacy reporting channel / 安全或隱私的私下通報管道
+        - Other maintainer contact / 其他維護者聯絡事項
     validations:
       required: true
   - type: checkboxes
     id: privacy
     attributes:
-      label: Public information only
+      label: Public information only / 僅含公開資訊
       options:
-        - label: I have not included private, financial, or security-sensitive details
+        - label: I have not included private, financial, or security-sensitive details / 我未加入私人、財務或安全敏感細節
           required: true

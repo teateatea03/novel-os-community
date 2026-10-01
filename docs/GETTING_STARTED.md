@@ -1,6 +1,12 @@
 # Local setup and portable installation
 
+Languages: **English** | [繁體中文](GETTING_STARTED.zh-TW.md)
+
 This guide covers the local runtime and portable bundle. Use and redistribution are governed by [LICENSE](../LICENSE); commercial reporting and payment details are in [COMMERCIAL_TERMS.md](COMMERCIAL_TERMS.md).
+
+## Language coverage
+
+Public documentation is available in English and Traditional Chinese. Runtime skills, templates, and their technical references currently retain their original language. This bilingual documentation release does not translate the runtime.
 
 ## Choose a mode
 
@@ -54,7 +60,7 @@ python3 "$EXPORTER/build_novel_os_bundle.py" build \
   --output "$BUNDLE_WORK/novel-os-review.zip"
 ```
 
-The manifest lists and hashes all packaged files, including the project LICENSE, commercial terms, THIRD_PARTY.md, and the Humanizer-zh notice inside its adapted skill. Keep those notices with the archive and installation. The installer retains project-level notices under `novel-operating-system/DISTRIBUTION_NOTICES/` rather than overwriting the host's root license.
+The manifest lists and hashes all packaged files, including both language versions of the project license, commercial terms, and third-party guide, plus the unchanged Humanizer-zh notice inside its adapted skill. Keep those notices with the archive and installation. The installer retains project-level notices under `novel-operating-system/DISTRIBUTION_NOTICES/` rather than overwriting the host's root license.
 
 ## Optional features
 
@@ -73,4 +79,4 @@ The file lists compatibility ranges, not a reproducible lock. If you enable an o
 - Independent model review needs a host-specific replacement for `minis-model-use` outside its original host. If unavailable, record it as not run
 - `lieflat-less-ai-tone` is not bundled. Its source/license must be verified separately; without it, use the built-in human-voice workflow and record the extra pass as not run
 
-See [THIRD_PARTY.md](../THIRD_PARTY.md), [platform compatibility](../skills/novel-system-exporter/references/platform-compatibility.md), and the [host adapter contract](../skills/novel-system-exporter/references/host-adapter-contract.md). Windows/native host and optional-service tests are separate acceptance work; a Linux smoke test does not verify them.
+See [THIRD_PARTY.md](../THIRD_PARTY.md), [platform compatibility](../skills/novel-system-exporter/references/platform-compatibility.en.md), and the [host adapter contract](../skills/novel-system-exporter/references/host-adapter-contract.en.md). Windows/native host and optional-service tests are separate acceptance work; a Linux smoke test does not verify them.

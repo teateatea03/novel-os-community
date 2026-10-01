@@ -1,5 +1,7 @@
 # Code of Conduct
 
+English | [繁體中文](CODE_OF_CONDUCT.zh-TW.md)
+
 ## Our commitment
 
 We are committed to a respectful, harassment-free collaboration environment for everyone, regardless of background, identity, experience level, or role.

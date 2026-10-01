@@ -1,41 +1,43 @@
-Novel OS 原始碼公開與商業分潤授權 1.0
-生效版本日期：2026-10-01
+Novel OS Source-Available and Commercial Profit-Sharing License 1.0
+Effective version date: 2026-10-01
 Copyright (c) 2026 teateatea03
 
-本授權是自訂 source-available 授權，不是 MIT、GPL 或 OSI 標準開源授權。
+English | Traditional Chinese: LICENSE.zh-TW.md
 
-1. 適用範圍及允許的使用
+This is a custom source-available license, not the MIT, GPL, or an OSI-standard open-source license.
 
-本授權適用於 Novel OS 中由 teateatea03 有權授權的程式、技能文件、模板及範例。第三方材料依其原有授權處理，詳見 THIRD_PARTY.md；本授權不限制那些授權已給予的權利。
+1. Scope and permitted use
 
-遵守本授權者，可以使用、複製、修改及再散布本系統。非商業使用免費。商業使用須接受及履行以下分潤條件。再散布原版或修改版時，須保留本授權、版權及第三方聲明；修改版沿用本授權相同條件，並清楚標示修改。不得將修改版聲稱為原作者未修改的版本。
+This license applies to the programs, skill documentation, templates, and examples in Novel OS that teateatea03 has the right to license. Third-party materials remain subject to their original licenses; see THIRD_PARTY.md. This license does not restrict rights granted by those licenses.
 
-2. 商用分潤範圍
+Anyone complying with this license may use, copy, modify, and redistribute the system. Noncommercial use is free. Commercial use requires acceptance of and compliance with the profit-sharing terms below. Redistribution of original or modified versions must retain this license, copyright notices, and third-party notices. Modified versions remain under the same terms of this license and must clearly identify modifications. A modified version must not be represented as the original author's unmodified version.
 
-商業使用者應支付使用本系統或其修改版所產生的相關產品、服務及小說之年度正淨利的 0.5%。計算範圍不包括未使用本系統的其他作品、產品、服務或無關業務。
+2. Scope of commercial profit sharing
 
-每個曆年合計全部相關標的的實際收入，扣除退款、實際合理且可歸屬的成本、費用及稅負。同一筆收入或成本不得重複計入；無關業務支出不列入，本次分潤本身先不扣除。共同成本按使用者一致、合理的帳務方式分攤。
+Commercial users must pay 0.5% of the annual positive net profit from related products, services, and novels generated through use of this system or its modified versions. The calculation excludes other works, products, services, and unrelated business that did not use this system.
 
-年度合計淨利大於零時，應付額為年度相關淨利乘以 0.005；合計為零或虧損時不付分潤。虧損不得跨年抵扣。既有相關作品、產品或服務在以後年度仍持續產生正淨利時，仍按此方式計算；停止使用工具不會自動免除這些既有相關標的的分潤，新製作且未使用本系統的標的不因此納入。
+For each calendar year, aggregate the actual revenue from all related items and deduct refunds and actual, reasonable, attributable costs, expenses, and taxes. No revenue or cost may be counted twice. Unrelated business expenses are excluded, and this profit-sharing payment itself is not deducted before the calculation. Shared costs are allocated using the user's consistent and reasonable accounting method.
 
-義務由實際使用本系統並接受商用條款的使用者承擔。出版社、客戶或讀者不因收到作品就自動成為付款義務人。小說作者自行授權出版社時，以作者取得的相關收入計算其淨利，不將出版社無關的銷售或利潤列為作者收入。
+When the aggregate annual net profit is greater than zero, the amount payable is the annual related net profit multiplied by 0.005. No profit-sharing payment is due when the aggregate is zero or a loss. Losses may not be carried across years. Existing related works, products, or services that continue to generate positive net profit in later years remain subject to this calculation. Stopping use of the tools does not automatically remove the profit-sharing obligations for those existing related items. Newly created items that do not use this system are not included merely for that reason.
 
-3. 年度申報與付款
+The obligations are borne by the user who actually uses this system and accepts the commercial terms. Publishers, clients, or readers do not automatically become payment obligors by receiving a work. When a novelist independently licenses a work to a publisher, the author's net profit is calculated from the related revenue received by the author; the publisher's unrelated sales or profits are not treated as the author's revenue.
 
-按曆年 1 月 1 日至 12 月 31 日結算，於次年 3 月 31 日前自行申報並支付前一年度應付分潤。申報列出相關標的、收入、合理成本與稅負合計、淨利及分潤金額；無正淨利者簡短申報即可。
+3. Annual reporting and payment
 
-外幣依使用者一致的帳務匯率換算美元，申報時註明匯率來源及採用日期。每 1 美元應付額，以 1 USDT 或 1 USDC 支付；使用 BNB Smart Chain 主網（BSC，chain ID 56），網路轉帳費由付款者負擔。這是付款計價約定，不是對穩定幣市場價格、儲備或可贖回性的保證。收款地址及可接受的 Binance-Peg 代幣合約列於 docs/COMMERCIAL_TERMS.md；付款前須確認幣種、網路、合約及收款資料，不將代幣合約當成收款地址。
+The accounting period is the calendar year, January 1 through December 31. Users must self-report and pay the previous year's profit-sharing amount by March 31 of the following year. The report lists related items, revenue, total reasonable costs and taxes, net profit, and the profit-sharing amount. A short report is sufficient when there is no positive net profit.
 
-4. 誠實申報與明確接受
+Convert foreign currencies to US dollars using the user's consistent accounting exchange rate, and state the exchange-rate source and date used in the report. Each US dollar payable is paid with 1 USDT or 1 USDC on the BNB Smart Chain mainnet (BSC, chain ID 56). The payer bears the network transfer fees. This is a payment-denomination agreement, not a guarantee of stablecoin market prices, reserves, or redeemability. The receiving address and accepted Binance-Peg token contracts are listed in docs/COMMERCIAL_TERMS.md. Before paying, confirm the token, network, contract, and receiving details; do not treat a token contract as the receiving address.
 
-商用前，使用者應明確表示接受「Novel OS 原始碼公開與商業分潤授權 1.0」，並保留書面或電子紀錄。只瀏覽原始碼不視為接受付款契約。可先用不含財務資料的 GitHub issue 聯絡維護者，確認接受版本及私下申報管道；不要在公開 issue 張貼財務摘要、付款資料或私人作品。
+4. Honest reporting and explicit acceptance
 
-分潤採誠實自行申報，並非自願贊助。本系統不為此加入隱藏遙測、自動扣款或強制查帳功能；需要釐清時先聯絡使用者。申報僅使用必要資料，維護者應保密，不要求無關業務資料或小說原稿。涉及依法必須揭露的資料，依適用法律處理。
+Before commercial use, the user must explicitly indicate acceptance of “Novel OS Source-Available and Commercial Profit-Sharing License 1.0” (Novel OS 原始碼公開與商業分潤授權 1.0) and retain a written or electronic record. Merely browsing the source code does not constitute acceptance of a payment contract. Users may first contact the maintainer through a GitHub issue containing no financial information to confirm the accepted version and a private reporting channel. Do not post financial summaries, payment information, or private works in public issues.
 
-5. 作品及第三方權利
+Profit sharing is based on honest self-reporting; it is not a voluntary donation. The system does not add hidden telemetry, automatic debiting, or compulsory auditing features for this purpose. Users will be contacted first if clarification is needed. Reports use only necessary information, which the maintainer must keep confidential. Unrelated business information or novel manuscripts are not required. Information that must be disclosed by law is handled in accordance with applicable law.
 
-使用 Novel OS 不會使使用者的小說、人物、世界觀或其他產出歸 teateatea03 所有，本授權不要求轉讓或共有那些權利。產出本身不因使用工具就自動成為本系統程式的修改版；上述商用分潤是使用者接受的使用條件，不是宣稱工具著作權自然涵蓋所有產出。使用者仍須尊重作品原有權利、第三方授權及所用模型／服務的條件。
+5. Rights in works and third-party rights
 
-6. 再散布及版本
+Using Novel OS does not make the user's novels, characters, worldbuilding, or other outputs the property of teateatea03. This license does not require transfer or joint ownership of those rights. Outputs do not automatically become modified versions of the system's programs merely because the tools were used. The commercial profit sharing above is a condition of use accepted by the user, not a claim that copyright in the tools naturally extends to every output. Users must still respect existing rights in works, third-party licenses, and the terms of the models or services used.
 
-再散布者須讓接收者取得本授權及必要第三方聲明，不得替他人表示接受商用付款條件。之後若有新授權版本，不會僅因新版發布而自動取代已接受的本版本。其他使用方式可另與 teateatea03 協議，未另有明確協議時依本版本處理。
+6. Redistribution and versions
+
+Redistributors must make this license and the necessary third-party notices available to recipients, and may not accept the commercial payment terms on someone else's behalf. A later license version does not automatically replace this accepted version merely because the new version is published. Other uses may be separately agreed with teateatea03. Unless otherwise expressly agreed, this version applies.

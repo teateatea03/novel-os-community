@@ -1,8 +1,8 @@
 # Portable Novel OS Bundle Contract
 
-語言：[English](bundle-contract.en.md) | **繁體中文**
+Languages: **English** | [繁體中文](bundle-contract.md)
 
-`novel-os-portable-v<version>/` 套件 layout 內，`skills/` 會包含 1 個總入口與 16 個專業技能；其中 `public-web-research/` 提供安全、可恢復的公開 HTTP(S) acquisition 與 Evidence Run candidate staging，`novel-model-capability-compatibility/` 保存模型能力 probe／L0–L5／fallback 契約，`novel-reality-state-engine/` 保存事件→狀態→能力→行為→正文驗證工具，`novel-world-database-builder/` 保存世界資料庫 schema、批次模板、交接包與查詢規格，`special-object-database-builder/` 保存道具／鎧甲／機體／裝置的版本、能力、規格與生命週期 schema。
+In the `novel-os-portable-v<version>/` package layout, `skills/` contains one coordinator and 16 specialized skills. `public-web-research/` provides safe, resumable public HTTP(S) acquisition and Evidence Run candidate staging. `novel-model-capability-compatibility/` maintains the model-capability probe/L0–L5/fallback contracts. `novel-reality-state-engine/` maintains the event → state → capability → behavior → prose validation tools. `novel-world-database-builder/` maintains world-database schemas, batch templates, handoff packages, and query specifications. `special-object-database-builder/` maintains version, capability, specification, and lifecycle schemas for props/armor/mechs/devices.
 
 ```text
 novel-os-portable-v<version>/
@@ -65,7 +65,7 @@ novel-os-portable-v<version>/
 Every release must ship all eight explicitly allowlisted portability references: `references/portable-install.md`, `references/portable-install.en.md`, `references/platform-compatibility.md`, `references/platform-compatibility.en.md`, `references/host-adapter-contract.md`, `references/host-adapter-contract.en.md`, `references/bundle-contract.md`, and `references/bundle-contract.en.md`. Declare these levels truthfully:
 
 - **Baseline document workflow**: an LLM that can read the Skill files; no code execution required.
-- **自動化本地工作流（v2.7）**：Python 3.10+（建議 3.11+）、shell/process runner、持久 UTF-8 檔案、多技能發現或等價 router、branch lock、單一 `ProjectRuntimeAdapter.commit()` production authority、七 Gate、typed semantic event、project readiness／projection freshness、author feedback Quality Eval，以及（若以 ZIP 分發）解壓能力。世界資料庫另需可寫入的 `WORLD_DATABASE_ROOT`／`WORLD_DATABASE_WORK_ROOT`；特殊物資料庫另需可寫入的 `SPECIAL_OBJECT_DATABASE_ROOT`／`SPECIAL_OBJECT_DATABASE_WORK_ROOT`。
+- **Automated local workflow (v2.7)**: Python 3.10+ (3.11+ recommended), a shell/process runner, persistent UTF-8 files, multi-skill discovery or an equivalent router, a branch lock, a single `ProjectRuntimeAdapter.commit()` production authority, seven Gates, typed semantic events, project readiness/projection freshness, author-feedback Quality Eval, and extraction capability if distributed as a ZIP. World databases additionally require writable `WORLD_DATABASE_ROOT`/`WORLD_DATABASE_WORK_ROOT`; special-object databases additionally require writable `SPECIAL_OBJECT_DATABASE_ROOT`/`SPECIAL_OBJECT_DATABASE_WORK_ROOT`.
 - **Graph enhancement**: `networkx` for graph traversal; `graphifyy` plus `networkx` for Graphify HTML/community/Cypher exports. The graph JSON itself remains usable without either package.
 - **Optional integrations**: Git for commits, web/browser tools for source research, and a host-specific second-model/sub-agent adapter for independent review. `independent_review.py` is Minis-specific until replaced.
 
@@ -74,7 +74,7 @@ No Node.js, database server, API key, or internet connection is required for the
 
 ## Build policy
 
-- Payload 必須包含 **17 個** allowlisted skill directories（1 個總入口＋16 個專業技能）、可攜參考文件、安裝／建置腳本及一般文字／來源／fixture／template 檔案。
+- The payload must contain **17** allowlisted skill directories (one coordinator + 16 specialized skills), portability references, installation/build scripts, and ordinary text/source/fixture/template files.
 - Exclude `.git`, `.DS_Store`, `__pycache__`, `*.pyc`, `.env*`, `node_modules`, `dist`, `build`, all novel projects, databases, archives and system-specific files.
 - Reject symlinks in the source skills path or any packaged skill before changing the payload; never follow a skill link into unrelated host files. Existing unapproved payload documents also fail refresh instead of silently entering a new manifest.
 - Preserve executable bits for `scripts/*.py` where the source has them.
@@ -88,8 +88,8 @@ No Node.js, database server, API key, or internet connection is required for the
 1. initialize a temporary novel project under active production authority;
 2. verify direct FileStore canonical mutation is fenced;
 3. execute the full Novel Judge suite, including Gate authority, readiness, command executor, Quality Eval v2, typed semantic events and traditional long-form production;
-4. run the graph validator and long-form／Reality／capability regressions;
+4. run the graph validator and long-form/Reality/capability regressions;
 5. verify the bundled skill set and source-set drift; and
-6. for a full release, run the isolated second-project contract probe plus 100k+ traditional long-form／knowledge-reversal／cascade pilot.
+6. for a full release, run the isolated second-project contract probe plus 100k+ traditional long-form/knowledge-reversal/cascade pilot.
 
 A platform that cannot execute Python is supported only at workflow/document level; call that limitation out in the handoff.

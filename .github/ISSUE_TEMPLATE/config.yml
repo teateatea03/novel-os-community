@@ -1,5 +1,5 @@
 blank_issues_enabled: true
 contact_links:
-  - name: Security or privacy report
+  - name: Security or privacy report / 安全或隱私通報
     url: https://github.com/teateatea03/novel-os-community/security
-    about: Do not disclose sensitive material in a public issue.
+    about: Do not disclose sensitive material in a public issue. 請勿在公開 issue 揭露敏感材料。

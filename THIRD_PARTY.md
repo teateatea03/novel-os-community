@@ -1,5 +1,7 @@
 # Third-party components and references
 
+English | [繁體中文](THIRD_PARTY.zh-TW.md)
+
 Novel OS contains original project code and documentation that interoperates with, or discusses, third-party projects. Unless a file explicitly says otherwise, third-party projects are **not vendored** into this repository.
 
 ## Runtime or optional dependencies
