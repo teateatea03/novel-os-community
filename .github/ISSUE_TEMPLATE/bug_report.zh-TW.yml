@@ -1,0 +1,39 @@
+name: 錯誤回報（繁體中文）
+description: 回報可重現的 Novel OS 問題
+title: '[Bug]: '
+labels:
+- bug
+body:
+- type: markdown
+  attributes:
+    value: 請勿包含私人原稿、工作階段、個資、憑證或未公開研究。
+- type: textarea
+  id: summary
+  attributes:
+    label: 摘要
+    description: 哪裡出錯？預期結果為何？
+  validations:
+    required: true
+- type: textarea
+  id: reproduce
+  attributes:
+    label: 最小重現步驟
+    description: 僅使用合成資料。
+  validations:
+    required: true
+- type: input
+  id: version
+  attributes:
+    label: 提交或版本
+- type: textarea
+  id: environment
+  attributes:
+    label: 環境
+    description: 請列出作業系統、Python 版本及選用整合；移除使用者名稱與本機路徑。
+- type: checkboxes
+  id: privacy
+  attributes:
+    label: 隱私確認
+    options:
+    - label: 我已移除私人創作、個資、憑證及本機端點。
+      required: true

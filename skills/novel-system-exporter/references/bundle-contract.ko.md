@@ -10,12 +10,38 @@
 novel-os-portable-v<version>/
 ├── MANIFEST.json
 ├── LICENSE
-├── LICENSE.{zh-TW,ja,ko,es,fr,de,pt}.md
 ├── THIRD_PARTY.md
-├── THIRD_PARTY.{zh-TW,ja,ko,es,fr,de,pt}.md
 ├── docs/
 │   ├── COMMERCIAL_TERMS.md
-│   └── COMMERCIAL_TERMS.{zh-TW,ja,ko,es,fr,de,pt}.md
+│   └── i18n/
+│       ├── zh-TW/
+│       │   ├── LICENSE.md
+│       │   ├── THIRD_PARTY.md
+│       │   └── COMMERCIAL_TERMS.md
+│       ├── ja/
+│       │   ├── LICENSE.md
+│       │   ├── THIRD_PARTY.md
+│       │   └── COMMERCIAL_TERMS.md
+│       ├── ko/
+│       │   ├── LICENSE.md
+│       │   ├── THIRD_PARTY.md
+│       │   └── COMMERCIAL_TERMS.md
+│       ├── es/
+│       │   ├── LICENSE.md
+│       │   ├── THIRD_PARTY.md
+│       │   └── COMMERCIAL_TERMS.md
+│       ├── fr/
+│       │   ├── LICENSE.md
+│       │   ├── THIRD_PARTY.md
+│       │   └── COMMERCIAL_TERMS.md
+│       ├── de/
+│       │   ├── LICENSE.md
+│       │   ├── THIRD_PARTY.md
+│       │   └── COMMERCIAL_TERMS.md
+│       └── pt/
+│           ├── LICENSE.md
+│           ├── THIRD_PARTY.md
+│           └── COMMERCIAL_TERMS.md
 ├── references/
 │   ├── portable-install.md
 │   ├── portable-install.{en,ja,ko,es,fr,de,pt}.md
@@ -55,7 +81,7 @@ novel-os-portable-v<version>/
 
 ## 라이선스와 고지 보존
 
-- `--source-root`는 소스 `skills/` 디렉터리를 가리킵니다. 그 부모 저장소에는 필수 고지 24개 모두가 있어야 합니다. 영어 `LICENSE`, `THIRD_PARTY.md`, `docs/COMMERCIAL_TERMS.md` 및 `zh-TW`, `ja`, `ko`, `es`, `fr`, `de`, `pt` 각각의 `LICENSE.<language>.md`, `THIRD_PARTY.<language>.md`, `docs/COMMERCIAL_TERMS.<language>.md`입니다. refresh는 필수 문서가 없거나 일반 파일이 아니거나 심볼릭 링크이면 페이로드 변경 전에 거부합니다. 이는 소유자가 선택한 프로젝트 조건이며 업스트림 고지는 원래 적용 범위를 유지합니다
+- `--source-root`는 소스 `skills/` 디렉터리를 가리킵니다. 그 부모 저장소에는 필수 고지 24개 모두가 있어야 합니다. 영어 `LICENSE`, `THIRD_PARTY.md`, `docs/COMMERCIAL_TERMS.md` 및 `zh-TW`, `ja`, `ko`, `es`, `fr`, `de`, `pt` 각각의 `docs/i18n/<language>/LICENSE.md`, `docs/i18n/<language>/THIRD_PARTY.md`, `docs/i18n/<language>/COMMERCIAL_TERMS.md`입니다. refresh는 필수 문서가 없거나 일반 파일이 아니거나 심볼릭 링크이면 페이로드 변경 전에 거부합니다. 이는 소유자가 선택한 프로젝트 조건이며 업스트림 고지는 원래 적용 범위를 유지합니다
 - 추가 명시적 허용 목록은 `LICENSE.md`, `LICENSE.txt`, `NOTICE`, `NOTICE.md`, `NOTICE.txt`, `docs/COMMERCIAL_LICENSE.md`입니다. 있으면 바이트 단위로 그대로 복사합니다. 그 외 루트 `docs/` 파일은 내보내지 않습니다. 특히 `docs/COMMERCIAL_LICENSE_DISCUSSION.zh-TW.md`는 효력이 없는 논의용 초안으로 라이선스나 상업적 조건으로 내보내지 않습니다
 - 스킬 내부의 `LICENSE`, `LICENSE.md`, `LICENSE.txt`, `COPYING`, `COPYING.md`, `COPYING.txt`, `NOTICE`, `NOTICE.md`, `NOTICE.txt`, `THIRD_PARTY.md` 및 `THIRD_PARTY_LICENSES/`의 모든 파일은 스킬과 함께 보존하며 `distribution_notices`에 선언합니다. refresh는 소스와 바이트를 대조하고 build·install은 선언 누락, 파일 누락, 바이트 변경, 위험한 경로 또는 해시 항목 누락을 거부합니다
 - 기존 Humanizer-zh 각색 자료에는 `skills/novel-human-voice-editor/THIRD_PARTY_LICENSES/Humanizer-zh-MIT.txt`가 특별히 필요합니다. 해당 자료를 배포하는 동안 소스나 매니페스트에서 제거할 수 없습니다

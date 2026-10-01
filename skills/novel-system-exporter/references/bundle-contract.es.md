@@ -10,30 +10,38 @@ En la estructura del paquete `novel-os-portable-v<version>/`, `skills/` contiene
 novel-os-portable-v<version>/
 ├── MANIFEST.json
 ├── LICENSE
-├── LICENSE.zh-TW.md
-├── LICENSE.ja.md
-├── LICENSE.ko.md
-├── LICENSE.es.md
-├── LICENSE.fr.md
-├── LICENSE.de.md
-├── LICENSE.pt.md
 ├── THIRD_PARTY.md
-├── THIRD_PARTY.zh-TW.md
-├── THIRD_PARTY.ja.md
-├── THIRD_PARTY.ko.md
-├── THIRD_PARTY.es.md
-├── THIRD_PARTY.fr.md
-├── THIRD_PARTY.de.md
-├── THIRD_PARTY.pt.md
 ├── docs/
 │   ├── COMMERCIAL_TERMS.md
-│   ├── COMMERCIAL_TERMS.zh-TW.md
-│   ├── COMMERCIAL_TERMS.ja.md
-│   ├── COMMERCIAL_TERMS.ko.md
-│   ├── COMMERCIAL_TERMS.es.md
-│   ├── COMMERCIAL_TERMS.fr.md
-│   ├── COMMERCIAL_TERMS.de.md
-│   └── COMMERCIAL_TERMS.pt.md
+│   └── i18n/
+│       ├── zh-TW/
+│       │   ├── LICENSE.md
+│       │   ├── THIRD_PARTY.md
+│       │   └── COMMERCIAL_TERMS.md
+│       ├── ja/
+│       │   ├── LICENSE.md
+│       │   ├── THIRD_PARTY.md
+│       │   └── COMMERCIAL_TERMS.md
+│       ├── ko/
+│       │   ├── LICENSE.md
+│       │   ├── THIRD_PARTY.md
+│       │   └── COMMERCIAL_TERMS.md
+│       ├── es/
+│       │   ├── LICENSE.md
+│       │   ├── THIRD_PARTY.md
+│       │   └── COMMERCIAL_TERMS.md
+│       ├── fr/
+│       │   ├── LICENSE.md
+│       │   ├── THIRD_PARTY.md
+│       │   └── COMMERCIAL_TERMS.md
+│       ├── de/
+│       │   ├── LICENSE.md
+│       │   ├── THIRD_PARTY.md
+│       │   └── COMMERCIAL_TERMS.md
+│       └── pt/
+│           ├── LICENSE.md
+│           ├── THIRD_PARTY.md
+│           └── COMMERCIAL_TERMS.md
 ├── references/
 │   ├── portable-install.md
 │   ├── portable-install.en.md
@@ -95,7 +103,7 @@ novel-os-portable-v<version>/
 
 ## Conservación de licencias y avisos
 
-- `--source-root` identifica el directorio de origen `skills/`. Su repositorio padre debe contener los 24 documentos de proyecto para ocho idiomas: `LICENSE`, `LICENSE.zh-TW.md`, `LICENSE.ja.md`, `LICENSE.ko.md`, `LICENSE.es.md`, `LICENSE.fr.md`, `LICENSE.de.md`, `LICENSE.pt.md`; `THIRD_PARTY.md`, `THIRD_PARTY.zh-TW.md`, `THIRD_PARTY.ja.md`, `THIRD_PARTY.ko.md`, `THIRD_PARTY.es.md`, `THIRD_PARTY.fr.md`, `THIRD_PARTY.de.md`, `THIRD_PARTY.pt.md`; y `docs/COMMERCIAL_TERMS.md`, `docs/COMMERCIAL_TERMS.zh-TW.md`, `docs/COMMERCIAL_TERMS.ja.md`, `docs/COMMERCIAL_TERMS.ko.md`, `docs/COMMERCIAL_TERMS.es.md`, `docs/COMMERCIAL_TERMS.fr.md`, `docs/COMMERCIAL_TERMS.de.md`, `docs/COMMERCIAL_TERMS.pt.md`. La actualización del contenido rechaza cualquier documento obligatorio ausente, que no sea un archivo o que sea un enlace simbólico antes de modificar el contenido. Son condiciones del proyecto elegidas por su propietario; los avisos de los proyectos originales conservan su propio alcance.
+- `--source-root` identifica el directorio de origen `skills/`. Su repositorio padre debe contener los 24 documentos de proyecto para ocho idiomas: `LICENSE`, `docs/i18n/zh-TW/LICENSE.md`, `docs/i18n/ja/LICENSE.md`, `docs/i18n/ko/LICENSE.md`, `docs/i18n/es/LICENSE.md`, `docs/i18n/fr/LICENSE.md`, `docs/i18n/de/LICENSE.md`, `docs/i18n/pt/LICENSE.md`; `THIRD_PARTY.md`, `docs/i18n/zh-TW/THIRD_PARTY.md`, `docs/i18n/ja/THIRD_PARTY.md`, `docs/i18n/ko/THIRD_PARTY.md`, `docs/i18n/es/THIRD_PARTY.md`, `docs/i18n/fr/THIRD_PARTY.md`, `docs/i18n/de/THIRD_PARTY.md`, `docs/i18n/pt/THIRD_PARTY.md`; y `docs/COMMERCIAL_TERMS.md`, `docs/i18n/zh-TW/COMMERCIAL_TERMS.md`, `docs/i18n/ja/COMMERCIAL_TERMS.md`, `docs/i18n/ko/COMMERCIAL_TERMS.md`, `docs/i18n/es/COMMERCIAL_TERMS.md`, `docs/i18n/fr/COMMERCIAL_TERMS.md`, `docs/i18n/de/COMMERCIAL_TERMS.md`, `docs/i18n/pt/COMMERCIAL_TERMS.md`. La actualización del contenido rechaza cualquier documento obligatorio ausente, que no sea un archivo o que sea un enlace simbólico antes de modificar el contenido. Son condiciones del proyecto elegidas por su propietario; los avisos de los proyectos originales conservan su propio alcance.
 - La lista explícita adicional de archivos permitidos es `LICENSE.md`, `LICENSE.txt`, `NOTICE`, `NOTICE.md`, `NOTICE.txt` y `docs/COMMERCIAL_LICENSE.md`. Si existen, se copian byte por byte. No se exportan otros archivos raíz de `docs/`. En particular, `docs/COMMERCIAL_LICENSE_DISCUSSION.zh-TW.md` es un borrador de discusión sin efecto y no se exporta como licencia ni como condiciones comerciales.
 - Los archivos locales de cada skill `LICENSE`, `LICENSE.md`, `LICENSE.txt`, `COPYING`, `COPYING.md`, `COPYING.txt`, `NOTICE`, `NOTICE.md`, `NOTICE.txt`, `THIRD_PARTY.md` y todos los archivos dentro de `THIRD_PARTY_LICENSES/` se conservan con la skill y se declaran en `distribution_notices`. La actualización comprueba sus bytes frente al origen; la construcción y la instalación rechazan declaraciones ausentes, archivos faltantes, bytes alterados, rutas inseguras o entradas de resumen ausentes.
 - El material adaptado existente de Humanizer-zh exige específicamente `skills/novel-human-voice-editor/THIRD_PARTY_LICENSES/Humanizer-zh-MIT.txt`. No se puede eliminar del origen ni del manifiesto mientras se distribuya ese material.

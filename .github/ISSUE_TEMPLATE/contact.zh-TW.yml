@@ -1,0 +1,24 @@
+name: 聯絡維護者（繁體中文）
+description: 安排授權或私下通報管道，不附敏感細節
+title: '[Contact] '
+body:
+- type: markdown
+  attributes:
+    value: 此 issue 是公開的。請勿包含收入、財務報表、付款紀錄、交易雜湊、憑證、私人小說原稿、安全漏洞利用細節或私人聯絡資料。僅請維護者安排適當的私下管道。
+- type: dropdown
+  id: topic
+  attributes:
+    label: 主題
+    options:
+    - 商用授權版本確認與私下申報
+    - 安全或隱私的私下通報管道
+    - 其他維護者聯絡事項
+  validations:
+    required: true
+- type: checkboxes
+  id: privacy
+  attributes:
+    label: 僅含公開資訊
+    options:
+    - label: 我未加入私人、財務或安全敏感細節
+      required: true

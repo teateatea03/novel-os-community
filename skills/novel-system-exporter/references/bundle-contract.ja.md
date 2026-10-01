@@ -10,12 +10,38 @@
 novel-os-portable-v<version>/
 ├── MANIFEST.json
 ├── LICENSE
-├── LICENSE.{zh-TW,ja,ko,es,fr,de,pt}.md
 ├── THIRD_PARTY.md
-├── THIRD_PARTY.{zh-TW,ja,ko,es,fr,de,pt}.md
 ├── docs/
 │   ├── COMMERCIAL_TERMS.md
-│   └── COMMERCIAL_TERMS.{zh-TW,ja,ko,es,fr,de,pt}.md
+│   └── i18n/
+│       ├── zh-TW/
+│       │   ├── LICENSE.md
+│       │   ├── THIRD_PARTY.md
+│       │   └── COMMERCIAL_TERMS.md
+│       ├── ja/
+│       │   ├── LICENSE.md
+│       │   ├── THIRD_PARTY.md
+│       │   └── COMMERCIAL_TERMS.md
+│       ├── ko/
+│       │   ├── LICENSE.md
+│       │   ├── THIRD_PARTY.md
+│       │   └── COMMERCIAL_TERMS.md
+│       ├── es/
+│       │   ├── LICENSE.md
+│       │   ├── THIRD_PARTY.md
+│       │   └── COMMERCIAL_TERMS.md
+│       ├── fr/
+│       │   ├── LICENSE.md
+│       │   ├── THIRD_PARTY.md
+│       │   └── COMMERCIAL_TERMS.md
+│       ├── de/
+│       │   ├── LICENSE.md
+│       │   ├── THIRD_PARTY.md
+│       │   └── COMMERCIAL_TERMS.md
+│       └── pt/
+│           ├── LICENSE.md
+│           ├── THIRD_PARTY.md
+│           └── COMMERCIAL_TERMS.md
 ├── references/
 │   ├── portable-install.md
 │   ├── portable-install.{en,ja,ko,es,fr,de,pt}.md
@@ -55,7 +81,7 @@ novel-os-portable-v<version>/
 
 ## ライセンスと表示の保持
 
-- `--source-root` はソースの `skills/` ディレクトリを指します。その親リポジトリには必須表示 24 文書すべてが必要です。英語の `LICENSE`、`THIRD_PARTY.md`、`docs/COMMERCIAL_TERMS.md` と、`zh-TW`、`ja`、`ko`、`es`、`fr`、`de`、`pt` の各 `LICENSE.<language>.md`、`THIRD_PARTY.<language>.md`、`docs/COMMERCIAL_TERMS.<language>.md` です。refresh は、必須文書がない、通常ファイルでない、またはシンボリックリンクの場合、ペイロードを変更する前に拒否します。これらは所有者が選択したプロジェクト条件であり、上流表示には固有の適用範囲が残ります
+- `--source-root` はソースの `skills/` ディレクトリを指します。その親リポジトリには必須表示 24 文書すべてが必要です。英語の `LICENSE`、`THIRD_PARTY.md`、`docs/COMMERCIAL_TERMS.md` と、`zh-TW`、`ja`、`ko`、`es`、`fr`、`de`、`pt` の各 `docs/i18n/<language>/LICENSE.md`、`docs/i18n/<language>/THIRD_PARTY.md`、`docs/i18n/<language>/COMMERCIAL_TERMS.md` です。refresh は、必須文書がない、通常ファイルでない、またはシンボリックリンクの場合、ペイロードを変更する前に拒否します。これらは所有者が選択したプロジェクト条件であり、上流表示には固有の適用範囲が残ります
 - 追加の明示的な許可リストは `LICENSE.md`、`LICENSE.txt`、`NOTICE`、`NOTICE.md`、`NOTICE.txt`、`docs/COMMERCIAL_LICENSE.md` です。存在する場合はバイト単位でそのままコピーします。他のルート `docs/` ファイルはエクスポートしません。特に `docs/COMMERCIAL_LICENSE_DISCUSSION.zh-TW.md` は非発効の議論用草案であり、ライセンス・商用条件としてエクスポートしません
 - スキル内の `LICENSE`、`LICENSE.md`、`LICENSE.txt`、`COPYING`、`COPYING.md`、`COPYING.txt`、`NOTICE`、`NOTICE.md`、`NOTICE.txt`、`THIRD_PARTY.md` および `THIRD_PARTY_LICENSES/` 内の全ファイルをスキルとともに保持し、`distribution_notices` に宣言します。refresh はソースとのバイト一致を確認します。build・install は宣言漏れ、欠落、改変、不安全なパス、ダイジェスト項目の欠落を拒否します
 - 既存の Humanizer-zh 改作素材には `skills/novel-human-voice-editor/THIRD_PARTY_LICENSES/Humanizer-zh-MIT.txt` が特に必要です。その素材を配布する間はソースやマニフェストから除去できません

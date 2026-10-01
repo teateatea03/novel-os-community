@@ -10,12 +10,38 @@ In the `novel-os-portable-v<version>/` package layout, `skills/` contains one co
 novel-os-portable-v<version>/
 ├── MANIFEST.json
 ├── LICENSE
-├── LICENSE.{zh-TW,ja,ko,es,fr,de,pt}.md
 ├── THIRD_PARTY.md
-├── THIRD_PARTY.{zh-TW,ja,ko,es,fr,de,pt}.md
 ├── docs/
 │   ├── COMMERCIAL_TERMS.md
-│   └── COMMERCIAL_TERMS.{zh-TW,ja,ko,es,fr,de,pt}.md
+│   └── i18n/
+│       ├── zh-TW/
+│       │   ├── LICENSE.md
+│       │   ├── THIRD_PARTY.md
+│       │   └── COMMERCIAL_TERMS.md
+│       ├── ja/
+│       │   ├── LICENSE.md
+│       │   ├── THIRD_PARTY.md
+│       │   └── COMMERCIAL_TERMS.md
+│       ├── ko/
+│       │   ├── LICENSE.md
+│       │   ├── THIRD_PARTY.md
+│       │   └── COMMERCIAL_TERMS.md
+│       ├── es/
+│       │   ├── LICENSE.md
+│       │   ├── THIRD_PARTY.md
+│       │   └── COMMERCIAL_TERMS.md
+│       ├── fr/
+│       │   ├── LICENSE.md
+│       │   ├── THIRD_PARTY.md
+│       │   └── COMMERCIAL_TERMS.md
+│       ├── de/
+│       │   ├── LICENSE.md
+│       │   ├── THIRD_PARTY.md
+│       │   └── COMMERCIAL_TERMS.md
+│       └── pt/
+│           ├── LICENSE.md
+│           ├── THIRD_PARTY.md
+│           └── COMMERCIAL_TERMS.md
 ├── references/
 │   ├── portable-install.md
 │   ├── portable-install.{en,ja,ko,es,fr,de,pt}.md
@@ -55,7 +81,7 @@ The braces in the layout abbreviate separate files for each listed language.
 
 ## License and notice retention
 
-- `--source-root` names the source `skills/` directory. Its repository parent must contain all 24 required notices: `LICENSE`, `THIRD_PARTY.md`, and `docs/COMMERCIAL_TERMS.md` in English, plus `LICENSE.<language>.md`, `THIRD_PARTY.<language>.md`, and `docs/COMMERCIAL_TERMS.<language>.md` for each of `zh-TW`, `ja`, `ko`, `es`, `fr`, `de`, and `pt`. Refresh refuses a missing, non-file, or symlinked required document before changing the payload. These are owner-selected project terms; upstream notices retain their own scope.
+- `--source-root` names the source `skills/` directory. Its repository parent must contain all 24 required notices: `LICENSE`, `THIRD_PARTY.md`, and `docs/COMMERCIAL_TERMS.md` in English, plus `docs/i18n/<language>/LICENSE.md`, `docs/i18n/<language>/THIRD_PARTY.md`, and `docs/i18n/<language>/COMMERCIAL_TERMS.md` for each of `zh-TW`, `ja`, `ko`, `es`, `fr`, `de`, and `pt`. Refresh refuses a missing, non-file, or symlinked required document before changing the payload. These are owner-selected project terms; upstream notices retain their own scope.
 - The additional explicit allowlist is `LICENSE.md`, `LICENSE.txt`, `NOTICE`, `NOTICE.md`, `NOTICE.txt`, and `docs/COMMERCIAL_LICENSE.md`. If present, each is copied byte-for-byte. No other root `docs/` files are exported. In particular, `docs/COMMERCIAL_LICENSE_DISCUSSION.zh-TW.md` is a non-operative discussion draft and is not exported as a license or commercial terms.
 - Skill-local `LICENSE`, `LICENSE.md`, `LICENSE.txt`, `COPYING`, `COPYING.md`, `COPYING.txt`, `NOTICE`, `NOTICE.md`, `NOTICE.txt`, `THIRD_PARTY.md`, and every file under `THIRD_PARTY_LICENSES/` are retained with the skill and declared in `distribution_notices`. Refresh checks their bytes against the source; build and install reject absent declarations, missing files, altered bytes, unsafe paths, or missing digest entries.
 - The existing adapted Humanizer-zh material specifically requires `skills/novel-human-voice-editor/THIRD_PARTY_LICENSES/Humanizer-zh-MIT.txt`. It cannot be removed from the source or manifest while that material is distributed.

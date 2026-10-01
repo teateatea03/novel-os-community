@@ -2,7 +2,7 @@
 
 <!-- language-navigation -->
 
-[繁體中文](SECURITY.zh-TW.md) | **English** | [日本語](SECURITY.ja.md) | [한국어](SECURITY.ko.md) | [Español](SECURITY.es.md) | [Français](SECURITY.fr.md) | [Deutsch](SECURITY.de.md) | [Português](SECURITY.pt.md)
+[繁體中文](docs/i18n/zh-TW/SECURITY.md) | **English** | [日本語](docs/i18n/ja/SECURITY.md) | [한국어](docs/i18n/ko/SECURITY.md) | [Español](docs/i18n/es/SECURITY.md) | [Français](docs/i18n/fr/SECURITY.md) | [Deutsch](docs/i18n/de/SECURITY.md) | [Português](docs/i18n/pt/SECURITY.md)
 
 ## Supported versions
 

@@ -10,12 +10,38 @@
 novel-os-portable-v<version>/
 ├── MANIFEST.json
 ├── LICENSE
-├── LICENSE.{zh-TW,ja,ko,es,fr,de,pt}.md
 ├── THIRD_PARTY.md
-├── THIRD_PARTY.{zh-TW,ja,ko,es,fr,de,pt}.md
 ├── docs/
 │   ├── COMMERCIAL_TERMS.md
-│   └── COMMERCIAL_TERMS.{zh-TW,ja,ko,es,fr,de,pt}.md
+│   └── i18n/
+│       ├── zh-TW/
+│       │   ├── LICENSE.md
+│       │   ├── THIRD_PARTY.md
+│       │   └── COMMERCIAL_TERMS.md
+│       ├── ja/
+│       │   ├── LICENSE.md
+│       │   ├── THIRD_PARTY.md
+│       │   └── COMMERCIAL_TERMS.md
+│       ├── ko/
+│       │   ├── LICENSE.md
+│       │   ├── THIRD_PARTY.md
+│       │   └── COMMERCIAL_TERMS.md
+│       ├── es/
+│       │   ├── LICENSE.md
+│       │   ├── THIRD_PARTY.md
+│       │   └── COMMERCIAL_TERMS.md
+│       ├── fr/
+│       │   ├── LICENSE.md
+│       │   ├── THIRD_PARTY.md
+│       │   └── COMMERCIAL_TERMS.md
+│       ├── de/
+│       │   ├── LICENSE.md
+│       │   ├── THIRD_PARTY.md
+│       │   └── COMMERCIAL_TERMS.md
+│       └── pt/
+│           ├── LICENSE.md
+│           ├── THIRD_PARTY.md
+│           └── COMMERCIAL_TERMS.md
 ├── references/
 │   ├── portable-install.md
 │   ├── portable-install.{en,ja,ko,es,fr,de,pt}.md
@@ -55,7 +81,7 @@ novel-os-portable-v<version>/
 
 ## 授權與聲明保留
 
-- `--source-root` 指定來源 `skills/` 目錄。其上一層儲存庫必須具有全部 24 份必要聲明：英文的 `LICENSE`、`THIRD_PARTY.md`、`docs/COMMERCIAL_TERMS.md`，以及 `zh-TW`、`ja`、`ko`、`es`、`fr`、`de`、`pt` 各語言的 `LICENSE.<language>.md`、`THIRD_PARTY.<language>.md`、`docs/COMMERCIAL_TERMS.<language>.md`。重新整理會在改動封裝內容前拒絕缺失、非一般檔案或符號連結形式的必要文件。這些是擁有者選定的專案條款；上游聲明維持其自身適用範圍。
+- `--source-root` 指定來源 `skills/` 目錄。其上一層儲存庫必須具有全部 24 份必要聲明：英文的 `LICENSE`、`THIRD_PARTY.md`、`docs/COMMERCIAL_TERMS.md`，以及 `zh-TW`、`ja`、`ko`、`es`、`fr`、`de`、`pt` 各語言的 `docs/i18n/<language>/LICENSE.md`、`docs/i18n/<language>/THIRD_PARTY.md`、`docs/i18n/<language>/COMMERCIAL_TERMS.md`。重新整理會在改動封裝內容前拒絕缺失、非一般檔案或符號連結形式的必要文件。這些是擁有者選定的專案條款；上游聲明維持其自身適用範圍。
 - 額外明示允許的文件為 `LICENSE.md`、`LICENSE.txt`、`NOTICE`、`NOTICE.md`、`NOTICE.txt` 及 `docs/COMMERCIAL_LICENSE.md`。存在時逐位元組複製。根目錄 `docs/` 的其他文件不會匯出，尤其 `docs/COMMERCIAL_LICENSE_DISCUSSION.zh-TW.md` 是未生效的討論草稿，不得作為授權或商業條款匯出。
 - 技能內的 `LICENSE`、`LICENSE.md`、`LICENSE.txt`、`COPYING`、`COPYING.md`、`COPYING.txt`、`NOTICE`、`NOTICE.md`、`NOTICE.txt`、`THIRD_PARTY.md`，以及 `THIRD_PARTY_LICENSES/` 下所有文件，都隨技能保留並列於 `distribution_notices`。重新整理會比對來源位元組；建置及安裝會拒絕未宣告、缺失、遭變更、路徑不安全或缺少雜湊紀錄的文件。
 - 現有 Humanizer-zh 改編材料特別要求保留 `skills/novel-human-voice-editor/THIRD_PARTY_LICENSES/Humanizer-zh-MIT.txt`。只要仍散布該材料，就不得從來源或清單移除此文件。

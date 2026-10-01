@@ -2,7 +2,7 @@
 
 <!-- language-navigation -->
 
-[繁體中文](CONTRIBUTING.zh-TW.md) | **English** | [日本語](CONTRIBUTING.ja.md) | [한국어](CONTRIBUTING.ko.md) | [Español](CONTRIBUTING.es.md) | [Français](CONTRIBUTING.fr.md) | [Deutsch](CONTRIBUTING.de.md) | [Português](CONTRIBUTING.pt.md)
+[繁體中文](docs/i18n/zh-TW/CONTRIBUTING.md) | **English** | [日本語](docs/i18n/ja/CONTRIBUTING.md) | [한국어](docs/i18n/ko/CONTRIBUTING.md) | [Español](docs/i18n/es/CONTRIBUTING.md) | [Français](docs/i18n/fr/CONTRIBUTING.md) | [Deutsch](docs/i18n/de/CONTRIBUTING.md) | [Português](docs/i18n/pt/CONTRIBUTING.md)
 
 [Pull request template](.github/PULL_REQUEST_TEMPLATE/en.md)
 

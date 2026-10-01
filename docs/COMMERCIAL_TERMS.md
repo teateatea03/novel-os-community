@@ -2,7 +2,7 @@
 
 <!-- language-navigation -->
 
-[繁體中文](COMMERCIAL_TERMS.zh-TW.md) | **English** | [日本語](COMMERCIAL_TERMS.ja.md) | [한국어](COMMERCIAL_TERMS.ko.md) | [Español](COMMERCIAL_TERMS.es.md) | [Français](COMMERCIAL_TERMS.fr.md) | [Deutsch](COMMERCIAL_TERMS.de.md) | [Português](COMMERCIAL_TERMS.pt.md)
+[繁體中文](i18n/zh-TW/COMMERCIAL_TERMS.md) | **English** | [日本語](i18n/ja/COMMERCIAL_TERMS.md) | [한국어](i18n/ko/COMMERCIAL_TERMS.md) | [Español](i18n/es/COMMERCIAL_TERMS.md) | [Français](i18n/fr/COMMERCIAL_TERMS.md) | [Deutsch](i18n/de/COMMERCIAL_TERMS.md) | [Português](i18n/pt/COMMERCIAL_TERMS.md)
 
 Licensor: teateatea03. Applicable version: [Novel OS Source-Available and Commercial Profit-Sharing License 1.0](../LICENSE). This page collects payment details; the license terms are governed by LICENSE.
 

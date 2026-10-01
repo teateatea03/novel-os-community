@@ -70,8 +70,9 @@ class DistributionContractTests(unittest.TestCase):
         installer = load("install_novel_os")
         expected_notices = {"LICENSE", "THIRD_PARTY.md", "docs/COMMERCIAL_TERMS.md"}
         for language in ("zh-TW", "ja", "ko", "es", "fr", "de", "pt"):
-            expected_notices.update((f"LICENSE.{language}.md", f"THIRD_PARTY.{language}.md",
-                                     f"docs/COMMERCIAL_TERMS.{language}.md"))
+            expected_notices.update((f"docs/i18n/{language}/LICENSE.md",
+                                     f"docs/i18n/{language}/THIRD_PARTY.md",
+                                     f"docs/i18n/{language}/COMMERCIAL_TERMS.md"))
         self.assertEqual(set(builder.REQUIRED_ROOT_NOTICES), expected_notices)
         self.assertEqual(len(builder.PORTABILITY_DOCUMENTS), 32)
         pairs = (sorted(expected_notices),)
@@ -126,7 +127,7 @@ class PublicDocumentationTests(unittest.TestCase):
     def families(self):
         for stem in self.ROOT_STEMS:
             yield {language: ROOT / (stem + ("" if stem == "LICENSE" else ".md")
-                   if language == "en" else f"{stem}.{language}.md")
+                   if language == "en" else f"docs/i18n/{language}/{Path(stem).name}.md")
                    for language in self.LANGUAGES}
         for stem in self.REFERENCE_STEMS:
             yield {language: EXPORTER / "references" /
@@ -155,7 +156,7 @@ class PublicDocumentationTests(unittest.TestCase):
                     self.assertEqual(len(re.findall(r"\*\*[^*]+\*\*", navigation)), 1)
                     for target in family.values():
                         if target != path:
-                            self.assertIn(f"({target.name})", navigation)
+                            self.assertIn(f"({os.path.relpath(target, path.parent)})", navigation)
                     self.assertGreater(len(text.splitlines()), 20)
 
     def test_pull_request_language_navigation_is_a_separate_markdown_paragraph(self):
@@ -178,16 +179,57 @@ class PublicDocumentationTests(unittest.TestCase):
                         self.assertTrue((path.parent / link.split("#", 1)[0]).is_file(),
                                         f"{path.relative_to(ROOT)} -> {link}")
 
+    def test_localized_documents_are_grouped_outside_the_repository_root(self):
+        for language in self.LANGUAGES:
+            if language == "en":
+                continue
+            for stem in self.ROOT_STEMS:
+                self.assertTrue((ROOT / f"docs/i18n/{language}/{Path(stem).name}.md").is_file())
+                self.assertFalse((ROOT / f"{stem}.{language}.md").exists())
+            readme = ROOT / f"docs/i18n/{language}/README.md"
+            text = readme.read_text(encoding="utf-8")
+            for destination in ("LICENSE.md", "COMMERCIAL_TERMS.md", "GETTING_STARTED.md",
+                                "CONTRIBUTING.md", "CODE_OF_CONDUCT.md", "SECURITY.md", "THIRD_PARTY.md"):
+                self.assertIn(f"({destination})", text)
+
+    def test_portability_references_do_not_document_retired_notice_paths(self):
+        for family in self.families():
+            for path in family.values():
+                if path.parent != EXPORTER / "references":
+                    continue
+                text = path.read_text(encoding="utf-8")
+                self.assertNotRegex(text, r"(?:LICENSE|THIRD_PARTY|COMMERCIAL_TERMS)\.(?:zh-TW|ja|ko|es|fr|de|pt|<language>)\.md")
+                if path.name.startswith("bundle-contract"):
+                    self.assertIn("i18n/", text)
+                    for language in self.LANGUAGES:
+                        if language != "en":
+                            self.assertIn(language + "/", text)
+
+    def test_submission_forms_have_separate_english_and_traditional_chinese_bodies(self):
+        templates = ROOT / ".github/ISSUE_TEMPLATE"
+        for language in self.LANGUAGES:
+            suffix = "" if language == "en" else "." + language
+            for kind in ("bug_report", "contact"):
+                text = (templates / f"{kind}{suffix}.yml").read_text(encoding="utf-8")
+                self.assertIn("required: true", text)
+                self.assertIn("id: privacy", text)
+                if language == "en":
+                    self.assertNotRegex(text, r"[\u3400-\u9fff]")
+        default = (ROOT / ".github/pull_request_template.md").read_text(encoding="utf-8")
+        english = (ROOT / ".github/PULL_REQUEST_TEMPLATE/en.md").read_text(encoding="utf-8")
+        self.assertEqual(default[default.index("## Summary"):], english[english.index("## Summary"):])
+        self.assertNotRegex(default[default.index("## Summary"):], r"[\u3400-\u9fff]")
+
     def test_translated_payment_identifiers_and_license_sections(self):
         addresses = ("0xE35023A45F4d7c8e070D335Db6Cc4C5c9a3Fe4Bd",
                      "0x55d398326f99059ff775485246999027b3197955",
                      "0x8AC76a51cc950d9822D68b83fE1Ad97B32Cd580d")
         for language in self.LANGUAGES:
-            suffix = "" if language == "en" else "." + language
-            terms = (ROOT / f"docs/COMMERCIAL_TERMS{suffix}.md").read_text(encoding="utf-8")
+            terms_path = "docs/COMMERCIAL_TERMS.md" if language == "en" else f"docs/i18n/{language}/COMMERCIAL_TERMS.md"
+            terms = (ROOT / terms_path).read_text(encoding="utf-8")
             for address in addresses:
                 self.assertIn(address, terms)
-            license_path = ROOT / ("LICENSE" if language == "en" else f"LICENSE.{language}.md")
+            license_path = ROOT / ("LICENSE" if language == "en" else f"docs/i18n/{language}/LICENSE.md")
             license_text = license_path.read_text(encoding="utf-8")
             self.assertRegex(license_text, r"0[.,]5\s*%")
             self.assertRegex(license_text, r"0[.,]005")

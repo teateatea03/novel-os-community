@@ -1,23 +1,26 @@
 blank_issues_enabled: true
 contact_links:
-  - name: Security or privacy report / 安全或隱私通報
-    url: https://github.com/teateatea03/novel-os-community/security
-    about: Do not disclose sensitive material in a public issue. 請勿在公開 issue 揭露敏感材料。
-  - name: セキュリティ・プライバシー報告
-    url: https://github.com/teateatea03/novel-os-community/security
-    about: 公開 issue に機密資料を載せないでください。
-  - name: 보안 또는 개인정보 문제 신고
-    url: https://github.com/teateatea03/novel-os-community/security
-    about: 공개 issue에 민감한 자료를 공개하지 마세요.
-  - name: Informe de seguridad o privacidad
-    url: https://github.com/teateatea03/novel-os-community/security
-    about: No revele material sensible en una incidencia pública.
-  - name: Signalement de sécurité ou de confidentialité
-    url: https://github.com/teateatea03/novel-os-community/security
-    about: Ne divulguez pas de contenu sensible dans une issue publique.
-  - name: Sicherheits- oder Datenschutzmeldung
-    url: https://github.com/teateatea03/novel-os-community/security
-    about: Veröffentlichen Sie keine sensiblen Inhalte in einem öffentlichen Issue.
-  - name: Comunicação de segurança ou privacidade
-    url: https://github.com/teateatea03/novel-os-community/security
-    about: Não divulgue material sensível numa issue pública.
+- name: Security or privacy report (English)
+  url: https://github.com/teateatea03/novel-os-community/security
+  about: Do not disclose sensitive material in a public issue.
+- name: 安全或隱私通報（繁體中文）
+  url: https://github.com/teateatea03/novel-os-community/blob/main/docs/i18n/zh-TW/SECURITY.md
+  about: 請勿在公開 issue 揭露敏感材料。
+- name: セキュリティ・プライバシー報告
+  url: https://github.com/teateatea03/novel-os-community/blob/main/docs/i18n/ja/SECURITY.md
+  about: 公開 issue に機密資料を載せないでください。
+- name: 보안 또는 개인정보 문제 신고
+  url: https://github.com/teateatea03/novel-os-community/blob/main/docs/i18n/ko/SECURITY.md
+  about: 공개 issue에 민감한 자료를 공개하지 마세요.
+- name: Informe de seguridad o privacidad
+  url: https://github.com/teateatea03/novel-os-community/blob/main/docs/i18n/es/SECURITY.md
+  about: No revele material sensible en una incidencia pública.
+- name: Signalement de sécurité ou de confidentialité
+  url: https://github.com/teateatea03/novel-os-community/blob/main/docs/i18n/fr/SECURITY.md
+  about: Ne divulguez pas de contenu sensible dans une issue publique.
+- name: Sicherheits- oder Datenschutzmeldung
+  url: https://github.com/teateatea03/novel-os-community/blob/main/docs/i18n/de/SECURITY.md
+  about: Veröffentlichen Sie keine sensiblen Inhalte in einem öffentlichen Issue.
+- name: Comunicação de segurança ou privacidade
+  url: https://github.com/teateatea03/novel-os-community/blob/main/docs/i18n/pt/SECURITY.md
+  about: Não divulgue material sensível numa issue pública.

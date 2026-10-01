@@ -10,30 +10,38 @@ Im Paketlayout `novel-os-portable-v<version>/` enthält `skills/` einen Koordina
 novel-os-portable-v<version>/
 ├── MANIFEST.json
 ├── LICENSE
-├── LICENSE.zh-TW.md
-├── LICENSE.ja.md
-├── LICENSE.ko.md
-├── LICENSE.es.md
-├── LICENSE.fr.md
-├── LICENSE.de.md
-├── LICENSE.pt.md
 ├── THIRD_PARTY.md
-├── THIRD_PARTY.zh-TW.md
-├── THIRD_PARTY.ja.md
-├── THIRD_PARTY.ko.md
-├── THIRD_PARTY.es.md
-├── THIRD_PARTY.fr.md
-├── THIRD_PARTY.de.md
-├── THIRD_PARTY.pt.md
 ├── docs/
 │   ├── COMMERCIAL_TERMS.md
-│   ├── COMMERCIAL_TERMS.zh-TW.md
-│   ├── COMMERCIAL_TERMS.ja.md
-│   ├── COMMERCIAL_TERMS.ko.md
-│   ├── COMMERCIAL_TERMS.es.md
-│   ├── COMMERCIAL_TERMS.fr.md
-│   ├── COMMERCIAL_TERMS.de.md
-│   └── COMMERCIAL_TERMS.pt.md
+│   └── i18n/
+│       ├── zh-TW/
+│       │   ├── LICENSE.md
+│       │   ├── THIRD_PARTY.md
+│       │   └── COMMERCIAL_TERMS.md
+│       ├── ja/
+│       │   ├── LICENSE.md
+│       │   ├── THIRD_PARTY.md
+│       │   └── COMMERCIAL_TERMS.md
+│       ├── ko/
+│       │   ├── LICENSE.md
+│       │   ├── THIRD_PARTY.md
+│       │   └── COMMERCIAL_TERMS.md
+│       ├── es/
+│       │   ├── LICENSE.md
+│       │   ├── THIRD_PARTY.md
+│       │   └── COMMERCIAL_TERMS.md
+│       ├── fr/
+│       │   ├── LICENSE.md
+│       │   ├── THIRD_PARTY.md
+│       │   └── COMMERCIAL_TERMS.md
+│       ├── de/
+│       │   ├── LICENSE.md
+│       │   ├── THIRD_PARTY.md
+│       │   └── COMMERCIAL_TERMS.md
+│       └── pt/
+│           ├── LICENSE.md
+│           ├── THIRD_PARTY.md
+│           └── COMMERCIAL_TERMS.md
 ├── references/
 │   ├── portable-install.md
 │   ├── portable-install.en.md

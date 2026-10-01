@@ -2,7 +2,7 @@
 
 <!-- language-navigation -->
 
-[繁體中文](GETTING_STARTED.zh-TW.md) | **English** | [日本語](GETTING_STARTED.ja.md) | [한국어](GETTING_STARTED.ko.md) | [Español](GETTING_STARTED.es.md) | [Français](GETTING_STARTED.fr.md) | [Deutsch](GETTING_STARTED.de.md) | [Português](GETTING_STARTED.pt.md)
+[繁體中文](i18n/zh-TW/GETTING_STARTED.md) | **English** | [日本語](i18n/ja/GETTING_STARTED.md) | [한국어](i18n/ko/GETTING_STARTED.md) | [Español](i18n/es/GETTING_STARTED.md) | [Français](i18n/fr/GETTING_STARTED.md) | [Deutsch](i18n/de/GETTING_STARTED.md) | [Português](i18n/pt/GETTING_STARTED.md)
 
 This guide covers the local runtime and portable bundle. Use and redistribution are governed by [LICENSE](../LICENSE); commercial reporting and payment details are in [COMMERCIAL_TERMS.md](COMMERCIAL_TERMS.md).
 

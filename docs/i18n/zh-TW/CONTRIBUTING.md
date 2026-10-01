@@ -1,0 +1,58 @@
+# 參與 Novel OS 開發
+
+<!-- language-navigation -->
+
+**繁體中文** | [English](../../../CONTRIBUTING.md) | [日本語](../ja/CONTRIBUTING.md) | [한국어](../ko/CONTRIBUTING.md) | [Español](../es/CONTRIBUTING.md) | [Français](../fr/CONTRIBUTING.md) | [Deutsch](../de/CONTRIBUTING.md) | [Português](../pt/CONTRIBUTING.md)
+
+[拉取請求範本](../../../.github/PULL_REQUEST_TEMPLATE/zh-TW.md)
+
+感謝你協助改進 Novel OS。所有貢獻都必須保留本專案的原始碼公開商用條款與隱私界線。
+
+## 隱私與權利問題會阻止發布
+
+只提交你有權分享、可重複使用的系統材料。**不要**提交：
+
+- 小說原稿、章節草稿、互動遊玩紀錄、故事狀態、作者回饋或私人專案測試資料
+- 人物／世界觀／研究資料庫，或真人資料紀錄
+- 對話記憶、本機日誌、自動產生的備份、憑證、Cookie、裝置路徑或私人端點
+- 受著作權保護的來源全文、外洩材料、付費牆內容副本，或缺乏相容授權與出處標示的第三方程式碼
+
+使用虛構、最小化且明確標示為合成的測試資料。不要只是替真實私人資料改名。
+
+請在原始碼工作目錄以外建立套件與故事專案。可在儲存庫根目錄建立供本機開發使用的虛擬環境，但不得提交。
+
+## 提出 Pull Request 前
+
+```sh
+python3 scripts/privacy_scan.py .
+python3 -m compileall -q skills scripts
+python3 scripts/validate_json.py .
+python3 scripts/run_tests.py
+```
+
+掃描器與 JSON 驗證器會檢查工作目錄中的檔案，包括未追蹤及被 gitignore 忽略的檔案。它們排除 Git 中繼資料、自動產生的 Python／測試快取，以及經確認的根目錄虛擬環境；已追蹤檔案仍在檢查範圍內。符號連結、無法讀取的檔案與非 UTF-8 原始碼均會遭拒。請另行檢查暫存區差異：工作目錄通過檢查，不代表已掃描暫存區索引、Git 歷史或 GitHub 保留的物件。
+
+也請檢查：
+
+```sh
+git diff --cached --name-only
+git diff --cached
+```
+
+在 Pull Request 中說明新增的相依套件、外部來源、自動產生的成品或平台特有行為。
+
+## 修改原則
+
+- 保持程式碼與文件的可攜性；平台預設值必須能覆寫
+- 行為變更須新增或更新測試
+- 保留正典／作者權限，以及無法確認安全時拒絕繼續的安全契約
+- 公開範例必須為合成資料，且不含可識別個人的資訊
+- 不得默默削弱隱私、來源可追溯性或驗證關卡
+
+## 提交與審查方式
+
+每個 commit 應聚焦單一目的，摘要採祈使句。Pull Request 需要維護者審查。安全或隱私修正應透過私下通報，不要使用公開 issue。
+
+## 授權
+
+只貢獻你有權依 [LICENSE](LICENSE.md) 散布的材料。標示修改，專案衍生變更保留相同授權，並保留所有必要的第三方聲明。這不會將你的著作權轉移給維護者。公開 Pull Request 不得包含財務報告、付款資料或私人創作材料。

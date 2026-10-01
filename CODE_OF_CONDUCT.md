@@ -2,7 +2,7 @@
 
 <!-- language-navigation -->
 
-[繁體中文](CODE_OF_CONDUCT.zh-TW.md) | **English** | [日本語](CODE_OF_CONDUCT.ja.md) | [한국어](CODE_OF_CONDUCT.ko.md) | [Español](CODE_OF_CONDUCT.es.md) | [Français](CODE_OF_CONDUCT.fr.md) | [Deutsch](CODE_OF_CONDUCT.de.md) | [Português](CODE_OF_CONDUCT.pt.md)
+[繁體中文](docs/i18n/zh-TW/CODE_OF_CONDUCT.md) | **English** | [日本語](docs/i18n/ja/CODE_OF_CONDUCT.md) | [한국어](docs/i18n/ko/CODE_OF_CONDUCT.md) | [Español](docs/i18n/es/CODE_OF_CONDUCT.md) | [Français](docs/i18n/fr/CODE_OF_CONDUCT.md) | [Deutsch](docs/i18n/de/CODE_OF_CONDUCT.md) | [Português](docs/i18n/pt/CODE_OF_CONDUCT.md)
 
 ## Our commitment
 

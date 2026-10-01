@@ -32,8 +32,9 @@ DOCUMENT_LANGUAGES = ("en", "zh-TW", "ja", "ko", "es", "fr", "de", "pt")
 REQUIRED_ROOT_NOTICES = ("LICENSE", "THIRD_PARTY.md", "docs/COMMERCIAL_TERMS.md") + tuple(
     path
     for language in DOCUMENT_LANGUAGES if language != "en"
-    for path in (f"LICENSE.{language}.md", f"THIRD_PARTY.{language}.md",
-                 f"docs/COMMERCIAL_TERMS.{language}.md")
+    for path in (f"docs/i18n/{language}/LICENSE.md",
+                 f"docs/i18n/{language}/THIRD_PARTY.md",
+                 f"docs/i18n/{language}/COMMERCIAL_TERMS.md")
 )
 REQUIRED_SKILL_NOTICES = ("skills/novel-human-voice-editor/THIRD_PARTY_LICENSES/Humanizer-zh-MIT.txt",)
 ROOT_NOTICE_PATHS = (*REQUIRED_ROOT_NOTICES, "LICENSE.md", "LICENSE.txt",
