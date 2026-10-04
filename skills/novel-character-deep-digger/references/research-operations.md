@@ -2,6 +2,10 @@
 
 本手冊只處理「怎麼挖、用什麼挖、去哪裡挖、何時停止」，不替代人物模型與心理分析。核心順序是：**問題化 → 消歧 → 地形圖 → 探索 → 定向取得原文 → 鄰接擴展 → 核驗 → 保存 → 飽和停止**。
 
+> **v1.12 外部實務入口**：核心問題再讀 `practitioner-workflow.md`，建立問題矩陣、模型改變軌跡、三軸停止備忘與結論遮蔽重抽；按錯誤風險讀 `practitioner-evidence-controls.md` 的缺載前提、提供者依賴、當時知識、輸出全句覆蓋及下游更正。新流程源自本輪實際取得的工作案例與研究原文，不以表格數量證明深度。
+
+> **v1.11 增強入口**：新 R1／R2 與續挖另讀 `depth-upgrade-protocol.md`，用 `scripts/research_gap_planner.py` 唯讀盤點既有台帳缺口；先做身份與版本修復、矛盾追源、原文補取，再擴充行為樣本。排序器不執行搜尋、不判定研究完成。
+
 > **v1.8 執行規則**：本文件保留來源地形與工具路由；新 R1／R2 的完成證據改由 `research-evidence-run-v2.md` 與 `scripts/validate_research_run.py` 管理。下文 `minis.character-research-manifest.v1` 僅供舊研究相容與 R0 輕量定位，不可用來宣稱新 R1／R2 完成。
 
 ## 1. 研究層級與最低產物

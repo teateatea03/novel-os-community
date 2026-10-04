@@ -131,13 +131,27 @@ Known-item 測試只證明「能找回已知材料」，不證明未知材料完
 
 - `planned_route_coverage`：must route 中有有效事件的比例及缺口。
 - `query_diversity`：不同語言、平台、surface、method 與實質不同概念組合；三條只加「專業／著名」的近義查詢算一個 route。
-- `family_yield_curve`：依事件序列新增獨立 source family。
+- `family_yield_curve`：依事件序列列出宣告與可回溯的 source family 新增；獨立性仍須人工查證，不能只憑不同標籤證明。
 - `candidate_flow`：raw hits（可得時）→ candidates → include/exclude/defer → artifacts → claims。
 - `benchmark_recall`：找到／未找到的 known items，只作診斷，不單獨當完整度分數。
 - `p0_closure`：每個 P0 為 SUPPORTED/CONTESTED/AMBIGUOUS/UNAVAILABLE/REFUTED，且有證據或完整 attempts；不得刪除不利問題。
 - `review_closure`：checkpoint 與 P0 claim audit 完成。
 
-可以停止：must routes 已執行或有可辯護的 blocked／revision；最後 `no_new_family_window` 個**不同 route**沒有新增獨立 family；P0 全部閉合；defer 沒有未處理的高價值候選；claim audit 通過。新增來源只重複同一家族時停止，不為湊數繼續。
+有界完成：must routes 有有效執行；最後 `no_new_family_window` 個**不同 route**沒有新增可觀測 family；P0 已有適當核查與限制；defer 沒有未處理的高價值候選；claim audit 通過。只剩同源重複且沒有新的問題相關解釋時，不為湊數繼續。同一家族的新段落仍可能是重要反例，不得單憑 family 不變判人物理解完成。
+
+受阻或時間耗盡也可停止本段工作，但停止原因與研究完成分開報告，保留 `RESEARCH_INCOMPLETE`／`SCOPE_LIMITED`。目前 validator 的 must-route 門檻仍要求有效執行，blocked 說明不會自動改成 PASS；需要改範圍時建立有紀錄的新 run，不改寫歷史。
+
+### v1.12 計算實作與限制
+
+- 窗口是最後 N 個 `ROUTE_TYPES` 且 result 為 success／zero／noise 的事件；以 `(surface, method, platform, norm_query)` 判重。窗口內重複即 FAIL，不追溯挑較有利的 N 條路由；換 plan ID 不代表不同路由。
+- 沿 `artifact.candidate_id → candidate.discovered_by → event` 找每個 artifact 登記 family 的首次可觀測事件，以 event 次序而非 artifact 排序計算。
+- 逐事件將 declared new family 與 observed_first 做保守聯集；窗口起點至事件結尾（包括穿插或後續 CAPTURE 等事件）出現新增則 FAIL。漏報在窗口外給 warning，在窗口內阻擋完成。
+- 無 family／UNKNOWN 或無法定位的 artifact 提供 warning／metrics；不從 candidate hint 或 claim-local family 猜整份 artifact 的 genealogy。
+- 這只是已登記家族的可觀測下限：候選先發現、後來才擷取或識別的時間不可由此還原。相同 family 的新資訊、語義支持、真正獨立性、發布者集中度仍未自動驗證。
+- `saturation_independence_verified` 與 `saturation_capture_timing_verified` 為 false；`family_yield_curve`、unknown／unlocated／undeclared 指標是診斷，不是窮盡分數。
+- 研究者以 `practitioner-workflow.md` 的逐問題 discovery／explanation／verification 停止備忘補足語義審查；不得重排或新增假搜尋湊安靜窗口。
+
+重大 P0 可用 `build_claim_review_packet.py` 建立隱去舊結論的材料包；packet 不是 review。負向證據、來源提供者依賴、最終輸出逐句覆蓋與下游更正見 `practitioner-evidence-controls.md`；這些 sidecar 仍需人工判斷，不新增 v2 enum。
 
 ## 13. 工具失敗不是研究失敗，但必須可見
 
@@ -148,7 +162,17 @@ Known-item 測試只證明「能找回已知材料」，不證明未知材料完
 - 社群內容刪除：快照是「某時曾被擷取」；先驗帳號身份、上下文與是否為重貼。
 - 工具供應商失效：protocol 記工具類別與 fallback，不把品牌寫成唯一方法。
 
-## 14. 實作驗收基準
+## 14. v1.11 缺口規劃與完整性驗證的邊界
+
+先讀 `depth-upgrade-protocol.md`；`scripts/research_gap_planner.py` 只由既有台帳提出工作順序，不能代替本 validator，更不能代替查原文。
+
+- 記錄本地 artifact 時使用 `local_path`（相對 run 或 run 內絕對路徑）；有路徑即核對檔案存在、SHA-256，提供 size 時也核對大小。路徑或符號連結不得逃出 run。外部共用檔案應以新 artifact 匯入本輪並記錄來源，不以任意檔案路徑代替引用。
+- 舊 schema 容許沒有本地路徑的引用；此時顯示檔案未核驗警告，不假裝已驗過 bytes。不能合法保存全文時仍保存書目、定位、短引與限制，不為消除警告擅取內容。
+- 衍生物以 artifact ID 回指單一父物時可核對 input hash；output hash 必須對應自己的 sha256。描述式／URL／多輸入 lineage 需人工檢查，不能因格式通過宣稱可重建。
+- 台帳 ID／引用、來源家族標籤與檔案完整性檢查只能擋結構性錯誤。真正身份、語意支持、獨立來源、敏感性、審查品質及研究窮盡仍需原文查核。
+- 不把舊 run 被新增完整性檢查拒絕，直接解讀為人物主張為假；先另存稽核結果，保留舊 run，查明是檔案遺失、歷史格式或真實證據缺口。
+
+## 15. 實作驗收基準
 
 每次修改本規範至少跑：
 

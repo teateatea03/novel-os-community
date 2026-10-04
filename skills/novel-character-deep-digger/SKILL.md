@@ -1,6 +1,6 @@
 ---
 name: novel-character-deep-digger
-version: 1.10.0
+version: 1.12.0
 description: 當使用者提供角色姓名、作品名、URL、草稿或 Instagram 帳號，或要求「深挖人設」「研究這個人／角色」「建立角色人設」「徹底分析人物」「測試角色是否寫得活」時使用。遇到可核對的 Instagram 或 X／Twitter 帳號時，自動擷取 profile／posts 納入 evidence run，不要求使用者自行整理。蒐集以取得可核對原文為先：環境已登入則用既有 session，未登入則用公開／匿名路由，不因登入狀態封殺搜尋方法。第一步先判定 real／novel／anime／film／other、角色重要度、人物模型深度與研究深度。真人採 Evidence Run v2；非真人另先建立 Work／Expression／Manifestation／Item witness、continuity map 與媒介 locator，再按小說、漫畫、影視、遊戲、舞台、神話或原創路由研究。新 R1／R2 必須保存 protocol、append-only 事件、候選篩選、raw／derived 證據、主張／競爭假說、版本矛盾與計算式飽和，最後才建模與場景驗證。
 ---
 
@@ -110,6 +110,33 @@ python3 scripts/validate_fictional_research.py <research-run-directory>
 ```
 
 小說 claim 定位到版／卷／章／節／頁或段落；漫畫定位到卷／話／頁或 scroll anchor／panel／balloon；影視定位到 season／episode／cut／timecode／shot；遊戲定位到 platform／region／build／patch／DLC／save／route／quest／node／choice；舞台定位到 script／production／venue／date／cast／act／scene／cue；神話民俗定位到具體採集文本／講述者／地點／日期／variant。`CROSS_VERSION_STABLE` 必須每個納入 continuity 都有 primary story witness，並通過 `VERSION_CONTRADICTION_AUDIT`；只有 official paratext／summary 時只能交付版本摘要，不能建立完整跨版本人格。
+
+### 2.0 缺口驅動的深挖與增量研究（v1.11）
+
+新 R1／R2 或「繼續挖／再深入」先讀 `references/depth-upgrade-protocol.md`。先修身份／版本錯配，再查 P0 矛盾、原文缺口與高價值候選；不重跑整份履歷。可用以下唯讀工具從既有 v2 台帳產生待辦：
+
+```bash
+python3 scripts/research_gap_planner.py <previous-run-directory> --output <new-gap-plan.json>
+```
+
+- 計畫輸出不是搜尋事件、事實結論或完成證明；`rank` 只表示處理順序。零待辦仍須原文查核、validator 與研究停止審查。
+- 身份綁定保存 VERIFIED／PROBABLE／UNBOUND、穩定 ID、明示互鏈與有效時間；同名、相同頭像、互追或同框不能單獨合併人物，不以人臉辨識跨站識別真人。
+- 分離「本人說過」與「事件真實發生」、演出角色與本人、活動預告與完成、帳號掛載與公司所有權；年齡報導不換算成確定生日。
+- 行為研究先列抽樣框，跨時期／情境比較並保留反例、替代解釋與留出材料。創作壓力測試不能反過來證實真人心理。
+- 舊路由健康狀態只代表當時；本輪小預算探測，明分 zero／blocked／error 與 partial capture。預設本地與免費來源，不自動啟用其他取得模式。
+- 續挖保留舊 run、raw 與 event chain；預設建立新 run 引用舊來源。交付「新增／推翻或降級／仍未知／下一個高價值來源」。只要求研究時，不擅自創作或入主庫。
+
+### 2.0b 實務者方法：可反駁的理解與停止判斷（v1.12）
+
+R1／R2 的核心問題再讀 `references/practitioner-workflow.md`。借鏡調查查核、檔案與質性研究的實際工作法，使用小型問題矩陣保留原句脈絡、反例和不同缺失原因；對改變人物模型的新材料留下「原預期 → 新證據 → 模型修訂」軌跡。不把表格完整或來源數量當理解程度。
+
+停止按問題分開檢查 discovery（來源）、explanation（解釋增量）、verification（核驗）；同一家族新段落仍可能推翻模型，受阻不等於飽和。重大主張可用下列工具建立不含舊結論的重抽包：
+
+```bash
+python3 scripts/build_claim_review_packet.py <run-dir> --claim-id C1 --output <new-review-packet.json>
+```
+
+工具不代表已審查；reviewer 必須先保存自己從原文抽出的答案，再比對舊 claim。真正獨立性、語義支持與資料取得範圍仍須人工作判斷。完整工作例、負向證據與來源失真處理見協定。
 
 ### 2.1 公開網頁擷取與站內探索路由
 
@@ -302,8 +329,8 @@ validator FAIL 時不得標 `SCENE_TESTED`／`REVISION_CALIBRATED` 或交給重�
 
 預設依 `character-profile-template.md` 輸出，但只填本次深度層級必要內容。先給高密度摘要，再給證據、競爭模型、驗證結果與可直接寫進場景的內容。完整模板是上限，不是每次最低字數。
 
-當以下條件同時成立即可停止，不為「更完整」繼續堆資料：
-- 新 R1／R2 evidence run validator 通過；must routes 已執行或有可辯護受阻紀錄；最後指定窗口中的不同 route 無新 source family；P0 claims 全部閉合並完成 claim audit；沒有未處理的高價值 defer。舊 v1 manifest 或來源清單只能標 legacy／`RESEARCH_INCOMPLETE`，不能證明 v2 完成；
+當以下條件同時成立，可作本輪「有界完成」停止，不為「更完整」繼續堆資料。時間／來源限制也可以停止工作，但須另記 `session_stop_reason`、仍未解的問題與使用限制，保留 `RESEARCH_INCOMPLETE`／`SCOPE_LIMITED`，不偽稱已完成：
+- 新 R1／R2 evidence run validator 通過；must routes 有有效執行；最後指定窗口中的不同 route 無新增可觀測 source family，且無尚未處理的問題相關解釋增量；P0 claims 全部閉合並完成 claim audit；沒有未處理的高價值 defer。blocked 可解釋為何停工，不能自動滿足完成門檻。舊 v1 manifest 或來源清單只能標 legacy／`RESEARCH_INCOMPLETE`，不能證明 v2 完成；
 - 本次 1–3 個故事問題已有可用答案或誠實標為不可知；
 - L0／L1／L2 對應必填已達成；
 - 每個核心推論有證據家族、替代解釋與推翻條件；
@@ -329,6 +356,19 @@ validator FAIL 時不得標 `SCENE_TESTED`／`REVISION_CALIBRATED` 或交給重�
 - 建議的下一步：關係網、人物弧、試寫場景或一致性測試
 
 ## 品質檢查
+
+交付前確認 v1.12 實務增強項：
+- 末窗口是否真正不同 route，沒有漏記可觀測新 family；discovery／explanation／verification 是否分開，沒有把全局零新增蓋過 P0 盲點？
+- 缺載推論是否有紀錄形成、保管、完整性及正控制；共同中介與共同回憶是否被誤算為多份獨立觀測？
+- 最終摘要是否新增意圖、日期、到場、關係或擴大否認範圍；重要反例遭排除有無可辯護理由？
+- 重大反證是否重查下游關係與模型依賴；本輪新搜尋與事後補記舊決策有沒有分開？
+- 遮蔽重抽是否真的先存自己的抽取結果再看舊結論，而非僅生成 packet 就聲稱審查完成？
+
+交付前確認 v1.11 增強項：
+- 續挖是否先盤點既有缺口，並交代新增、推翻／降級與仍未知，而不是重複舊履歷？
+- 同名、相同頭像、互追、平台掛載、短劇角色與活動邀請是否仍停在適當證據層，沒有被升格成身份、公司所有權、家庭事實或活動完成？
+- 行為樣本是否揭露時間／情境範圍與選樣偏差，並以新材料挑戰模型，而非把創作場景當真人心理驗證？
+- 是否分開報告結構 PASS、內容可信度與停止理由，沒有把排序器零待辦當完成證明？
 
 交付前確認：
 - 非真人是否先建立 target character instance、WEMI witness 與 continuity map，沒有把同名跨版本角色先合成人格？
