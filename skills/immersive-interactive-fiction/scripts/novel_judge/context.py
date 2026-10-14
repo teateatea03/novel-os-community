@@ -18,7 +18,7 @@ def build_context(state: dict[str, Any], *, audience: str = "reader", actor_id: 
         "clock": deep_copy(state.get("clock", {})), "facts": filter_private(facts),
         "world_public": filter_private(state.get("world_public", {})), "actors": {}, "objects": {},
         "relations": filter_private(state.get("relations", {})),
-        "storylets": {"active": state.get("storylets", {}).get("active", [])},
+        "storylets": {"active": deep_copy(state.get("storylets", {}).get("active", []))},
         "threads": deep_copy(state.get("threads", {})), "excluded": [],
         "provenance": {"state_hash": state.get("state_hash"), "branch_id": state.get("branch_id"), "revision": state.get("revision")},
     }
