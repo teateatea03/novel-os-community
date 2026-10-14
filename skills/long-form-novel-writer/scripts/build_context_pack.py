@@ -2,6 +2,7 @@
 import argparse, json, math, re, sys
 from collections import Counter
 from pathlib import Path
+from context_evidence import SCHEMA, sha256_bytes, source_path, source_record, text_hash
 
 # Reuse the same token-aware admission contract as interactive runtime.
 SKILLS_ROOT=Path(__file__).resolve().parents[2]
@@ -12,15 +13,19 @@ SKIP={".git","snapshots","context-packs","gates","reviews","benchmarks"}
 TOKEN=re.compile(r"[\u4e00-\u9fff]|[A-Za-z0-9_]+")
 def toks(s): return [x.lower() for x in TOKEN.findall(s)]
 def chunks(path,root,size=1200):
-    text=path.read_text(encoding="utf-8",errors="ignore"); lines=text.splitlines(); out=[]; buf=[]; start=1; n=0
+    path=source_path(root, path.relative_to(root).as_posix())
+    raw=path.read_bytes(); text=raw.decode("utf-8"); lines=text.splitlines(); out=[]; buf=[]; start=1; n=0
     for i,line in enumerate(lines,1):
         if buf and (n+len(line)>size or re.match(r"^#{1,3} ",line)):
-            out.append({"file":str(path.relative_to(root)),"start":start,"end":i-1,"text":"\n".join(buf)}); buf=[]; start=i; n=0
+            out.append({"file":path.relative_to(root).as_posix(),"start":start,"end":i-1,"text":"\n".join(buf)}); buf=[]; start=i; n=0
         buf.append(line); n+=len(line)+1
-    if buf: out.append({"file":str(path.relative_to(root)),"start":start,"end":len(lines),"text":"\n".join(buf)})
+    if buf: out.append({"file":path.relative_to(root).as_posix(),"start":start,"end":len(lines),"text":"\n".join(buf)})
+    for item in out:
+        item["source_sha256"]=sha256_bytes(raw)
+        item["excerpt_sha256"]=text_hash(item["text"])
     return out
 def registry_terms(root,query):
-    p=root/"entity-registry.json"; selected=[]; always=[]
+    p=source_path(root,"entity-registry.json"); selected=[]; always=[]
     if not p.exists(): return selected,always
     data=json.loads(p.read_text(encoding="utf-8")); hay=query.lower()
     for e in data.get("entities",[]):
@@ -30,7 +35,10 @@ def registry_terms(root,query):
     return selected,always
 def main():
     ap=argparse.ArgumentParser(); ap.add_argument("--root",required=True); ap.add_argument("--chapter",required=True); ap.add_argument("--query",default=""); ap.add_argument("--top-k",type=int,default=14); ap.add_argument("--budget",type=int,default=18000, help="legacy character budget; used as a soft prefilter"); ap.add_argument("--context-window",type=int,default=65536); ap.add_argument("--context-policy",choices=["lossy-admission","lossless-addressable","lossy","lossless","astra"],default=None); ap.add_argument("--profile",choices=["interactive","plan","render","research","blind_read"],default="research")
-    a=ap.parse_args(); root=Path(a.root).resolve(); query=a.query+" "+a.chapter; entities,always=registry_terms(root,query)
+    a=ap.parse_args()
+    if not a.chapter or a.chapter in {".", ".."} or any(c in a.chapter for c in ("/", "\\")):
+        ap.error("--chapter must be one project-local filename stem")
+    root=Path(a.root).resolve(); query=a.query+" "+a.chapter; entities,always=registry_terms(root,query)
     query+=" "+" ".join(n for e in entities for n in [e.get("canonical","")]+e.get("aliases",[]))
     paths=[p for p in root.rglob("*.md") if not any(x in SKIP for x in p.parts)]
     docs=[]
@@ -63,16 +71,23 @@ def main():
     inline=[d for d in chosen if f"{d['file']}:{d['start']}-{d['end']}" in allowed]
     overflow=[]
     if policy=="lossless-addressable":
-        overflow=[{"file":d["file"],"start":d["start"],"end":d["end"],"score":d["score"]} for d in chosen if f"{d['file']}:{d['start']}-{d['end']}" not in allowed]
-        overflow += [{"file":d["file"],"start":d["start"],"end":d["end"],"score":d["score"]} for d in ranked if d not in chosen][:80]
+        overflow=[source_record(d) for d in chosen if f"{d['file']}:{d['start']}-{d['end']}" not in allowed]
+        overflow += [source_record(d) for d in ranked if d not in chosen][:80]
+    selection_summary={"ranked_chunks":len(ranked), "inline_chunks":len(inline), "addressable_overflow_chunks":len(overflow), "unlisted_ranked_chunks":len(ranked)-len(inline)-len(overflow), "scope":"ranked_chunks_only_not_semantic_coverage"}
     chosen=inline
     used_chars=sum(len(d["text"]) for d in chosen)
-    out=root/"context-packs"/f"{a.chapter}.md"; out.parent.mkdir(exist_ok=True)
-    head=f"# Context Pack｜{a.chapter}\n\n- query: `{a.query}`\n- context_window: {a.context_window}\n- context_policy: {policy}\n- profile: {a.profile}\n- input_budget_tokens: {admission.get('input_budget')}\n- estimated_tokens: {admission.get('estimated_tokens', 0)}\n- used_characters: {used_chars}\n- admission: {admission.get('admission')}\n- forgotten_sources: {len(admission.get('forgotten_sources') or [])}\n- addressable_overflow: {len(admission.get('addressable_overflow') or overflow)}\n- selected entities: {', '.join(e.get('id','') for e in entities+always) or 'none'}\n- 注意：這是衍生檢索結果；寫作前回讀關鍵來源，不能取代正典與時間切片。lossless-addressable 不會把未內嵌來源摘要掉，只保留可回讀位址。\n"
-    body=[]
-    for d in chosen: body.append(f"\n## {d['file']}:{d['start']}-{d['end']}｜score {d['score']}\n\n{d['text']}\n")
+    out=source_path(root,f"context-packs/{a.chapter}.md"); source_path(root,f"context-packs/{a.chapter}.json"); out.parent.mkdir(exist_ok=True)
+    head=f"# Context Pack｜{a.chapter}\n\n- evidence_schema: {SCHEMA}\n- query: `{a.query}`\n- context_window: {a.context_window}\n- context_policy: {policy}\n- profile: {a.profile}\n- input_budget_tokens: {admission.get('input_budget')}\n- estimated_tokens: {admission.get('estimated_tokens', 0)}\n- used_characters: {used_chars}\n- admission: {admission.get('admission')}\n- forgotten_sources: {len(admission.get('forgotten_sources') or [])}\n- addressable_overflow: {len(overflow)}\n- selected entities: {', '.join(e.get('id','') for e in entities+always) or 'none'}\n- 注意：這是衍生檢索結果；寫作前回讀關鍵來源，不能取代正典與時間切片。lossless-addressable 不會把未內嵌來源摘要掉，只保留可回讀位址。\n"
+    body=[]; records=[]; position=len(head)
+    for d in chosen:
+        heading=f"\n## {d['file']}:{d['start']}-{d['end']}｜score {d['score']}\n\n"
+        record=source_record(d)
+        record.update(pack_start=position+len(heading), pack_end=position+len(heading)+len(d["text"]))
+        part=heading+d["text"]+"\n"
+        body.append(part); records.append(record); position+=len(part)
     if overflow:
         body.append("\n## Addressable overflow（原文未摘要）\n\n")
         for d in overflow: body.append(f"- `{d['file']}:{d['start']}-{d['end']}` score {d['score']}\n")
-    out.write_text(head+"".join(body),encoding="utf-8"); manifest=out.with_suffix(".json"); manifest.write_text(json.dumps({"schema":"minis.context-pack.v4","chapter":a.chapter,"query":a.query,"budget_characters":a.budget,"context_window":a.context_window,"context_policy":policy,"profile":a.profile,"used_characters":used_chars,"estimated_tokens":admission.get("estimated_tokens",0),"admission":admission,"addressable_overflow":overflow,"entities":[e.get("id") for e in entities+always],"sources":[{k:d[k] for k in ("file","start","end","score")} for d in chosen]},ensure_ascii=False,indent=2)+"\n",encoding="utf-8"); print(out)
+    pack_text=head+"".join(body)
+    out.write_text(pack_text,encoding="utf-8",newline="\n"); manifest=out.with_suffix(".json"); manifest.write_text(json.dumps({"schema":SCHEMA,"pack_sha256":text_hash(pack_text),"offset_unit":"unicode_characters_half_open","selection_summary":selection_summary,"chapter":a.chapter,"query":a.query,"budget_characters":a.budget,"top_k":a.top_k,"context_window":a.context_window,"context_policy":policy,"profile":a.profile,"used_characters":used_chars,"estimated_tokens":admission.get("estimated_tokens",0),"admission":admission,"addressable_overflow":overflow,"entities":[e.get("id") for e in entities+always],"sources":records},ensure_ascii=False,indent=2)+"\n",encoding="utf-8"); print(out)
 if __name__=="__main__": main()
