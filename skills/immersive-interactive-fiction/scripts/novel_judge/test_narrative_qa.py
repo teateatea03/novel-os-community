@@ -154,6 +154,33 @@ class PovDialogueTests(unittest.TestCase):
                 finding = self.findings(prefix + drift)[0]
                 self.assertEqual(finding['span']['start'], len(prefix))
 
+    def test_same_mark_possessive_inside_single_quotes(self):
+        drift = '我握住門把。他看見自己，而你知道結果。'
+        for prefix in ("‘That is James’ book,’ she said.\n", "'That is James' book,' she said.\n",
+                       "‘That is James’ book.’\n", "'That is James' book.'\n"):
+            with self.subTest(prefix=prefix):
+                self.assertEqual(len(self.findings(prefix + drift)), 1)
+
+    def test_single_quote_closure_is_not_possessive_before_another_quote(self):
+        drift = '我握住門把。他看見自己，而你知道結果。'
+        for separator in (' ', ':'):
+            with self.subTest(separator=separator):
+                prefix = "'James' she said" + separator
+                self.assertEqual(len(self.findings(prefix + "'明天見。'\n" + drift)), 1)
+                self.assertEqual(self.findings(prefix + "'" + drift + "'\n她關上窗。"), [])
+
+    def test_dialogue_boundary_preserves_adjacent_narration(self):
+        for text in ('我說：「走。」他看見自己。', '我說："走。"他看見自己。',
+                     '我說：「走」他看見自己。'):
+            with self.subTest(text=text):
+                self.assertEqual(len(self.findings(text)), 1)
+
+    def test_long_embedded_quote_is_not_reintroduced_in_span(self):
+        text = '我說：「' + '合成台詞。' * 60 + '」然後離開。他看見自己，而你知道真相。'
+        span = self.findings(text)[0]['span']
+        self.assertEqual(span['quote'], '我說：')
+        self.assertEqual(text[span['start']:span['end']], span['quote'])
+
     def test_adjacent_cognition_flip_still_detected(self):
         text = '「你先走。」她說。\n我關上窗。他看見自己。'
         findings = self.findings(text)

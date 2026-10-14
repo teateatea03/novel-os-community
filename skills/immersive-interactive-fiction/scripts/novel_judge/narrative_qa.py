@@ -103,12 +103,19 @@ def _pov_narration(text: str) -> list[tuple[str, int, int]]:
     for index, char in enumerate(source):
         escaped = slash_count % 2 == 1
         slash_count = slash_count + 1 if char == "\\" else 0
-        # English contractions and trailing possessives are not delimiters,
-        # except when the mark closes an active single-quoted passage.
+        # A trailing s-apostrophe may use the outer single-quote mark.
+        # Require a following English word and a later closing mark in the
+        # same sentence, without crossing another quote opener or line.
+        possessive = (char in {"'", "’"} and index > 0
+                      and source[index - 1] in "sS"
+                      and re.match(r"[ \t]+[A-Za-z][^.!?\n‘’'\"]*[.!?]?(?<!\s)" + re.escape(char) + r"(?!\w)",
+                                   source[index + 1:]) is not None)
+        # Ordinary contractions/possessives outside a matching quote remain
+        # lexical apostrophes; actual single-quote closures still delimit.
         apostrophe = (char in {"'", "’"} and index > 0 and index + 1 < len(source)
                       and source[index - 1].isascii() and source[index - 1].isalnum()
                       and ((source[index + 1].isascii() and source[index + 1].isalnum())
-                           or not stack or stack[-1] != char))
+                           or possessive or not stack or stack[-1] != char))
         was_quoted = bool(stack)
         delimiter = not escaped and not apostrophe
         if delimiter and stack and char == stack[-1]:
@@ -119,7 +126,7 @@ def _pov_narration(text: str) -> list[tuple[str, int, int]]:
             chars[index:] = ["\n" if c == "\n" else " " for c in source[index:]]
             break  # uncertain suffix; retain completed narration before it
         if was_quoted or stack:
-            chars[index] = "\n" if char == "\n" else " "
+            chars[index] = "\n"  # offset-preserving boundary, never join narration across a quote
     # An unclosed opener already masked its entire suffix during traversal.
     masked = "".join(chars)
     sentences = []
