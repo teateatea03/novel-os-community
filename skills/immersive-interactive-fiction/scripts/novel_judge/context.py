@@ -18,7 +18,7 @@ def build_context(state: dict[str, Any], *, audience: str = "reader", actor_id: 
         "clock": deep_copy(state.get("clock", {})), "facts": filter_private(facts),
         "world_public": filter_private(state.get("world_public", {})), "actors": {}, "objects": {},
         "relations": filter_private(state.get("relations", {})),
-        "storylets": {"active": state.get("storylets", {}).get("active", [])},
+        "storylets": {"active": deep_copy(state.get("storylets", {}).get("active", []))},
         "threads": deep_copy(state.get("threads", {})), "excluded": [],
         "provenance": {"state_hash": state.get("state_hash"), "branch_id": state.get("branch_id"), "revision": state.get("revision")},
     }
@@ -49,6 +49,8 @@ def build_context(state: dict[str, Any], *, audience: str = "reader", actor_id: 
         character_ids=character_ids or None,
         scene_kind=scene_kind,
     )
+    # Detach nested helper output (reality, capacity, memory) before binding it.
+    context = deep_copy(context)
     context["context_hash"] = sha256_json({k: v for k, v in context.items() if k != "context_hash"})
     return context
 

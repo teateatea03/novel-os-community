@@ -8,7 +8,7 @@ from .context import build_context
 from .author_corrections import infer_project_root, attach_author_corrections
 from .storylets import available_storylets
 from .contracts import ACTION_TYPES
-from .canonical import sha256_json
+from .canonical import deep_copy, sha256_json
 from .context_budget import (
     admit_context_dict, CONTEXT_WINDOW_64K, POLICY_LOSSLESS,
     context_policy_for_window, default_context_window,
@@ -141,9 +141,9 @@ def compile_model_task(state: dict[str, Any], *, task: str, actor_id: str,
         "input_text": input_text, "context": context,
         "context_admission": context_admission,
         "context_policy": policy,
-        "storylet_candidates": _compact_storylets(state, actor_id),
-        "approved_manifest": approved_manifest or {}, "issues": issues or [],
-        "output_contract": TASK_SCHEMAS[task],
+        "storylet_candidates": deep_copy(_compact_storylets(state, actor_id)),
+        "approved_manifest": deep_copy(approved_manifest or {}), "issues": deep_copy(issues or []),
+        "output_contract": deep_copy(TASK_SCHEMAS[task]),
         "authority": {
             "may_propose": True, "may_write_files": False, "may_commit_state": False,
             "may_modify_graph": False, "may_control_player": False,
