@@ -111,6 +111,7 @@ def assess_context(root: Path, pack_path: Path, context_text: str, included_char
         result["selection_summary"] = {key: summary[key] for key in counts}
         result["selection_summary"]["scope"] = "ranked_chunks_only_not_semantic_coverage"
         previous_end = 0
+        source_cache = {}  # One snapshot per canonical file, only for this assessment.
         for inline, entries in ((True, manifest["sources"]), (False, manifest["addressable_overflow"])):
             for entry in entries:
                 if not isinstance(entry, dict):
@@ -137,17 +138,24 @@ def assess_context(root: Path, pack_path: Path, context_text: str, included_char
                     item["inclusion"] = {"status": "omitted", "included_characters": 0,
                                          "reason": "address_only_not_source_text"}
                 path = source_path(root, name)
-                try:
-                    raw = path.read_bytes()
-                    lines = raw.decode("utf-8").splitlines()
-                    if sha256_bytes(raw) != entry["source_sha256"]:
-                        item.update(status="stale", reason="source_hash_mismatch")
-                    elif end > len(lines) or text_hash("\n".join(lines[start - 1:end])) != entry["excerpt_sha256"]:
+                if name not in source_cache:
+                    try:
+                        raw = path.read_bytes()
+                        source_cache[name] = {"sha256": sha256_bytes(raw),
+                                              "lines": raw.decode("utf-8").splitlines()}
+                    except FileNotFoundError:
+                        source_cache[name] = {"status": "missing", "reason": "source_missing"}
+                    except (OSError, UnicodeError):
+                        source_cache[name] = {"status": "invalid", "reason": "source_unreadable"}
+                source = source_cache[name]
+                if "status" in source:
+                    item.update(source)
+                elif source["sha256"] != entry["source_sha256"]:
+                    item.update(status="stale", reason="source_hash_mismatch")
+                else:
+                    lines = source["lines"]
+                    if end > len(lines) or text_hash("\n".join(lines[start - 1:end])) != entry["excerpt_sha256"]:
                         item.update(status="stale", reason="source_range_mismatch")
-                except FileNotFoundError:
-                    item.update(status="missing", reason="source_missing")
-                except (OSError, UnicodeError):
-                    item.update(status="invalid", reason="source_unreadable")
                 result["sources"].append(item)
         result["status"] = "verified" if all(s["status"] == "verified" for s in result["sources"]) else "stale"
     except (OSError, UnicodeError, ValueError, KeyError, TypeError) as error:
@@ -165,6 +173,7 @@ def context_source_spans(root: Path, assessment: dict) -> dict:
     if assessment.get("status") != "verified":
         return {}
     snapshots = {}
+    line_offsets = {}
     for item in assessment["sources"]:
         count = item["inclusion"]["included_characters"]
         if item["placement"] != "inline" or not count:
@@ -174,12 +183,17 @@ def context_source_spans(root: Path, assessment: dict) -> dict:
             raw = source_path(root, name).read_bytes()
             if sha256_bytes(raw) != item["source_sha256"]:
                 raise ValueError("context source changed during preparation: " + name)
-            snapshots[name] = {"text": "\n".join(raw.decode("utf-8").splitlines()),
+            lines = raw.decode("utf-8").splitlines()
+            offsets = []; position = 0
+            for line in lines:
+                offsets.append(position)
+                position += len(line) + 1
+            line_offsets[name] = offsets
+            snapshots[name] = {"text": "\n".join(lines),
                                "sha256": item["source_sha256"], "ranges": []}
         snapshot = snapshots[name]
         if snapshot["sha256"] != item["source_sha256"]:
             raise ValueError("inconsistent source fingerprints: " + name)
-        lines = snapshot["text"].split("\n")
-        start = sum(len(line) + 1 for line in lines[:item["start"] - 1])
+        start = line_offsets[name][item["start"] - 1]
         snapshot["ranges"].append([start, start + count])
     return snapshots

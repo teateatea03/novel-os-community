@@ -4,7 +4,7 @@ from datetime import datetime
 from pathlib import Path
 
 from context_evidence import assess_context, context_source_spans
-from review_evidence import (SCHEMA as REVIEW_SCHEMA, capture_source, check_binding,
+from review_evidence import (SCHEMA as REVIEW_SCHEMA, capture_source, check_binding, consolidate_binding,
                              make_report, recheck_report, source_binding, source_path)
 
 ROLES={
@@ -96,7 +96,7 @@ def main():
     stamp = datetime.now().strftime("%Y%m%d-%H%M%S-%f")
     base = reviews / f"{a.chapter}-{a.role}-{stamp}-{uuid.uuid4().hex[:8]}"
     raw = Path(str(base) + ".raw.txt")
-    binding = source_binding(sources) + bound_inputs
+    binding = consolidate_binding(source_binding(sources) + bound_inputs)
     def save_error(status, error, payload=None):
         result = {"schema": REVIEW_SCHEMA, "role": a.role, "model": a.model,
                   "status": status, "error": error, "context_receipt": receipt,

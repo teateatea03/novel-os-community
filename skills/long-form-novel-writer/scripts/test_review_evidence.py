@@ -8,8 +8,9 @@ import subprocess
 import sys
 import tempfile
 import unittest
+from unittest import mock
 
-from review_evidence import capture_source, make_report, recheck_report, source_path, validate_anchor, validate_report
+from review_evidence import check_binding, consolidate_binding, capture_source, make_report, recheck_report, source_path, validate_anchor, validate_report
 
 HERE = Path(__file__).resolve().parent
 
@@ -81,6 +82,40 @@ class EvidenceTests(unittest.TestCase):
         data["issues"][0]["evidence_b"] = copy.deepcopy(data["issues"][0]["evidence_a"])
         self.assertEqual(self.report(data)["validation"]["findings"][0]["status"], "unverified")
 
+    def test_containing_quotes_are_duplicate_evidence_both_directions(self):
+        for first, second in [("The cup is blue", "The cup is blue."),
+                              ("The cup is blue.", "The cup is blue"),
+                              ("cup is blue", "The cup is blue.")]:
+            data = payload()
+            data["issues"][0]["evidence_a"]["quote"] = first
+            data["issues"][0]["evidence_b"] = dict(data["issues"][0]["evidence_a"], quote=second)
+            finding = self.report(data)["validation"]["findings"][0]
+            self.assertEqual(finding["status"], "unverified")
+            self.assertEqual(finding["anchors"][-1]["reason"], "duplicate_evidence")
+            self.assertEqual(finding["semantic_status"], "unverified")
+            self.assertEqual(finding["resolution"], "unresolved")
+        self.assertEqual(self.report()["validation"]["findings"][0]["status"], "anchored")
+
+    def test_binding_reads_once_per_check_and_checks_conflicting_hashes(self):
+        original = self.report()["source_binding"]
+        repeated = original * 50
+        real_read = Path.read_bytes
+        reads = []
+        def read(path):
+            reads.append(path)
+            return real_read(path)
+        with mock.patch.object(Path, "read_bytes", read):
+            self.assertEqual(check_binding(self.root, repeated)["status"], "current")
+            self.assertEqual(reads, [self.draft])
+            conflict = repeated + [dict(original[0], sha256="0" * 64)]
+            self.assertEqual(check_binding(self.root, consolidate_binding(conflict))["status"], "stale")
+            self.assertEqual(reads, [self.draft] * 2)
+            self.draft.write_text("Changed between checks.")
+            self.assertEqual(check_binding(self.root, repeated)["status"], "stale")
+            self.assertEqual(reads, [self.draft] * 3)
+        self.assertEqual(len(consolidate_binding(repeated)), 1)
+        self.assertEqual(len(consolidate_binding(conflict)), 2)
+
     def test_malformed_report_and_issues(self):
         for data in [[], None, True, 1, "report", {}, {"issues": {}}]:
             self.assertEqual(self.report(data)["validation"]["status"], "unverified")
@@ -151,6 +186,42 @@ sys.exit(int(os.environ.get('RETURN_CODE', '0')))
         self.assertEqual((self.root / report["raw_file"]).read_text(), self.env["PAYLOAD"])
         self.assertEqual(report["freshness"]["status"], "current")
         self.assertIn("The cup is green.", (self.root / "seen.txt").read_text())
+
+    def test_cli_containing_quotes_stay_unverified(self):
+        data = payload()
+        data["issues"][0]["evidence_a"]["quote"] = "The cup is blue"
+        data["issues"][0]["evidence_b"] = {"file": "chapters/demo.md", "line": 1, "quote": "The cup is blue."}
+        result, report = self.run_review(PAYLOAD=json.dumps(data))
+        self.assertEqual(result.returncode, 0, result.stderr)
+        finding = report["validation"]["findings"][0]
+        self.assertEqual(finding["status"], "unverified")
+        self.assertEqual(finding["anchors"][-1]["reason"], "duplicate_evidence")
+        self.assertEqual(report["machine_suggestion"], data)
+
+    def test_cli_multiple_chunks_have_one_binding_and_one_read_per_check(self):
+        source = self.root / "story-bible.md"
+        source.write_text("# First\nSynthetic blue rule.\n# Second\nSynthetic green rule.\n# Third\nSynthetic red rule.\n")
+        built = subprocess.run([sys.executable, str(HERE / "build_context_pack.py"), "--root", str(self.root),
+                                "--chapter", "demo"], capture_output=True, text=True)
+        self.assertEqual(built.returncode, 0, built.stderr)
+        result, report = self.run_review()
+        self.assertEqual(result.returncode, 0, result.stderr)
+        chunks = [entry for entry in report["context_receipt"]["sources"] if entry["file"] == "story-bible.md"]
+        self.assertEqual(len(chunks), 3)
+        bindings = report["source_binding"]
+        self.assertEqual(len([entry for entry in bindings if entry["file"] == "story-bible.md"]), 1)
+        reads = []
+        real_read = Path.read_bytes
+        def read(path):
+            reads.append(path)
+            return real_read(path)
+        with mock.patch.object(Path, "read_bytes", read):
+            self.assertEqual(check_binding(self.root, bindings)["status"], "current")
+            self.assertEqual(len(reads), len(bindings))
+            self.assertEqual(reads.count(source), 1)
+            source.write_text(source.read_text() + " ")
+            self.assertEqual(check_binding(self.root, bindings)["status"], "stale")
+            self.assertEqual(reads.count(source), 2)
 
     def test_cli_nonobject_and_invalid_json_retained(self):
         for text in ["[]", "null", "invalid", '{"confidence":NaN}', '{"x":1e999}', '{"nested":[-1e999]}']:

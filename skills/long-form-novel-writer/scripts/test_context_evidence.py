@@ -5,6 +5,7 @@ import subprocess
 import sys
 import tempfile
 import unittest
+from unittest import mock
 
 from context_evidence import assess_context, context_source_spans, text_hash
 
@@ -51,6 +52,57 @@ class ContextEvidenceTests(unittest.TestCase):
         self.assertGreater(summary["unlisted_ranked_chunks"], 0)
         self.assertEqual(summary["ranked_chunks"], summary["inline_chunks"] +
                          summary["addressable_overflow_chunks"] + summary["unlisted_ranked_chunks"])
+
+    def many_chunks(self):
+        self.source.write_text("\n".join(f"# Synthetic {i}\nSignal content {i}." for i in range(12)),
+                               encoding="utf-8")
+        return self.build("--top-k", "3", "--context-policy", "lossless-addressable")
+
+    def count_source_reads(self, operation):
+        original = Path.read_bytes
+        reads = []
+        def read(path):
+            if path == self.source:
+                reads.append(path)
+            return original(path)
+        with mock.patch.object(Path, "read_bytes", side_effect=read, autospec=True):
+            result = operation()
+        return result, len(reads)
+
+    def test_many_chunks_read_source_once_per_assessment(self):
+        result = self.many_chunks()
+        self.assertGreater(len(result["sources"]), 3)
+        result, count = self.count_source_reads(self.assess)
+        self.assertEqual(count, 1)
+        self.assertEqual(result["status"], "verified")
+        snapshots, count = self.count_source_reads(lambda: context_source_spans(self.root, result))
+        self.assertEqual(count, 1)  # Separate evidence-read boundary, not a persistent cache.
+        self.assertEqual(len(snapshots), 1)
+        snapshot = snapshots["story-bible.md"]
+        inline = [item for item in result["sources"] if item["placement"] == "inline"]
+        for item, (start, end) in zip(inline, snapshot["ranges"]):
+            self.assertEqual(snapshot["text"][start:end], self.text[item["pack_start"]:item["pack_end"]])
+        self.source.write_text(self.source.read_text() + "changed", encoding="utf-8")
+        result, count = self.count_source_reads(self.assess)
+        self.assertEqual(count, 1)
+        self.assertEqual(result["status"], "stale")
+
+    def test_cached_source_checks_every_expected_hash_and_range(self):
+        self.many_chunks()
+        self.manifest["sources"][1]["source_sha256"] = "0" * 64
+        self.pack.with_suffix(".json").write_text(json.dumps(self.manifest))
+        result, count = self.count_source_reads(self.assess)
+        self.assertEqual(count, 1)
+        self.assertEqual(result["status"], "stale")
+        self.assertEqual(result["sources"][0]["status"], "verified")
+        self.assertEqual(result["sources"][1]["reason"], "source_hash_mismatch")
+
+    def test_missing_multi_chunk_source_read_once(self):
+        self.many_chunks()
+        self.source.unlink()
+        result, count = self.count_source_reads(self.assess)
+        self.assertEqual(count, 1)
+        self.assertTrue(all(item["status"] == "missing" for item in result["sources"]))
 
     def test_exact_cli_pack_hashes_and_unicode_boundaries(self):
         self.source.write_text("# Synthetic\nSignal 星🌟尾\n", encoding="utf-8")

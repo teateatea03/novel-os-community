@@ -54,14 +54,39 @@ def source_binding(sources):
             for name, source in sorted(sources.items())]
 
 
+def consolidate_binding(binding):
+    """Merge repeated file/hash records; retain conflicting hashes for validation."""
+    merged = {}
+    for item in binding:
+        key = (item["file"], item["sha256"])
+        if key not in merged:
+            merged[key] = {"file": item["file"], "sha256": item["sha256"], "ranges": []}
+        for span in item["ranges"]:
+            if span not in merged[key]["ranges"]:
+                merged[key]["ranges"].append(copy.deepcopy(span))
+    return list(merged.values())
+
+
 def check_binding(root, binding):
     problems = []
     if not isinstance(binding, list) or not binding:
         return {"status": "unverified", "problems": ["missing source binding"]}
+    # Invocation-local only: pre-model, post-model and reuse each read afresh.
+    current_hashes = {}
     for item in binding:
         try:
             name = item["file"]
-            current = digest(source_path(root, name).read_bytes())
+            if not isinstance(name, str):
+                raise ValueError("invalid source identity")
+            if name not in current_hashes:
+                try:
+                    current_hashes[name] = digest(source_path(root, name).read_bytes())
+                except (OSError, ValueError):
+                    current_hashes[name] = None
+            current = current_hashes[name]
+            if current is None:
+                raise ValueError("source missing or invalid")
+            # Check every expected fingerprint, including conflicting duplicates.
             if current != item["sha256"]:
                 problems.append({"file": name, "reason": "source_changed"})
         except (OSError, ValueError, KeyError, TypeError):
@@ -123,7 +148,11 @@ def validate_report(data, sources, draft_file):
         if not valid:
             errors.append(f"issues[{index}] has malformed or missing fields")
         anchored = valid and all(c["status"] == "anchored" for c in checks)
-        if anchored and checks[0] == checks[1]:
+        if anchored and checks[0]["file"] == checks[1]["file"] and (
+                checks[0]["start_char"] <= checks[1]["start_char"]
+                and checks[1]["end_char"] <= checks[0]["end_char"]
+                or checks[1]["start_char"] <= checks[0]["start_char"]
+                and checks[0]["end_char"] <= checks[1]["end_char"]):
             anchored = False
             checks.append({"status": "unverified", "reason": "duplicate_evidence"})
         identity = {"draft": sources[draft_file]["sha256"], "draft_file": draft_file, "issue": issue}
