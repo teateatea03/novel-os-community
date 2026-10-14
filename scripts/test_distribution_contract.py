@@ -7,8 +7,9 @@ import contextlib
 import io
 import json
 import os
+import ntpath
 import re
-from pathlib import Path
+from pathlib import Path, PureWindowsPath
 import tempfile
 import types
 import unittest
@@ -17,6 +18,11 @@ import zipfile
 
 ROOT = Path(__file__).resolve().parents[1]
 EXPORTER = ROOT / "skills/novel-system-exporter"
+
+
+def markdown_relpath(target, start):
+    """Format a native relative path as a portable Markdown destination."""
+    return Path(os.path.relpath(target, start)).as_posix()
 
 
 def load(name):
@@ -134,6 +140,28 @@ class PublicDocumentationTests(unittest.TestCase):
                    f"{stem}{'' if language == 'zh-TW' else '.' + language}.md"
                    for language in self.LANGUAGES}
 
+    def test_markdown_relpath_native_nested_and_parent_links(self):
+        self.assertEqual(markdown_relpath(ROOT / "docs/i18n/ja/README.md", ROOT),
+                         "docs/i18n/ja/README.md")
+        self.assertEqual(markdown_relpath(ROOT / "README.md", ROOT / "docs/i18n/ja"),
+                         "../../../README.md")
+        self.assertEqual(markdown_relpath(ROOT / "docs/README.md", ROOT / "docs"),
+                         "README.md")
+
+    def test_markdown_relpath_windows_semantics(self):
+        # Exercise Windows path parsing on any host; native Path on POSIX
+        # does not interpret backslashes as directory separators.
+        cases = (
+            ("C:/repo/docs/i18n/ja/README.md", "C:/repo", "docs/i18n/ja/README.md"),
+            ("C:/repo/README.md", "C:/repo/docs/i18n/ja", "../../../README.md"),
+            ("C:/repo/docs/README.md", "C:/repo/docs", "README.md"),
+        )
+        with mock.patch.object(os.path, "relpath", ntpath.relpath), \
+                mock.patch.dict(markdown_relpath.__globals__, Path=PureWindowsPath):
+            for target, start, expected in cases:
+                with self.subTest(target=target, start=start):
+                    self.assertEqual(markdown_relpath(target, start), expected)
+
     def test_all_96_full_documents_have_eight_language_navigation(self):
         families = list(self.families())
         self.assertEqual(len(families), 12)
@@ -156,7 +184,7 @@ class PublicDocumentationTests(unittest.TestCase):
                     self.assertEqual(len(re.findall(r"\*\*[^*]+\*\*", navigation)), 1)
                     for target in family.values():
                         if target != path:
-                            self.assertIn(f"({os.path.relpath(target, path.parent)})", navigation)
+                            self.assertIn(f"({markdown_relpath(target, path.parent)})", navigation)
                     self.assertGreater(len(text.splitlines()), 20)
 
     def test_pull_request_language_navigation_is_a_separate_markdown_paragraph(self):
