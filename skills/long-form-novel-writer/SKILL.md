@@ -169,7 +169,7 @@ python3 scripts/build_story_index.py --root <project>
 python3 scripts/build_context_pack.py --root <project> --chapter chapter-001 --query "POV 地點 活躍伏筆"
 ```
 
-context pack 採關鍵詞 TF-IDF 與結構帳本小幅保底，輸出來源檔和行號、Top-K 與字元預算。它不以向量相似度取代時間線、正典狀態、認知權限或圖譜；寫作前仍須回讀每個關鍵來源。`workflow-state.json` 記錄當前 phase／章／場、待 gate、未提交草稿、最近 snapshot、索引與 cascade 狀態，使中斷後可恢復。
+context pack 採關鍵詞 TF-IDF 與結構帳本小幅保底，輸出來源檔和行號、Top-K 與字元預算。v5 sidecar 記錄來源原始 bytes、正規化摘錄和 pack 文字的 SHA-256，以及摘錄在 pack 內的 Unicode 字元半開區間。`selection_summary` 區分內嵌、可回讀 overflow 與未列出的 ranked chunks；這不是全稿或語意覆蓋率。它不以向量相似度取代時間線、正典狀態、認知權限或圖譜；寫作前仍須回讀每個關鍵來源。`workflow-state.json` 記錄當前 phase／章／場、待 gate、未提交草稿、最近 snapshot、索引與 cascade 狀態，使中斷後可恢復。
 
 ### Gate、快照與級聯
 
