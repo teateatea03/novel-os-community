@@ -89,6 +89,85 @@ class TaskSnapshotIsolationTests(unittest.TestCase):
         packet["storylet_candidates"][0]["candidate_intents"][0]["targets"].append("synthetic-later")
         self.assertEqual(state, before)
 
+    def populated_state(self):
+        state = self.state()
+        state["actors"] = {"player": {"location": "synthetic-room",
+                                      "condition": {"labels": ["synthetic-ready"]},
+                                      "agency_policy": {"synthetic": ["ask"]}}}
+        state["reality"] = {"actors": {"player": {
+            "physical": {"fatigue": "low"}, "cognition": {"clarity": "clear"},
+            "psychology": {"mood": "neutral"},
+            "capacity": {"cognitive_budget": {"max_major_actions_per_turn": 2, "custom": ["synthetic"]}},
+            "available_actions": ["observe_local"],
+            "action_costs": {"observe_local": 1}}}}
+        return state
+
+    def mutate_reality(self, state):
+        rec = state["reality"]["actors"]["player"]
+        rec["physical"]["fatigue"] = "high"
+        rec["cognition"]["clarity"] = "confused"
+        rec["psychology"]["mood"] = "synthetic-changed"
+        rec["capacity"]["cognitive_budget"]["max_major_actions_per_turn"] = 1
+        rec["capacity"]["cognitive_budget"]["custom"].append("synthetic-changed")
+        state["actors"]["player"]["agency_policy"]["synthetic"].append("synthetic-changed")
+        rec["available_actions"].append("rest_awake")
+        rec["action_costs"]["observe_local"] = 2
+        state["actors"]["player"]["condition"]["labels"].append("synthetic-changed")
+
+    def test_populated_actor_state_does_not_change_context_or_hash(self):
+        state = self.populated_state()
+        context = build_context(state, actor_id="player")
+        before = deep_copy(context)
+        self.mutate_reality(state)
+        self.assertEqual(context, before)
+        self.assert_hash_matches(context, "context_hash")
+
+    def test_populated_context_edits_do_not_change_state(self):
+        state = self.populated_state()
+        before = deep_copy(state)
+        context = build_context(state, actor_id="player")
+        card = context["reality_card"]
+        card["physical"]["fatigue"] = "high"
+        card["capacity_summary"]["cognition"]["clarity"] = "confused"
+        context["cognitive_budget"]["custom"].append("synthetic-changed")
+        card["capacity_summary"]["agency_policy"]["synthetic"].append("synthetic-changed")
+        card["available_actions"].append("rest_awake")
+        card["actor_condition"]["labels"].append("synthetic-changed")
+        self.assertEqual(state, before)
+
+    def test_populated_actor_state_does_not_change_any_task_kind(self):
+        for task in TASK_SCHEMAS:
+            with self.subTest(task=task):
+                state = self.populated_state()
+                packet = compile_model_task(state, task=task, actor_id="player",
+                                            persist_used_sources=False)
+                before = deep_copy(packet)
+                self.mutate_reality(state)
+                self.assertEqual(packet, before)
+                self.assert_hash_matches(packet, "task_hash")
+
+    def test_any_task_kind_edits_do_not_change_actor_state_or_sibling(self):
+        for task in TASK_SCHEMAS:
+            with self.subTest(task=task):
+                state = self.populated_state()
+                before = deep_copy(state)
+                packet = compile_model_task(state, task=task, actor_id="player",
+                                            persist_used_sources=False)
+                sibling = compile_model_task(state, task=task, actor_id="player",
+                                             persist_used_sources=False)
+                sibling_before = deep_copy(sibling)
+                card = packet["context"]["reality_card"]
+                card["physical"]["fatigue"] = "high"
+                card["capacity_summary"]["physical"]["fatigue"] = "high"
+                card["capacity"]["cognitive_budget"]["max_major_actions_per_turn"] = 1
+                packet["context"]["cognitive_budget"]["custom"].append("synthetic-changed")
+                card["capacity_summary"]["agency_policy"]["synthetic"].append("synthetic-changed")
+                card["available_actions"].append("rest_awake")
+                card["actor_condition"]["labels"].append("synthetic-changed")
+                self.assertEqual(state, before)
+                self.assertEqual(sibling, sibling_before)
+                self.assert_hash_matches(sibling, "task_hash")
+
     def test_default_and_empty_inputs_keep_deterministic_hashes(self):
         default = self.packet()
         explicit = self.packet(approved_manifest={}, issues=[])

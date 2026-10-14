@@ -49,6 +49,8 @@ def build_context(state: dict[str, Any], *, audience: str = "reader", actor_id: 
         character_ids=character_ids or None,
         scene_kind=scene_kind,
     )
+    # Detach nested helper output (reality, capacity, memory) before binding it.
+    context = deep_copy(context)
     context["context_hash"] = sha256_json({k: v for k, v in context.items() if k != "context_hash"})
     return context
 
