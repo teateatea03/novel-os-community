@@ -9,7 +9,7 @@ from review_evidence import (SCHEMA as REVIEW_SCHEMA, capture_source, check_bind
 
 ROLES={
 "continuity":"只找可定位的時間、事實、知識、動機、POV、世界規則矛盾。不要評論個人喜好。",
-"beta-reader":"以讀者角度描述理解、困惑、期待、情緒與承諾是否得到公平回應。不要改寫全文。",
+"beta-reader":"以讀者角度描述理解、困惑、期待、情緒與承諾是否得到公平回應。不要改寫全文。自造名詞首次出場時，區分讀者可知的類別／眼前行動效果與刻意保留的真相；先查已提供的前文與別名線索，不把未載入當未交代。無證據寫 unknown 並放 questions。對刻意陌生化、不可靠敘事及已介紹別名保留解釋空間，不要求立即定義或揭密。此項僅提供非阻斷建議，不按新詞數量或固定字數判錯；有足夠雙證據才列 reader issue，沿用 v2 引文及來源 hash 綁定，anchored 不代表語義已證實。",
 "style-editor":"依風格契約找敘事距離、角色聲音、節奏、意象與重複漂移。不要把個人文風強加給文本。"
 }
 SCHEMA='''只輸出 JSON：{"summary":"...","issues":[{"category":"time|fact|knowledge|motivation|pov|world|reader|style","severity":"P0|P1|P2","claim":"...","evidence_a":{"file":"...","line":1,"quote":"..."},"evidence_b":{"file":"...","line":1,"quote":"..."},"minimal_fix":"...","confidence":0.0}],"questions":[]}。沒有雙證據的矛盾放 questions，不可判 P0。'''
