@@ -35,8 +35,12 @@ def source_path(root: Path, name: str) -> Path:
 
 
 def source_record(chunk: dict) -> dict:
-    return {key: chunk[key] for key in (
+    record = {key: chunk[key] for key in (
         "file", "start", "end", "score", "source_sha256", "excerpt_sha256")}
+    for key in ("anchor_id", "anchor_role", "anchor_order"):
+        if key in chunk:
+            record[key] = chunk[key]
+    return record
 
 
 def _inclusion(start: int, end: int, limit: int) -> dict:
@@ -126,6 +130,9 @@ def assess_context(root: Path, pack_path: Path, context_text: str, included_char
                 item = {"file": name, "start": start, "end": end,
                         "source_sha256": entry["source_sha256"], "excerpt_sha256": entry["excerpt_sha256"],
                         "status": "verified", "placement": "inline" if inline else "addressable_overflow"}
+                for key in ("anchor_id", "anchor_role", "anchor_order"):
+                    if key in entry:
+                        item[key] = entry[key]
                 if inline:
                     a, b = entry["pack_start"], entry["pack_end"]
                     if type(a) is not int or type(b) is not int or not previous_end <= a <= b <= len(context_text):
@@ -157,6 +164,45 @@ def assess_context(root: Path, pack_path: Path, context_text: str, included_char
                     if end > len(lines) or text_hash("\n".join(lines[start - 1:end])) != entry["excerpt_sha256"]:
                         item.update(status="stale", reason="source_range_mismatch")
                 result["sources"].append(item)
+        anchors = manifest.get("writing_anchors")
+        if anchors is None and any("anchor_id" in item for item in result["sources"]):
+            raise ValueError("writing anchor decisions missing")
+        if anchors is not None:
+            if not isinstance(anchors, dict) or anchors.get("schema") != "minis.writing-anchors.v1" or not isinstance(anchors.get("anchors"), list):
+                raise ValueError("invalid writing anchors manifest")
+            result["writing_anchors"] = []
+            seen = set()
+            rendered = []
+            for report in anchors["anchors"]:
+                if not isinstance(report, dict) or not isinstance(report.get("id"), str) or report["id"] in seen:
+                    raise ValueError("invalid writing anchor report")
+                seen.add(report["id"])
+                if (report.get("role") not in {"previous_chapter_tail", "style_original"}
+                        or type(report.get("order")) is not int):
+                    raise ValueError("invalid writing anchor role or order")
+                matches = [s for s in result["sources"] if s.get("anchor_id") == report["id"] and s["placement"] == "inline"]
+                if report.get("status") == "inline":
+                    if len(matches) != 1:
+                        raise ValueError("inline anchor has no unique source")
+                    source = matches[0]
+                    if (source.get("anchor_role") != report["role"]
+                            or source.get("anchor_order") != report["order"]
+                            or any(source.get(key) != report.get(key) for key in
+                                   ("file", "start", "end", "source_sha256", "excerpt_sha256"))):
+                        raise ValueError("anchor report does not match source")
+                    rendered.append(report["id"])
+                    inclusion = dict(source["inclusion"])
+                elif report.get("status") == "omitted" and not matches:
+                    inclusion = {"status": "omitted", "included_characters": 0, "reason": report.get("reason")}
+                else:
+                    raise ValueError("inconsistent anchor placement")
+                result["writing_anchors"].append({**report, "inclusion": inclusion})
+            actual_order = [s["anchor_id"] for s in result["sources"]
+                            if "anchor_id" in s and s["placement"] == "inline"]
+            if rendered != actual_order or anchors.get("render_order") != actual_order:
+                raise ValueError("inconsistent writing anchor render order")
+            if any(s.get("anchor_id") not in seen for s in result["sources"] if "anchor_id" in s):
+                raise ValueError("unreported writing anchor")
         result["status"] = "verified" if all(s["status"] == "verified" for s in result["sources"]) else "stale"
     except (OSError, UnicodeError, ValueError, KeyError, TypeError) as error:
         result.update(status="invalid", reason=str(error))

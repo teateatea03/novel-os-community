@@ -14,6 +14,18 @@ from .memory import add_episode, make_episode
 
 
 class ContextBudgetTests(unittest.TestCase):
+    def test_explicit_verbatim_source_reservation_under_lossy_policy(self):
+        text = "A" + " " * 2000 + "B"
+        sources = [{"source_id": "anchor", "text": text, "preserve_text": True}]
+        omitted = admit_sources(sources, profile="research", context_window=14004,
+                                context_policy=POLICY_LOSSY)
+        self.assertEqual(omitted["selected_sources"], [])
+        selected = admit_sources(sources, profile="research", context_window=15000,
+                                 context_policy=POLICY_LOSSY)
+        self.assertEqual(selected["estimated_tokens"], estimate_tokens(text))
+        self.assertEqual(selected["compression_records"], [])
+        self.assertIn(text, render_admitted_sources(sources, selected))
+
     def test_estimator_handles_chinese_and_json(self):
         self.assertGreater(estimate_tokens("觀測員在圓頂下。"), 1)
         self.assertGreater(estimate_tokens({"a": "中文"}), 1)

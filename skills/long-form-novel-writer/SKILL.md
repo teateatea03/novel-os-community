@@ -171,6 +171,8 @@ python3 scripts/build_context_pack.py --root <project> --chapter chapter-001 --q
 
 context pack 採關鍵詞 TF-IDF 與結構帳本小幅保底，輸出來源檔和行號、Top-K 與字元預算。v5 sidecar 記錄來源原始 bytes、正規化摘錄和 pack 文字的 SHA-256，以及摘錄在 pack 內的 Unicode 字元半開區間。`selection_summary` 區分內嵌、可回讀 overflow 與未列出的 ranked chunks；這不是全稿或語意覆蓋率。它不以向量相似度取代時間線、正典狀態、認知權限或圖譜；寫作前仍須回讀每個關鍵來源。`workflow-state.json` 記錄當前 phase／章／場、待 gate、未提交草稿、最近 snapshot、索引與 cascade 狀態，使中斷後可恢復。
 
+可選的原文錨點：使用 `--writing-anchors <project-relative-config.json>` 指定前章尾段或作者選定風格原文，另以 `--pov`／`--scene` 明示適用範圍。錨點依顯式順序先保留預算；缺失、過期、刻意換風格與預算排除都留下原因，消費端仍依實際 prompt 截斷回報 inclusion。見 [writing-anchors.md](references/writing-anchors.md)；這不是自動文風裁判或正典更新。
+
 ### Gate、快照與級聯
 
 - 章後執行 `python3 scripts/chapter_gate.py --root <project> --chapter chapter-001`。詳細分類見 `references/consistency-taxonomy.md`；報告必含 PASS/WARN/FAIL、P0/P1/P2、雙證據與最小修補。它是啟發式檢查，作者可以 override，但須記到 `decisions.md`。
