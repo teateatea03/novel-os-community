@@ -1,6 +1,9 @@
 from __future__ import annotations
 import json, tempfile, unittest, zipfile
 from pathlib import Path
+from datetime import datetime, timezone
+from unittest.mock import patch
+import xml.etree.ElementTree as ET
 from .author_resume import build_resume_card, load_project_adapter
 from .manuscript_export import export_manuscript
 from .production import ProjectRuntimeAdapter
@@ -114,6 +117,44 @@ class AuthorDeskTests(unittest.TestCase):
             self.assertTrue(zipfile.is_zipfile(epub))
             self.assertFalse(report["canon_write"])
             self.assertTrue((Path(td) / "interactive" / "scenes" / "T0001.md").is_file())
+
+    def test_epub_has_required_utc_modified_metadata(self):
+        # Original synthetic fixture; agent-test, not author acceptance.
+        with tempfile.TemporaryDirectory() as td:
+            a = self.adapter(td)
+            root = Path(td)
+            source = root / "interactive" / "scenes" / "T0001.md"
+            before = source.read_bytes()
+            meta = root / "project.json"
+            data = json.loads(meta.read_text())
+            data["title"] = 'Synthetic & <Clock>'
+            meta.write_text(json.dumps(data), encoding="utf-8")
+            stamp = datetime(2026, 10, 21, 2, 3, 4, 987654, tzinfo=timezone.utc)
+            with patch("novel_judge.manuscript_export.datetime") as clock:
+                clock.now.return_value = stamp
+                report = export_manuscript(a)
+                clock.now.assert_called_once_with(timezone.utc)
+            self.assertEqual(report["generated_at"], "2026-10-21T02:03:04Z")
+            with zipfile.ZipFile(report["epub_path"]) as zf:
+                first = zf.infolist()[0]
+                self.assertEqual(first.filename, "mimetype")
+                self.assertEqual(first.compress_type, zipfile.ZIP_STORED)
+                self.assertEqual(zf.read("mimetype"), b"application/epub+zip")
+                opf = ET.fromstring(zf.read("OEBPS/content.opf"))
+                ns = {"opf": "http://www.idpf.org/2007/opf", "dc": "http://purl.org/dc/elements/1.1/"}
+                modified = opf.findall("opf:metadata/opf:meta[@property='dcterms:modified']", ns)
+                self.assertEqual(len(modified), 1)
+                self.assertNotIn("refines", modified[0].attrib)
+                self.assertEqual(modified[0].text, report["generated_at"])
+                self.assertEqual(opf.find("opf:metadata/dc:title", ns).text, data["title"])
+                items = {item.attrib["id"]: item.attrib["href"] for item in opf.findall("opf:manifest/opf:item", ns)}
+                for item in opf.findall("opf:spine/opf:itemref", ns):
+                    self.assertIn("OEBPS/" + items[item.attrib["idref"]], zf.namelist())
+                nav = ET.fromstring(zf.read("OEBPS/nav.xhtml"))
+                for link in nav.findall(".//{http://www.w3.org/1999/xhtml}a"):
+                    self.assertIn("OEBPS/" + link.attrib["href"], zf.namelist())
+            self.assertEqual(source.read_bytes(), before)
+            self.assertFalse(report["canon_write"])
 
     def test_workbench_refresh_writes_projection_only(self):
         with tempfile.TemporaryDirectory() as td:
