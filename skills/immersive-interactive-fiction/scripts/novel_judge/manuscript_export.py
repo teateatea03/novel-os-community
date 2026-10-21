@@ -6,10 +6,11 @@ import html
 import json
 import re
 import zipfile
+from datetime import datetime, timezone
 from pathlib import Path
 from typing import Any
 
-from .canonical import now_iso, sha256_json
+from .canonical import sha256_json
 
 EXPORT_SCHEMA = "minis.manuscript-export.v1"
 _MD_HEADING = re.compile(r"^#\s+(.+)$", re.M)
@@ -67,7 +68,7 @@ def _xhtml(title: str, body: str) -> str:
     )
 
 
-def _write_epub(path: Path, title: str, docs: list[dict[str, Any]]) -> None:
+def _write_epub(path: Path, title: str, docs: list[dict[str, Any]], *, modified: str) -> None:
     container = (
         "<?xml version=\"1.0\" encoding=\"UTF-8\"?>"
         "<container version=\"1.0\" xmlns=\"urn:oasis:names:tc:opendocument:xmlns:container\">"
@@ -89,6 +90,7 @@ def _write_epub(path: Path, title: str, docs: list[dict[str, Any]]) -> None:
 <dc:identifier id="bookid">{html.escape(title)}</dc:identifier>
 <dc:title>{html.escape(title)}</dc:title>
 <dc:language>zh-Hant</dc:language>
+<meta property="dcterms:modified">{html.escape(modified)}</meta>
 </metadata>
 <manifest>{''.join(manifest_items)}</manifest>
 <spine>{''.join(spine)}</spine>
@@ -128,10 +130,12 @@ def export_manuscript(adapter: Any, *, output_dir: str | Path | None = None) -> 
     md_path = out / f"{adapter.project_id}.md"
     epub_path = out / f"{adapter.project_id}.epub"
     md_path.write_text(_markdown_book(title, docs, frozen=freeze), encoding="utf-8")
-    _write_epub(epub_path, title, docs)
+    # EPUB 3 requires UTC, second precision, and a trailing Z.
+    generated_at = datetime.now(timezone.utc).strftime("%Y-%m-%dT%H:%M:%SZ")
+    _write_epub(epub_path, title, docs, modified=generated_at)
     report = {
         "schema": EXPORT_SCHEMA,
-        "generated_at": now_iso(),
+        "generated_at": generated_at,
         "project_id": adapter.project_id,
         "title": title,
         "frozen": freeze,
