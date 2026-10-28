@@ -123,6 +123,8 @@ def export_manuscript(adapter: Any, *, output_dir: str | Path | None = None) -> 
             meta = {}
     title = str(meta.get("title") or adapter.project_id)
     docs = _collect_documents(root)
+    if not docs:
+        raise ValueError("Cannot export manuscript: no chapter or scene documents found.")
     out = Path(output_dir) if output_dir else (root / "workbench" / "exports")
     out.mkdir(parents=True, exist_ok=True)
     md_path = out / f"{adapter.project_id}.md"
