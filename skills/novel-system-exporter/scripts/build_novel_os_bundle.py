@@ -14,7 +14,7 @@ import zipfile
 from datetime import datetime, timezone
 from pathlib import Path, PurePosixPath
 
-VERSION = "2.11.0"
+VERSION = "2.11.1"
 CORE = [
     "long-form-novel-writer", "novel-character-deep-digger", "human-behavior-personality-consultant",
     "novel-worldbuilding-architect", "novel-style-craft-director", "novel-human-voice-editor",
