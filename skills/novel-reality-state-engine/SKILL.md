@@ -1,6 +1,7 @@
 ---
 name: novel-reality-state-engine
-version: 1.8.0
+metadata:
+  version: "1.8.0"
 description: 當使用者要求讓小說角色更貼近現實、檢查人物反應是否受飢餓／疼痛／疲勞／寒冷／睡眠／藥物／壓力影響、修復長篇角色狀態漂移、建立生理與認知狀態模型、讓世界事件真正改變角色可行為能力、驗證互動小說時間／資源／心理連續性、建立 Reality Card／Reality Gate，或要求把心理學、行為學、事件帳本、Graphify 與正文生成連動時使用。它是跨作品的小說狀態引擎，不只服務單一角色或單一本小說。
 ---
 

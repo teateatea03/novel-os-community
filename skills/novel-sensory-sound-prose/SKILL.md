@@ -1,10 +1,11 @@
 ---
 name: novel-sensory-sound-prose
-version: 1.0.0
+metadata:
+  version: "1.0.0"
+  user-invocable: "true"
+  argument-hint: "[diagnose|enrich|checklist|bank] <文本或場景路徑>"
 description: |
   當使用者要求加強小說聲音描寫、狀聲詞、擬聲、聽覺層、水聲／呼吸／撞擊／環境音、五感文筆、親密／動作／日常場景的聽感、抱怨正文太安靜太平、或要建立通用感官文筆規範（不限單一作品）時使用。提供可重用的聲音分層、狀聲詞紀律、繁中聽感詞庫方向、與其他 Novel 技能的銜接；不取代角色聲線或正典事件。
-user-invocable: true
-argument-hint: "[diagnose|enrich|checklist|bank] <文本或場景路徑>"
 ---
 
 # Novel Sensory & Sound Prose

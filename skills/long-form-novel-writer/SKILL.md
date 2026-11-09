@@ -1,6 +1,7 @@
 ---
 name: long-form-novel-writer
-version: 3.3.1
+metadata:
+  version: "3.3.1"
 description: 當使用者要求寫長篇小說、繼續小說、長篇連載、寫第X章、續寫下一章、補完／研究斷更或未完成小說、重建原作者可能意圖、設計替代結局、重寫章節、維持角色一致性、管理時間線、世界觀／地理／制度／科技／魔法／歷史連續性、建立／更新／查詢小說世界資料庫、世界觀知識庫、地點／派系／資源／規則圖譜、建立／更新／查詢特殊物資料庫（道具、鎧甲、機體、機器人、載具、武器、神器、裝置與裝備系統）、人物／事件／派系關係圖譜、追蹤伏筆、改綱影響、避免重複內容、成人小說／成熟關係／親密敘事，或要求讓小說更像人寫、去 AI 味、調整自然度、改善台灣繁中、修復角色同聲、校準作者聲音時使用。強制連動 human-behavior-personality-consultant 校準人物行為，自動連動 novel-worldbuilding-architect 校準世界系統；以 novel-world-database-builder 保存世界層資料，以 special-object-database-builder 保存特殊物本體、版本、能力、限制、狀態與生命週期，並以 knowledge-relationship-graph／Graphify 建立跨文件的世界／人物／特殊物／事件—關係—證據—時間索引和級聯影響；未完成作品先連動 unfinished-novel-completion 建立來源／版本／意圖／分支／權利交接包；內容與風格鎖定後連動 novel-human-voice-editor 作最後文字層修訂；連動 novel-style-craft-director 建立風格契約與防漂移。依作者成人內容契約追蹤設定，不另設成人技能層硬性阻斷，但所選模型／供應商規則仍獨立生效。以可持久化聖經、世界資料庫、特殊物資料庫、圖譜、角色檔、行為模型、風格表、狀態與伏筆帳本維持連續性。
 ---
 

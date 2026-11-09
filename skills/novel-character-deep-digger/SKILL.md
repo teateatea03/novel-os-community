@@ -1,6 +1,7 @@
 ---
 name: novel-character-deep-digger
-version: 1.12.0
+metadata:
+  version: "1.12.0"
 description: 當使用者提供角色姓名、作品名、URL、草稿或 Instagram 帳號，或要求「深挖人設」「研究這個人／角色」「建立角色人設」「徹底分析人物」「測試角色是否寫得活」時使用。遇到可核對的 Instagram 或 X／Twitter 帳號時，自動擷取 profile／posts 納入 evidence run，不要求使用者自行整理。蒐集以取得可核對原文為先：環境已登入則用既有 session，未登入則用公開／匿名路由，不因登入狀態封殺搜尋方法。第一步先判定 real／novel／anime／film／other、角色重要度、人物模型深度與研究深度。真人採 Evidence Run v2；非真人另先建立 Work／Expression／Manifestation／Item witness、continuity map 與媒介 locator，再按小說、漫畫、影視、遊戲、舞台、神話或原創路由研究。新 R1／R2 必須保存 protocol、append-only 事件、候選篩選、raw／derived 證據、主張／競爭假說、版本矛盾與計算式飽和，最後才建模與場景驗證。
 ---
 

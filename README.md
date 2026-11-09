@@ -70,6 +70,17 @@ The initializer creates an empty planning/state scaffold; it does not generate a
 
 For an agent host, preserve the runtime skills as sibling directories and register `novel-operating-system` as the entry point. Hosts without persistent files or a Python process runner support document/manual mode only. See the [tested local build and install guide](docs/GETTING_STARTED.md) for bundle commands, smoke tests, optional integrations, and platform limits.
 
+## Universal agent integration
+
+Use the shared [agent interface](skills/novel-operating-system/references/agent-integration.md) through **MCP stdio**, a **JSON CLI**, or **Python tools + dispatcher**. The same 10 tools discover/load all 17 skills, initialize projects, read durable resources, build context, and run existing graph/prose/Reality checks. OpenAI Chat Completions and Anthropic tool-schema exports are included. The independent-review process bridge accepts a host-supplied model adapter; Minis is optional. Writes require explicit host configuration, and models gain no canonical-commit authority.
+
+```sh
+python skills/novel-operating-system/scripts/novel_os_cli.py --projects-root /private/novels tools
+python skills/novel-operating-system/scripts/novel_os_cli.py --projects-root /private/novels mcp
+```
+
+The MCP transport needs `mcp>=1.26,<2`; JSON/Python core paths need only the standard library. Use absolute interpreter/launcher paths in host configurations. Integration and platform limits are documented in the guide; tool access alone does not certify every framework or model.
+
 ## Verification
 
 ```sh

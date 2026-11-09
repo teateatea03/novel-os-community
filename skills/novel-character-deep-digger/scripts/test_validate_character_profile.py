@@ -1,5 +1,5 @@
 #!/usr/bin/env python3
-import json, subprocess, tempfile, unittest
+import json, subprocess, tempfile, unittest, sys
 from pathlib import Path
 
 SCRIPT=Path(__file__).with_name("validate_character_profile.py")
@@ -10,7 +10,7 @@ def base(depth="L0"):
 def run(d):
     with tempfile.NamedTemporaryFile("w",suffix=".json",delete=False,encoding="utf-8") as f:
         json.dump(d,f,ensure_ascii=False); name=f.name
-    r=subprocess.run(["python3",str(SCRIPT),name],capture_output=True,text=True)
+    r=subprocess.run([sys.executable,str(SCRIPT),name],capture_output=True,text=True)
     Path(name).unlink(); return r.returncode,json.loads(r.stdout)
 
 class TestProfile(unittest.TestCase):

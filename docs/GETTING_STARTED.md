@@ -64,6 +64,10 @@ python3 "$EXPORTER/build_novel_os_bundle.py" build \
 
 The manifest lists and hashes all packaged files, including all eight language versions of the project license, commercial terms, and third-party guide, plus the unchanged Humanizer-zh notice inside its adapted skill. Keep those notices with the archive and installation. The installer retains project-level notices under `novel-operating-system/DISTRIBUTION_NOTICES/` rather than overwriting the host's root license.
 
+## Connect an agent framework
+
+For MCP stdio, the JSON CLI, Python dispatch, provider tool-schema exports, and the independent-review bridge, use the [universal agent integration guide](../skills/novel-operating-system/references/agent-integration.md). These interfaces ship inside the coordinator skill and survive bundle installation without depending on this checkout. Configure private project storage outside the source tree and enable writes only in the host configuration.
+
 ## Optional features
 
 Install only what your host needs, in an isolated environment:

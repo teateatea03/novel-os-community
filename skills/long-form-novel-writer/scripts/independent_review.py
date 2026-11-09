@@ -1,5 +1,6 @@
 #!/usr/bin/env python3
-import argparse, json, math, re, subprocess, tempfile, uuid
+import argparse, json, math, os, re, subprocess, tempfile, uuid
+from model_adapter import review_with_adapter
 from datetime import datetime
 from pathlib import Path
 
@@ -40,8 +41,13 @@ def main():
     ap.add_argument("--model")
     ap.add_argument("--context-pack")
     ap.add_argument("--max-tokens", type=int, default=2500)
+    ap.add_argument("--adapter-command", default=os.environ.get("NOVEL_OS_REVIEW_COMMAND"),
+                    help="Host-configured JSON argv array; reads review-request JSON on stdin, returns {text: ...}")
+    ap.add_argument("--timeout", type=float, default=120)
     ap.add_argument("--check-review", help="Read-only source freshness check; never applies revisions")
     a = ap.parse_args()
+    if not math.isfinite(a.timeout) or not 0 < a.timeout <= 600 or a.max_tokens <= 0:
+        ap.error("--timeout must be in (0, 600] and --max-tokens must be positive")
     root = Path(a.root).resolve()
     if a.check_review:
         try:
@@ -115,20 +121,26 @@ def main():
     if before["status"] != "current":
         save_error("stale", "review inputs changed during prompt preparation")
         raise SystemExit(2)
-    with tempfile.NamedTemporaryFile("w", encoding="utf-8", suffix=".txt", delete=False, newline="\n") as f:
-        f.write(prompt)
-        prompt_path = f.name
-    cmd = ["minis-model-use", "run", "--model", a.model, "--prompt-file", prompt_path,
-           "--max-tokens", str(a.max_tokens), "--temperature", "0", "--output", str(raw)]
     try:
-        r = subprocess.run(cmd, text=True, capture_output=True)
-    except OSError as error:
+        if a.adapter_command:
+            review_with_adapter(a.adapter_command, role=a.role, model=a.model, prompt=prompt,
+                                max_tokens=a.max_tokens, raw_path=raw, timeout=a.timeout)
+        else:
+            # Retained for existing Minis deployments. Other frameworks configure
+            # the JSON stdin/stdout bridge; no model/provider credentials are bundled.
+            with tempfile.NamedTemporaryFile("w", encoding="utf-8", suffix=".txt", delete=False, newline="\n") as f:
+                f.write(prompt)
+                prompt_path = f.name
+            try:
+                cmd = ["minis-model-use", "run", "--model", a.model, "--prompt-file", prompt_path,
+                       "--max-tokens", str(a.max_tokens), "--temperature", "0", "--output", str(raw)]
+                r = subprocess.run(cmd, text=True, encoding="utf-8", capture_output=True, timeout=a.timeout)
+                if r.returncode:
+                    raise ValueError((r.stderr or r.stdout).strip())
+            finally:
+                Path(prompt_path).unlink(missing_ok=True)
+    except (OSError, ValueError, subprocess.TimeoutExpired) as error:
         save_error("unavailable", str(error))
-        raise SystemExit(2)
-    finally:
-        Path(prompt_path).unlink(missing_ok=True)
-    if r.returncode:
-        save_error("unavailable", (r.stderr or r.stdout).strip())
         raise SystemExit(2)
     try:
         data = extract_json(raw.read_text(encoding="utf-8"))

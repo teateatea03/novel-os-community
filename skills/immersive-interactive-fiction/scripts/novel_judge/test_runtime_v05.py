@@ -79,7 +79,7 @@ class RuntimeV05Tests(unittest.TestCase):
             initial = init_longform_state("novel"); store.save_state(initial); store.write_checkpoint("initial", initial)
             result = commit_scene_event(store, scene_id="scene-1", chapter_id="ch-1", operations=[{"op": "add", "path": "/world_truth/events/scene-1", "value": {"summary": "變化"}}], summary="變化", author_approved=True, expected_state_hash=initial["state_hash"])
             self.assertEqual(result["status"], "committed"); self.assertEqual(len(store.read_events()), 1)
-            self.assertIn("runtime/sessions", str(store.base))
+            self.assertIn("runtime/sessions", store.base.as_posix())
 
 
 if __name__ == "__main__": unittest.main()

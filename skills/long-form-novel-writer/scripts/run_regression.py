@@ -1,5 +1,5 @@
 #!/usr/bin/env python3
-import argparse, json, subprocess, tempfile, shutil
+import argparse, json, subprocess, tempfile, shutil, sys
 from pathlib import Path
 
 def main():
@@ -11,7 +11,7 @@ def main():
         with tempfile.TemporaryDirectory() as td:
             root=Path(td)/"project"; shutil.copytree(case/"project",root); (root/"gates").mkdir(exist_ok=True)
             chapter=expected.get("chapter")
-            cmd=["python3",str(skill/"scripts"/"deep_consistency.py"),"--root",str(root)]
+            cmd=[sys.executable,str(skill/"scripts"/"deep_consistency.py"),"--root",str(root)]
             if chapter: cmd += ["--chapter",chapter]
             r=subprocess.run(cmd,text=True,capture_output=True)
             if r.returncode:
