@@ -10,6 +10,12 @@ Novel OS is a reusable collection of AI-agent skills and local Python tooling fo
 
 For commercial-use and dual-token payment details, see [commercial profit sharing and payment information](docs/COMMERCIAL_TERMS.md). Rights to users’ novels and other outputs are not transferred to the system owner.
 
+## Free reading
+
+[Read 《潮聲保管室》 on Vocus](https://vocus.cc/salon/6aeaa730c7cb363b497ff9a0).
+
+《潮聲保管室》試閱，永遠免費觀看。
+
 ## Language coverage
 
 Public documentation is available in Traditional Chinese, English, Japanese, Korean, Spanish, French, German, and Portuguese. Runtime skills, templates, and their technical references currently retain their original language. This eight-language documentation release does not translate the runtime.

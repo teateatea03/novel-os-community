@@ -10,6 +10,12 @@ Novel OS 是一套可重複使用的 AI 代理技能與本機 Python 工具，�
 
 商用與雙幣收款資料見[商用分潤與付款說明](COMMERCIAL_TERMS.md)。使用者的小說及其他產出權利不轉移給系統方。
 
+## 免費閱讀
+
+[前往方格子閱讀《潮聲保管室》](https://vocus.cc/salon/6aeaa730c7cb363b497ff9a0)。
+
+《潮聲保管室》試閱，永遠免費觀看。
+
 ## 通用代理接入
 
 現提供 **MCP stdio、JSON CLI、Python dispatcher**，共用 17 個技能與原有狀態核心；另有 OpenAI Chat Completions／Anthropic 工具描述與任意宿主審稿橋接。請見[通用接入指南](../../../skills/novel-operating-system/references/agent-integration.md)。寫入由宿主明確開啟，正典權限不交給模型；實際框架與模型仍須驗證。
