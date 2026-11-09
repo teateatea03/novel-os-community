@@ -1,5 +1,6 @@
 from __future__ import annotations
 import json, tempfile, unittest, zipfile
+from types import SimpleNamespace
 from pathlib import Path
 from .author_resume import build_resume_card, load_project_adapter
 from .manuscript_export import export_manuscript
@@ -114,6 +115,46 @@ class AuthorDeskTests(unittest.TestCase):
             self.assertTrue(zipfile.is_zipfile(epub))
             self.assertFalse(report["canon_write"])
             self.assertTrue((Path(td) / "interactive" / "scenes" / "T0001.md").is_file())
+
+    def test_empty_manuscript_export_creates_no_output(self):
+        with tempfile.TemporaryDirectory() as td:
+            root = Path(td)
+            (root / "chapters").mkdir()
+            (root / "scenes").mkdir()
+            adapter = SimpleNamespace(project_root=root, project_id="empty")
+            for output in (None, root / "custom" / "exports"):
+                with self.subTest(output=output):
+                    with self.assertRaisesRegex(ValueError, "no chapter or scene documents"):
+                        export_manuscript(adapter, output_dir=output)
+            self.assertFalse((root / "workbench").exists())
+            self.assertFalse((root / "custom").exists())
+
+    def test_empty_manuscript_export_preserves_existing_artifacts(self):
+        with tempfile.TemporaryDirectory() as td:
+            root = Path(td)
+            out = root / "exports"
+            out.mkdir()
+            originals = {"empty.md": b"previous markdown", "empty.epub": b"previous epub",
+                         "export-report.json": b"previous report"}
+            for name, content in originals.items():
+                (out / name).write_bytes(content)
+            adapter = SimpleNamespace(project_root=root, project_id="empty")
+            with self.assertRaisesRegex(ValueError, "no chapter or scene documents"):
+                export_manuscript(adapter, output_dir=out)
+            self.assertEqual({p.name: p.read_bytes() for p in out.iterdir()}, originals)
+
+    def test_one_chapter_export_still_preserves_source(self):
+        with tempfile.TemporaryDirectory() as td:
+            root = Path(td)
+            (root / "chapters").mkdir()
+            chapter = root / "chapters" / "001.md"
+            original = "# 合成章節\n門開了。\n".encode("utf-8")
+            chapter.write_bytes(original)
+            adapter = SimpleNamespace(project_root=root, project_id="one")
+            report = export_manuscript(adapter)
+            self.assertEqual(report["document_count"], 1)
+            self.assertTrue(Path(report["epub_path"]).is_file())
+            self.assertEqual(chapter.read_bytes(), original)
 
     def test_workbench_refresh_writes_projection_only(self):
         with tempfile.TemporaryDirectory() as td:
