@@ -12,6 +12,10 @@ from pathlib import Path
 
 
 def fsync_directory(path: str | Path) -> None:
+    # Python cannot portably fsync Windows directories. File flush + atomic replace
+    # and process-crash recovery remain; Windows power-loss durability is unverified.
+    if os.name == "nt":
+        return
     directory = Path(path)
     fd = os.open(str(directory), os.O_RDONLY)
     try:

@@ -152,7 +152,7 @@ class ProductionAuthorityConformanceTests(unittest.TestCase):
             with self.subTest(point=point), tempfile.TemporaryDirectory() as root:
                 a, initial = initialize(root); env = os.environ.copy(); env["NOVEL_JUDGE_SIGKILL_AT"] = point
                 proc = subprocess.run([sys.executable, "-c", KILL_WORKER, PACKAGE_ROOT, root, initial["state_hash"], point], env=env)
-                self.assertIn(proc.returncode, {-signal.SIGKILL, 128 + signal.SIGKILL, 137})
+                self.assertIn(proc.returncode, {9} if os.name == "nt" else {-signal.SIGKILL, 128 + signal.SIGKILL, 137})
                 recovery = a.recover()
                 if point == "production_after_project_pointer":
                     self.assertEqual(recovery["status"], "clean")

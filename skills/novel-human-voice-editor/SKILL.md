@@ -1,10 +1,11 @@
 ---
 name: novel-human-voice-editor
-version: "1.1.0"
+metadata:
+  version: "1.1.0"
+  user-invocable: "true"
+  argument-hint: "<文字或章節路徑> [diagnose|light|deep|dialogue|calibrate|chapter-gate]"
 description: |
   小說與敘事文本的人味編輯技能。當使用者要求讓文字更像人寫、去除 AI 味、去機器腔、改善自然度、調整台灣繁中、修復角色同聲、削弱過度工整或重寫小說段落時使用；也在長篇章節完成內容、連續性與風格檢查後，作為最後的文字修訂層。吸收 Humanizer-zh 2026-09-23 的 31 個檢查點作可選診斷，但仍保留正典、視角、人物因果、類型承諾與作者聲音；不以偵測器規避為目標，不把文字故意改粗糙。
-user-invocable: true
-argument-hint: "<文字或章節路徑> [diagnose|light|deep|dialogue|calibrate|chapter-gate]"
 ---
 
 # Novel Human Voice Editor

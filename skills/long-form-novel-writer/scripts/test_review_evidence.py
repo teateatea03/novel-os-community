@@ -33,7 +33,7 @@ class EvidenceTests(unittest.TestCase):
         self.root = Path(self.tmp.name)
         (self.root / "chapters").mkdir()
         self.draft = self.root / "chapters/demo.md"
-        self.draft.write_text("The cup is blue.\nThe cup is green.\n", encoding="utf-8")
+        self.draft.write_bytes(b"The cup is blue.\nThe cup is green.\n")
         self.sources = {"chapters/demo.md": capture_source(self.root, "chapters/demo.md")}
 
     def report(self, data="default"):
@@ -160,24 +160,60 @@ class ReviewCliTests(unittest.TestCase):
         executable = self.bin / "minis-model-use"
         executable.write_text("#!" + sys.executable + '''
 import os, pathlib, sys
-args = sys.argv
-pathlib.Path(os.environ['SEEN']).write_text(pathlib.Path(args[args.index('--prompt-file')+1]).read_text())
+import json
+request = json.load(sys.stdin)
+import time
+time.sleep(float(os.environ.get('DELAY', '0')))
+if os.environ.get('BAD_PROTOCOL'):
+    print('not JSON')
+    sys.exit(0)
+pathlib.Path(os.environ['SEEN']).write_text(request['prompt'], encoding='utf-8')
 if os.environ.get('EDIT'):
     path = pathlib.Path(os.environ['EDIT'])
     path.write_text(path.read_text() + ' changed')
-pathlib.Path(args[args.index('--output')+1]).write_text(os.environ['PAYLOAD'])
+print(json.dumps({'text': os.environ['PAYLOAD']}))
 sys.exit(int(os.environ.get('RETURN_CODE', '0')))
 ''', encoding="utf-8")
         executable.chmod(0o755)
         self.env = dict(os.environ, PATH=str(self.bin) + os.pathsep + os.environ.get("PATH", ""),
                         PAYLOAD=json.dumps(payload()), SEEN=str(self.root / "seen.txt"))
 
-    def run_review(self, **env):
+    def run_review(self, extra_args=(), **env):
         result = subprocess.run([sys.executable, str(HERE / "independent_review.py"),
-                                 "--root", str(self.root), "--chapter", "demo", "--model", "synthetic"],
+                                 "--root", str(self.root), "--chapter", "demo", "--model", "synthetic",
+                                 "--adapter-command", json.dumps([sys.executable, str(self.bin / "minis-model-use")]), *extra_args],
                                 capture_output=True, text=True, env=dict(self.env, **env))
         self.assertTrue(result.stdout.strip(), result.stderr)
         return result, json.loads(Path(result.stdout.strip()).read_text())
+
+    def test_legacy_minis_argv_is_preserved(self):
+        import contextlib
+        import io
+        import independent_review
+        seen = []
+        def model_process(command, **kwargs):
+            seen.append(command)
+            Path(command[command.index("--output") + 1]).write_text(self.env["PAYLOAD"], encoding="utf-8")
+            return subprocess.CompletedProcess(command, 0, "", "")
+        output = io.StringIO()
+        argv = ["independent_review.py", "--root", str(self.root), "--chapter", "demo",
+                "--model", "synthetic", "--adapter-command", ""]
+        with mock.patch.object(sys, "argv", argv), mock.patch.object(independent_review.subprocess, "run", model_process):
+            with contextlib.redirect_stdout(output):
+                independent_review.main()
+        self.assertEqual(seen[0][:3], ["minis-model-use", "run", "--model"])
+        report = json.loads(Path(output.getvalue().strip()).read_text(encoding="utf-8"))
+        self.assertEqual(report["freshness"]["status"], "current")
+        self.assertFalse(Path(seen[0][seen[0].index("--prompt-file") + 1]).exists())
+
+    def test_adapter_protocol_failure_and_timeout_are_unavailable(self):
+        for args, env in (((), {"BAD_PROTOCOL": "1"}),
+                          (("--timeout", "0.05"), {"DELAY": "1"}),
+                          (("--adapter-command", '"not an argv array"'), {})):
+            result, report = self.run_review(extra_args=args, **env)
+            self.assertEqual(result.returncode, 2)
+            self.assertEqual(report["status"], "unavailable")
+            self.assertEqual(recheck_report(self.root, report)["status"], "unverified")
 
     def test_cli_calls_validator_and_preserves_raw(self):
         result, report = self.run_review()

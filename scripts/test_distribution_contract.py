@@ -31,7 +31,7 @@ class DistributionContractTests(unittest.TestCase):
         builder = load("build_novel_os_bundle")
         installer = load("install_novel_os")
         self.assertEqual(builder.VERSION, installer.VERSION)
-        self.assertIn("version: " + builder.VERSION, (EXPORTER / "SKILL.md").read_text(encoding="utf-8"))
+        self.assertIn('  version: "' + builder.VERSION + '"', (EXPORTER / "SKILL.md").read_text(encoding="utf-8"))
         self.assertEqual(builder.PACKAGE_SKILLS, installer.CORE)
         discovered = {p.name for p in (ROOT / "skills").iterdir() if (p / "SKILL.md").is_file()}
         self.assertEqual(discovered, set(builder.PACKAGE_SKILLS) | {"novel-system-exporter"})
@@ -156,7 +156,7 @@ class PublicDocumentationTests(unittest.TestCase):
                     self.assertEqual(len(re.findall(r"\*\*[^*]+\*\*", navigation)), 1)
                     for target in family.values():
                         if target != path:
-                            self.assertIn(f"({os.path.relpath(target, path.parent)})", navigation)
+                            self.assertIn(f"({Path(os.path.relpath(target, path.parent)).as_posix()})", navigation)
                     self.assertGreater(len(text.splitlines()), 20)
 
     def test_pull_request_language_navigation_is_a_separate_markdown_paragraph(self):
@@ -289,6 +289,16 @@ class NoticeRetentionTests(unittest.TestCase):
     def write_manifest(self, manifest):
         (self.payload / "MANIFEST.json").write_text(json.dumps(manifest), encoding="utf-8")
 
+    def test_manifest_reads_standard_metadata_and_legacy_versions(self):
+        name = self.builder.PACKAGE_SKILLS[0]
+        (self.source / "skills" / name / "SKILL.md").write_text(
+            '---\nname: synthetic\nmetadata:\n  version: "0.0.1"\ndescription: Synthetic fixture.\n---\n',
+            encoding="utf-8")
+        self.refresh()
+        versions = self.read_manifest()["source_skill_versions"]
+        self.assertEqual(versions[name], "0.0.1")
+        self.assertEqual(versions[self.builder.PACKAGE_SKILLS[1]], "0.0.0")
+
     def test_source_payload_zip_and_install_retain_exact_notice_bytes(self):
         self.assertEqual(self.builder.verify_root(self.payload), [])
         manifest = self.read_manifest()
@@ -371,7 +381,20 @@ class NoticeRetentionTests(unittest.TestCase):
         self.assertIn(f"unapproved payload path: {rel}", self.builder.verify_root(self.payload))
         with self.assertRaises(SystemExit): self.install()
 
+    def require_symlinks(self):
+        probe = self.base / "symlink-probe"
+        try:
+            probe.symlink_to(self.source, target_is_directory=True)
+        except OSError as error:
+            if getattr(error, "winerror", None) == 1314:
+                self.skipTest("Windows symlink privilege unavailable")
+            raise
+        finally:
+            if probe.is_symlink():
+                probe.unlink()
+
     def test_source_symlink_and_payload_notice_symlink_are_rejected(self):
+        self.require_symlinks()
         external = self.base / "external.txt"
         external.write_bytes(self.notices["LICENSE"])
         source = self.source / "LICENSE"
@@ -385,6 +408,7 @@ class NoticeRetentionTests(unittest.TestCase):
         self.assertTrue(self.builder.verify_root(self.payload))
 
     def test_source_skill_links_cannot_copy_external_data(self):
+        self.require_symlinks()
         external = self.base / "external"
         external.mkdir()
         (external / "private.txt").write_text("Synthetic outside-tree marker", encoding="utf-8")

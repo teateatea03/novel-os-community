@@ -1,6 +1,7 @@
 ---
 name: knowledge-relationship-graph
-version: 1.3.0
+metadata:
+  version: "1.3.0"
 description: 當使用者要求建立知識圖譜、關係圖、人物關係網、家族／派系／組織圖、事件因果圖、時間圖譜、專案依賴圖、特殊物／道具／鎧甲／機體／載具／武器的關係圖、誰與誰有什麼牽連、修改某事會影響什麼，或需要從文件／小說／研究資料中抽取實體與關係並視覺化、查詢、追蹤版本與證據時使用。以 Graphify-Labs/graphify 為底層基準，建立 Graphify 相容的本地 property graph，支援實體、事件、typed relations、hyperedges、來源證據、別名消歧、雙時間、信心、衝突、快照、最短路徑、鄰居、級聯影響、社群分析與 HTML／Mermaid／GraphML／Cypher 輸出。可作小說、特殊物、研究、專案與一般複雜關係的共用基礎設施。
 ---
 

@@ -1,6 +1,7 @@
 ---
 name: novel-world-database-builder
-version: 1.2.0
+metadata:
+  version: "1.2.0"
 description: 當使用者要求建立／保存／更新／查詢小說世界資料庫、世界觀知識庫、世界設定圖譜、地點／派系／資源／規則資料庫、世界時間線與因果網，或要把 world bible、world rules、地點檔、派系檔與研究資料轉成可持久化 Graphify 圖譜時使用。建立前必須先完成世界資料庫分類，至少保存 `subject_category`、`subject_subcategory`、`subject_kind`、`source_medium`、`canon_scope`、`version_scope`、`franchise`、`genre`、`classification_basis` 與 `classification_confidence`；分類不明確時標 `AMBIGUOUS`，不得無分類匯入。將原創或研究型小說世界拆成可追溯的世界、地點、派系、人物、資源、物件、科技／魔法、法律／規則、文化／物種、事件、主張與證據節點，支援認知版本、正典狀態、雙時間、衝突保留、快照、級聯影響、查詢與匯出；與 novel-worldbuilding-architect 分工：前者設計與檢查世界系統，本技能負責分類、持久化、版本化、查詢與同步，不把圖譜反向當成正典。
 ---
 

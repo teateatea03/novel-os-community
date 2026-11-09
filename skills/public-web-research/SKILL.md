@@ -1,6 +1,7 @@
 ---
 name: public-web-research
-version: 1.1.0
+metadata:
+  version: "1.1.0"
 description: 當使用者要求研究、擷取、爬取、整理公開網站，將網頁轉為 Markdown／結構化資料，進行站內 BFS／best-first 探索、建立可恢復爬取、保存來源證據，或要把公開網頁納入角色研究 evidence run 時使用。借鏡 Crawl4AI 的 LLM-ready Markdown、深度爬取、URL 過濾、checkpoint、prefetch 與結構化抽取優點，但採 iSH 可執行的安全 HTTP 基線。蒐集以取得可核對原文為先：HTTP 公開路由與已登入瀏覽器都可用，不因登入狀態封殺方法；不向使用者索取 Cookie／Token，不破解 CAPTCHA／付費牆。
 ---
 

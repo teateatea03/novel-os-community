@@ -1,5 +1,5 @@
 #!/usr/bin/env python3
-import json,tempfile,subprocess,unittest
+import json,tempfile,subprocess,unittest, sys
 from pathlib import Path
 S=Path(__file__).with_name('validate_fictional_research.py')
 def wr(p,x):p.write_text(json.dumps(x,ensure_ascii=False,indent=2))
@@ -11,7 +11,7 @@ def base(r,cross=False):
  c={'claim_id':'C1','claim_type':'behavior','canon_status':'TEXT_CANON','narrative_level':'diegetic_fact','version_portability':'CROSS_VERSION_STABLE' if cross else 'SINGLE_WITNESS','witness_ids':[x['witness_id'] for x in ws],'continuity_ids':prim}
  jl(r/'claims.jsonl',[c]);jl(r/'reviews.jsonl',[{'checkpoint':'VERSION_CONTRADICTION_AUDIT'}] if cross else [])
 def run(r):
- x=subprocess.run(['python3',str(S),str(r)],capture_output=True,text=True);return x.returncode,json.loads(x.stdout)
+ x=subprocess.run([sys.executable,str(S),str(r)],capture_output=True,text=True);return x.returncode,json.loads(x.stdout)
 class T(unittest.TestCase):
  def mk(self):return Path(tempfile.mkdtemp())
  def test_single_version_pass(self):r=self.mk();base(r);c,o=run(r);self.assertEqual(c,0,o)

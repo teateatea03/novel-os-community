@@ -65,7 +65,12 @@ class PacketTests(unittest.TestCase):
         with tempfile.TemporaryDirectory() as d:
             p = Path(d)/'outside'
             p.write_text('not a research artifact')
-            (self.root/'link').symlink_to(p)
+            try:
+                (self.root/'link').symlink_to(p)
+            except OSError as error:
+                if getattr(error, 'winerror', None) == 1314:
+                    self.skipTest('Windows symlink privilege unavailable')
+                raise
             self.artifacts[0]['local_path'] = 'link'
             with self.assertRaises(ValueError): self.result()
 

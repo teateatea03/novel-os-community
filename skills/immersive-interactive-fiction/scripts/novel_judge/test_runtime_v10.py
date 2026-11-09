@@ -69,7 +69,7 @@ class RuntimeV10Tests(unittest.TestCase):
                 store = FileStore(tmp, "v10", "s"); store.save_state(fixture()); set_random_event_mode(store, "on-suggestion")
                 env = os.environ.copy(); env["PYTHONPATH"] = PACKAGE_ROOT; env["NOVEL_JUDGE_SIGKILL_AT"] = point
                 proc = subprocess.run([sys.executable, "-c", worker_script(tmp, "request")], env=env)
-                self.assertEqual(proc.returncode, -9)
+                self.assertEqual(proc.returncode, 9 if os.name == "nt" else -9)
                 with store.transaction_lock(): recovery = recover_random_event_audit(store)
                 self.assertTrue(recovery["recovered"]); self.assertEqual(random_event_health(store)["status"], "pass")
                 pool = json.loads(POOL_PATH.read_text(encoding="utf-8")); replay = request_random_suggestion(store, pool, trigger="scene_boundary", seed=4, window={"natural_break": True}, request_id="kill-r1")
@@ -82,7 +82,7 @@ class RuntimeV10Tests(unittest.TestCase):
             with self.subTest(point=point), tempfile.TemporaryDirectory() as tmp:
                 store = FileStore(tmp, "v10", "s"); initial = fixture(); store.save_state(initial)
                 env = os.environ.copy(); env["PYTHONPATH"] = PACKAGE_ROOT; env["NOVEL_JUDGE_SIGKILL_AT"] = point
-                proc = subprocess.run([sys.executable, "-c", event_worker, tmp], env=env); self.assertEqual(proc.returncode, -9)
+                proc = subprocess.run([sys.executable, "-c", event_worker, tmp], env=env); self.assertEqual(proc.returncode, 9 if os.name == "nt" else -9)
                 from .engine import recover_store, replay_events
                 with store.transaction_lock(): recovery = recover_store(store)
                 self.assertTrue(recovery["recovered"]); events = store.read_events(); self.assertEqual(len(events), 1)
@@ -101,7 +101,7 @@ class RuntimeV10Tests(unittest.TestCase):
                     if mode == "migrate":
                         path = store.base / "model-activities" / f"{aid}.json"; legacy = json.loads(path.read_text()); legacy["schema"] = "minis.model-activity.v1"; store._atomic_json(path, legacy)
                 env = os.environ.copy(); env["PYTHONPATH"] = PACKAGE_ROOT; env["NOVEL_JUDGE_SIGKILL_AT"] = point
-                proc = subprocess.run([sys.executable, "-c", activity_worker, tmp, mode, aid], env=env); self.assertEqual(proc.returncode, -9)
+                proc = subprocess.run([sys.executable, "-c", activity_worker, tmp, mode, aid], env=env); self.assertEqual(proc.returncode, 9 if os.name == "nt" else -9)
                 directory = store.base / "model-activities"; files = list(directory.glob("*.json")); self.assertEqual(len(files), 1)
                 durable = json.loads(files[0].read_text()); self.assertEqual(durable["schema"], "minis.model-activity.v2")
                 if mode == "schedule": self.assertEqual(durable["status"], "scheduled")

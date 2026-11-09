@@ -1,6 +1,7 @@
 ---
 name: character-database-builder
-version: 1.10.0
+metadata:
+  version: "1.10.0"
 description: 當使用者要求「建立角色資料庫」「把搜尋到的人物資料存起來」「建立人物知識庫」「更新角色資料」「查詢角色資料庫」或要把真人／小說／動漫／電影／其他媒介角色的公開資料、來源、事件、人物關係、時間線、公開圖比對與創作推論持久化時使用。第一步依 `minis.character-profile.v2` 判定 `real`、`novel`、`anime`、`film` 或 `other`，再以本地 Graphify 相容 property graph 儲存分類、版本、正典範圍、節點、證據、事件、關係、別名、信心與衝突；公開圖另存 visuals／hash，圖譜只留路徑與來源以便比對。適合真人、歷史人物、小說角色、動漫角色、電影角色、遊戲角色、原創角色與真人原型。與 `novel-character-deep-digger` 搭配：前者研究與分析，後者負責分類一致的可追溯資料庫建立、匯入、查詢與版本更新。
 ---
 

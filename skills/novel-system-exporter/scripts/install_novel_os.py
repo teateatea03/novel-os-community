@@ -15,7 +15,7 @@ from pathlib import Path
 
 HERE=Path(__file__).resolve().parent
 ROOT=HERE.parent
-VERSION = "2.10.1"
+VERSION = "2.11.0"
 CORE=["novel-operating-system","long-form-novel-writer","novel-character-deep-digger","human-behavior-personality-consultant","novel-worldbuilding-architect","novel-style-craft-director","novel-human-voice-editor","knowledge-relationship-graph","character-database-builder","immersive-interactive-fiction","unfinished-novel-completion","novel-world-database-builder", "special-object-database-builder", "novel-reality-state-engine", "novel-model-capability-compatibility", "novel-sensory-sound-prose", "public-web-research"]
 NOTICE_DIR = "novel-operating-system/DISTRIBUTION_NOTICES"
 
@@ -205,7 +205,7 @@ def install(args):
             os.replace(stage/n,target/n); installed.append(n)
         errors=verify_installed_notices(target)
         if errors: raise RuntimeError("Installed notice integrity check failed:\n"+"\n".join(errors))
-        print(json.dumps({"ok":True,"target":str(target),"skills":CORE,"backup":info["backup"],"smoke_test":info["smoke_test"],"requirements":info["runtime_requirements"],"distribution_notices":NOTICE_DIR,"note":"For non-Minis hosts, replace independent_review.py's minis-model-use adapter or keep independent review disabled."},ensure_ascii=False,indent=2))
+        print(json.dumps({"ok":True,"target":str(target),"skills":CORE,"backup":info["backup"],"smoke_test":info["smoke_test"],"requirements":info["runtime_requirements"],"distribution_notices":NOTICE_DIR,"note":"Use novel-operating-system/scripts/novel_os_cli.py for MCP/JSON access. Configure --adapter-command or NOVEL_OS_REVIEW_COMMAND for independent review; otherwise report it unavailable outside Minis."},ensure_ascii=False,indent=2))
     except Exception:
         for n in installed:
             if (target/n).is_symlink(): (target/n).unlink()
