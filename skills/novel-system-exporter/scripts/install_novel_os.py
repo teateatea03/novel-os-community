@@ -15,7 +15,7 @@ from pathlib import Path
 
 HERE=Path(__file__).resolve().parent
 ROOT=HERE.parent
-VERSION = "2.11.0"
+VERSION = "2.11.1"
 CORE=["novel-operating-system","long-form-novel-writer","novel-character-deep-digger","human-behavior-personality-consultant","novel-worldbuilding-architect","novel-style-craft-director","novel-human-voice-editor","knowledge-relationship-graph","character-database-builder","immersive-interactive-fiction","unfinished-novel-completion","novel-world-database-builder", "special-object-database-builder", "novel-reality-state-engine", "novel-model-capability-compatibility", "novel-sensory-sound-prose", "public-web-research"]
 NOTICE_DIR = "novel-operating-system/DISTRIBUTION_NOTICES"
 

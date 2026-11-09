@@ -59,6 +59,23 @@ Derived state must record its sources and uncertainty:
 - `MISSING_PROVENANCE`
 - `BRANCH_MIXING`
 
+## Executable input preflight
+
+The heuristic CLI requires an object root, a nonempty `events` array of objects
+with an `id` or legacy `turn`, and an object `world` with a nonblank string `now`.
+Optional `world.resources`, `world.environment`, `knowledge_ledger`, `npcs`, and
+character psychology must retain their documented container types; explicit null
+or incorrect types are rejected rather than converted into defaults. An empty
+NPC list is allowed. This is minimum executable input validation, not complete
+event semantics, evidence/provenance, medical validity, or narrative quality.
+
+`validate`, `card` and `gate` reject invalid state before inference.
+`gate` also requires a readable, strictly decoded UTF-8 manuscript whose
+`text.strip()` is nonempty. Invalid input returns exit 2 and JSON with
+`ok=false`, `status=invalid_input`, `evaluation=not_evaluated`, and `card=null`;
+it does not write an output card. Valid inputs retain the existing heuristic
+checks. The universal facade/MCP transport must preserve the failure result.
+
 ## Scope
 
 The engine is a writing consistency tool. It does not diagnose real people, calculate medical risk, or infer a real person's private mental state.

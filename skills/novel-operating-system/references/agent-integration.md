@@ -89,6 +89,11 @@ forward slashes. Hosts with TOML or another configuration format should copy the
 same command/argv into their documented MCP settings. Remove `--allow-writes`
 for a read-only deployment. No HTTP listener, cloud upload, credential discovery,
 or automatic host configuration is provided. stdout is reserved for the protocol.
+The server checks its own SDK version before importing the server API; unsupported
+versions report a JSON error on stderr and exit 2. A host using SDK 2.x can keep
+that installation and launch this server with a separate supported interpreter.
+Client/server SDK package versions may differ; verify the negotiated protocol and
+tool calls for the actual deployment.
 
 ## Python and native tool loops
 
@@ -130,7 +135,10 @@ wrapper objects; the `openai` export is specifically Chat Completions wire forma
    packs. Use `read_project` to retrieve the resulting context files.
 9. `novel_os_inspect_prose`: deterministic prose checks on project Markdown.
 10. `novel_os_reality_gate`: check existing state JSON and prose with the existing
-    Reality Gate. This is one gate, not all seven or a proof of narrative quality.
+    Reality Gate. Missing/malformed state and empty/invalid UTF-8 prose fail with
+    exit 2, `status=invalid_input`, `evaluation=not_evaluated`, and no inferred card.
+    The facade propagates failure; MCP returns `isError=true`. This is one gate,
+    not all seven or a proof of narrative quality.
 
 Resources return a SHA-256, character offset and `next_offset`; continue until
 `next_offset` is null, checking the hash if reading across concurrent edits.

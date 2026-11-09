@@ -14,6 +14,7 @@ ROOT = Path(__file__).resolve().parents[1]
 SCRIPTS = ROOT / "skills/novel-operating-system/scripts"
 sys.path.insert(0, str(SCRIPTS))
 from novel_os import NovelOS
+from novel_os.mcp_server import mcp_sdk_supported
 
 class AgentInterfaceTests(unittest.TestCase):
     def setUp(self):
@@ -101,6 +102,24 @@ class AgentInterfaceTests(unittest.TestCase):
         after = {p.relative_to(project).as_posix(): p.read_bytes() for p in project.rglob("*") if p.is_file()}
         self.assertEqual(before, after)
 
+    def test_reality_gate_rejects_empty_state_and_empty_draft(self):
+        project = self.init()
+        state, draft = project / "state.json", project / "draft.md"
+        valid = {"world": {"now": "synthetic-day"}, "events": [{"id": "synthetic-1"}]}
+        for data, prose in (({}, "Synthetic prose."), (valid, ""), (valid, " \t\n\u3000")):
+            state.write_text(json.dumps(data), encoding="utf-8")
+            draft.write_text(prose, encoding="utf-8")
+            before = {p.relative_to(project).as_posix(): p.read_bytes() for p in project.rglob("*") if p.is_file()}
+            result = self.call("reality_gate", project_id="synthetic-demo", state_file="state.json", text_file="draft.md")
+            self.assertFalse(result["ok"], result)
+            self.assertEqual(result["data"]["exit_code"], 2)
+            inner = result["data"]["result"]
+            self.assertEqual(inner["status"], "invalid_input")
+            self.assertEqual(inner["evaluation"], "not_evaluated")
+            self.assertIsNone(inner.get("card"))
+            after = {p.relative_to(project).as_posix(): p.read_bytes() for p in project.rglob("*") if p.is_file()}
+            self.assertEqual(before, after)
+
     def test_corrupt_graph_is_failed_not_passing(self):
         project = self.init()
         (project / "graphify-out/graph.json").write_text("not JSON", encoding="utf-8")
@@ -156,10 +175,13 @@ class AgentInterfaceTests(unittest.TestCase):
             self.assertEqual(result.returncode, 2)
             self.assertFalse(json.loads(result.stdout)["ok"])
 
-    @unittest.skipUnless(importlib.util.find_spec("mcp"), "optional MCP SDK not installed")
+    @unittest.skipUnless(mcp_sdk_supported(), "MCP stdio test requires supported SDK >=1.26,<2")
     def test_real_mcp_stdio_round_trip(self):
         from mcp import ClientSession, StdioServerParameters
         from mcp.client.stdio import stdio_client
+        project = self.init()
+        (project / "empty-state.json").write_text("{}", encoding="utf-8")
+        (project / "draft.md").write_text("Synthetic prose.", encoding="utf-8")
         async def run():
             params = StdioServerParameters(command=sys.executable, args=[
                 str(SCRIPTS / "novel_os_cli.py"), "--projects-root", str(self.root), "mcp"])
@@ -176,7 +198,52 @@ class AgentInterfaceTests(unittest.TestCase):
                     self.assertFalse(blocked.structuredContent["ok"])
                     resource = await session.call_tool("novel_os_read_skill", {"skill": "novel-operating-system", "limit": 20})
                     self.assertFalse(resource.isError)
+                    gate = await session.call_tool("novel_os_reality_gate", {"project_id": "synthetic-demo",
+                        "state_file": "empty-state.json", "text_file": "draft.md"})
+                    self.assertTrue(gate.isError)
+                    self.assertFalse(gate.structuredContent["ok"])
+                    self.assertEqual(gate.structuredContent["data"]["result"]["evaluation"], "not_evaluated")
+                    self.assertIsNone(gate.structuredContent["data"]["result"]["card"])
         asyncio.run(run())
+
+class MCPSDKPreflightTests(unittest.TestCase):
+    def test_supported_sdk_boundaries(self):
+        from unittest.mock import patch
+        from novel_os.mcp_server import require_mcp_sdk
+        for version in ("1.26.0", "1.30.0", "1.26.0.post1", "1.26.0+local"):
+            with self.subTest(version=version), patch("novel_os.mcp_server.version", return_value=version):
+                self.assertEqual(require_mcp_sdk(), version)
+                self.assertTrue(mcp_sdk_supported())
+
+    def test_unsupported_and_missing_sdk(self):
+        from importlib.metadata import PackageNotFoundError
+        from unittest.mock import patch
+        from novel_os.mcp_server import require_mcp_sdk
+        for version in ("1.25.9", "2.3.0", "3.0.0", "1.26.0rc1", "invalid"):
+            with self.subTest(version=version), patch("novel_os.mcp_server.version", return_value=version):
+                self.assertFalse(mcp_sdk_supported())
+                with self.assertRaisesRegex(ImportError, "Unsupported MCP SDK"):
+                    require_mcp_sdk()
+        with patch("novel_os.mcp_server.version", side_effect=PackageNotFoundError("mcp")):
+            self.assertFalse(mcp_sdk_supported())
+
+    def test_unsupported_mcp_startup_keeps_stdout_protocol_clean(self):
+        import contextlib
+        import io
+        from unittest.mock import patch
+        from novel_os.cli import main
+        with tempfile.TemporaryDirectory() as tmp:
+            out, err = io.StringIO(), io.StringIO()
+            with patch("novel_os.mcp_server.version", return_value="2.3.0"):
+                with contextlib.redirect_stdout(out), contextlib.redirect_stderr(err):
+                    code = main(["--projects-root", str(Path(tmp) / "projects"), "mcp"])
+            self.assertEqual(code, 2)
+            self.assertEqual(out.getvalue(), "")
+            result = json.loads(err.getvalue())
+            self.assertFalse(result["ok"])
+            self.assertIn("Unsupported MCP SDK 2.3.0", result["error"]["message"])
+            self.assertIn("separate interpreter", result["error"]["message"])
+
 
 if __name__ == "__main__":
     unittest.main()

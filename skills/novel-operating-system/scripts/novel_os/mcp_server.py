@@ -2,8 +2,29 @@
 from __future__ import annotations
 import asyncio
 import json
+import re
+from importlib.metadata import PackageNotFoundError, version
+
+def require_mcp_sdk():
+    """Reject unsupported server SDKs before importing their incompatible API."""
+    try:
+        installed = version("mcp")
+    except PackageNotFoundError as error:
+        raise ImportError("MCP server requires mcp>=1.26,<2 in a separate Python environment; JSON/Python tools need no MCP SDK.") from error
+    match = re.fullmatch(r"1\.(\d+)(?:\.\d+)?(?:\.post\d+)?(?:\+[A-Za-z0-9.-]+)?", installed)
+    if match is None or int(match[1]) < 26:
+        raise ImportError(f"Unsupported MCP SDK {installed}: this server requires mcp>=1.26,<2. Use a separate interpreter; keep the host's SDK unchanged.")
+    return installed
+
+def mcp_sdk_supported():
+    try:
+        require_mcp_sdk()
+        return True
+    except ImportError:
+        return False
 
 async def serve(runtime):
+    require_mcp_sdk()
     try:
         from mcp.server import Server
         from mcp.server.stdio import stdio_server
