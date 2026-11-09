@@ -105,10 +105,18 @@ class Integrity(unittest.TestCase):
  def test_absolute_path_escape_rejected(self):
   rows=self.rows('artifacts');rows[0]['local_path']=str(self.outer/'outside.txt');self.save('artifacts',rows);self.fail('invalid:artifact_path_escape:A1')
  def test_symlink_escape_rejected(self):
-  (self.outer/'outside.txt').write_text('public synthetic fixture');(self.root/'link').symlink_to(self.outer/'outside.txt')
+  (self.outer/'outside.txt').write_text('public synthetic fixture')
+  try: (self.root/'link').symlink_to(self.outer/'outside.txt')
+  except OSError as error:
+   if getattr(error,'winerror',None)==1314: self.skipTest('Windows symlink privilege unavailable')
+   raise
   rows=self.rows('artifacts');rows[0]['local_path']='link';self.save('artifacts',rows);self.fail('invalid:artifact_path_escape:A1')
  def test_ledger_symlink_escape_rejected(self):
-  path=self.root/'claims.jsonl';external=self.outer/'external.jsonl';path.rename(external);path.symlink_to(external)
+  path=self.root/'claims.jsonl';external=self.outer/'external.jsonl';path.rename(external)
+  try: path.symlink_to(external)
+  except OSError as error:
+   if getattr(error,'winerror',None)==1314: self.skipTest('Windows symlink privilege unavailable')
+   raise
   self.fail('invalid:ledger_path_escape:claims.jsonl')
  def test_secondary_path_cannot_bypass_validation(self):
   self.local();rows=self.rows('artifacts');rows[0]['path']='../outside';self.save('artifacts',rows);self.fail('invalid:artifact_path_escape:A1')

@@ -13,7 +13,7 @@ Novel OS contains original project code and documentation that interoperates wit
 | Python | Runtime (3.10+) | Python Software Foundation License |
 | NetworkX | Graph algorithms and GraphML export | BSD-3-Clause; https://networkx.org/ |
 | PyYAML | YAML state input for the NPC projection utility | MIT; https://pyyaml.org/ |
-| MCP Python SDK | Optional local Instagram MCP client | MIT; https://github.com/modelcontextprotocol/python-sdk |
+| MCP Python SDK | Optional local Novel OS MCP stdio server and Instagram MCP client (SDK v1, >=1.26,<2) | MIT; https://github.com/modelcontextprotocol/python-sdk |
 | Graphify (`graphifyy`) | Optional graph analysis/export interoperability | Upstream reports Apache-2.0 and includes MIT license material; https://github.com/Graphify-Labs/graphify |
 
 The anonymous Instagram MCP server and Instaloader are separate optional components and are not included here. Operators are responsible for installing them and following platform terms, applicable law, robots/access controls, and the project's public-data-only constraints.
@@ -33,7 +33,7 @@ Documentation links to articles, specifications, books, tools, and public projec
 
 `lieflat-less-ai-tone` is an optional host-supplied editing pass, not one of the 17 runtime skills. Its integration document records an external revision, but this repository does not contain a verified upstream URL/license or its implementation. Do not fetch, vendor, or claim it ran automatically. If absent, retain the built-in human-voice workflow and record this additional pass as not run. Verify provenance and licensing separately before installing or distributing it.
 
-The `minis-model-use` independent-review adapter requires its original host. Other hosts must supply an explicitly configured replacement or record independent model review as not run. Local regression tests do not exercise live models, Graphify, MCP, or Instagram services.
+The legacy `minis-model-use` independent-review adapter requires its original host. Other hosts can configure the JSON stdin/stdout bridge using `--adapter-command` or `NOVEL_OS_REVIEW_COMMAND`; see the agent integration contract at `novel-operating-system/references/agent-integration.md`. Without a usable adapter, record independent model review as not run. Local regression tests exercise the MCP stdio transport only when its optional SDK is installed; they do not exercise live models, Graphify, or Instagram services.
 
 ## Dependency boundary
 

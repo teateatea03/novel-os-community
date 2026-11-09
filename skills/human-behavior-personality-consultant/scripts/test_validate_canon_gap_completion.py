@@ -1,5 +1,5 @@
 #!/usr/bin/env python3
-import json,tempfile,subprocess,unittest
+import json,tempfile,subprocess,unittest, sys
 from pathlib import Path
 S=Path(__file__).with_name('validate_canon_gap_completion.py')
 def base(mode='HUMAN_BASELINE'):
@@ -9,7 +9,7 @@ def base(mode='HUMAN_BASELINE'):
  cs=[c('A',0),c('B',1,'PERFORMANCE_HYPOTHESIS')]
  return {'schema':'minis.canon-gap-behavior-completion.v1','canon_constraint_envelope':{'character_instance':'x','continuity':'c','scene_time':'t','source_state_hash':'h','known_facts':['f'],'observed_behavior_anchors':['b'],'known_voice_constraints':['v'],'knowledge_limits':['k'],'relationship_state':['r'],'world_and_body_constraints':['w'],'explicit_unknowns':['u'],'forbidden_inferences':['no trauma'],'future_continuity_constraints':['f']},'research_exhaustion':{'canon_gap_confirmed':True},'mind_architecture':{'mode':mode,'dimensions':dims},'candidates':cs,'selection':{'candidate_id':'A','reason':'least assumption','status':'SCENE_TESTED_PROPOSAL','author_approved':False,'promoted_to_source_canon':False},'scene_lab':[{'candidate_id':i,'sample_id':'s'+i,'playable_action_test':'pass','interchangeability_test':'pass','counterexample_test':'pass','consequence_test':'pass','result':'pass'} for i in ['A','B']],'canon_conflict_check':[]}
 def run(d):
- p=Path(tempfile.mktemp(suffix='.json'));p.write_text(json.dumps(d));r=subprocess.run(['python3',str(S),str(p)],capture_output=True,text=True);p.unlink();return r.returncode,json.loads(r.stdout)
+ p=Path(tempfile.mktemp(suffix='.json'));p.write_text(json.dumps(d));r=subprocess.run([sys.executable,str(S),str(p)],capture_output=True,text=True);p.unlink();return r.returncode,json.loads(r.stdout)
 class T(unittest.TestCase):
  def test_valid_human_gap(self):c,o=run(base());self.assertEqual(c,0,o)
  def test_unconfirmed_gap_fails(self):d=base();d['research_exhaustion']['canon_gap_confirmed']=False;c,o=run(d);self.assertIn('gate:canon_gap_not_confirmed',o['errors'])

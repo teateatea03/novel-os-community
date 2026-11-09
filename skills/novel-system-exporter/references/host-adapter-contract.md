@@ -7,6 +7,8 @@
 
 這份契約給「不是 Minis」的 AI 框架整合者。Novel OS 不是把 ZIP 上傳後就能自行取得檔案權限、模型權限或跨對話記憶的插件；宿主必須提供下列能力，才能稱為自動化部署。
 
+現已隨 coordinator 提供可執行的 MCP stdio、JSON CLI、Python dispatcher 與原生工具 schema 匯出。原始碼／payload 的指南在 `skills/novel-operating-system/references/agent-integration.md`；安裝後在 `novel-operating-system/references/agent-integration.md`。新介面不取代以下完整宿主義務。技能版本改用標準 `metadata.version`，選用呼叫提示保留在 metadata，由宿主 adapter 映射。
+
 ## A. 宿主應提供的最小介面
 
 | 能力 | 最小操作 | Novel OS 用途 | 缺少時 |
@@ -78,7 +80,7 @@ INTERACTIVE_PROJECTS_ROOT=/agent/data/interactive-fiction
 
 ### 第二模型／sub-agent 審稿
 
-`long-form-novel-writer/scripts/independent_review.py` 目前呼叫 Minis 的 `minis-model-use`。非 Minis 框架要採下列其中一種做法：
+`long-form-novel-writer/scripts/independent_review.py` 可用 `--adapter-command` 或 `NOVEL_OS_REVIEW_COMMAND` 設定 JSON argv 陣列。橋接程式從 stdin 讀取 `novel-os.review-request.v1`，stdout 回傳 `{"text":"原始審稿文字"}`；未設定時才保留舊 `minis-model-use` 路徑。非 Minis 框架要採下列其中一種做法：
 
 1. 寫一個 framework adapter，接收 `role`、`prompt`、`max_tokens`，呼叫另一個模型／sub-agent，將原始文字與解析後 JSON 存到 `reviews/`；或
 2. 停用獨立審稿，改跑本地 gate／人工 checklist，並在交付中標示「第二模型未執行」。

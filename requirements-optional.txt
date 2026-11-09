@@ -2,7 +2,7 @@
 # Optional features and included tests use these packages. / 選用功能與相關測試使用以下套件。
 networkx>=3.2,<4
 PyYAML>=6,<7
-mcp>=1.0,<2
+mcp>=1.26,<2
 
 # Optional Graphify analysis/export integration is distributed separately as
 # the `graphifyy` project; follow its installation and license documentation.

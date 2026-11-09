@@ -1,6 +1,7 @@
 ---
 name: novel-model-capability-compatibility
-version: 1.4.2
+metadata:
+  version: "1.4.2"
 description: 當使用者切換 AI／本地模型、比較模型、部署 Novel OS 到新框架、遇到工具呼叫／結構化輸出／記憶／圖譜／現實狀態功能遺失，或要求模型可替換但小說功能不能降級時使用。建立模型能力契約、探測矩陣、adapter、fallback、能力差異報告與切換後回歸驗證；不把純文字可回覆誤判成完整小說系統相容。
 ---
 

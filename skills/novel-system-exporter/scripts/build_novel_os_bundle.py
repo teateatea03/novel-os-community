@@ -14,7 +14,7 @@ import zipfile
 from datetime import datetime, timezone
 from pathlib import Path, PurePosixPath
 
-VERSION = "2.10.1"
+VERSION = "2.11.1"
 CORE = [
     "long-form-novel-writer", "novel-character-deep-digger", "human-behavior-personality-consultant",
     "novel-worldbuilding-architect", "novel-style-craft-director", "novel-human-voice-editor",
@@ -205,14 +205,20 @@ def manifest_for(root: Path) -> dict:
         skill = root / "skills" / name / "SKILL.md"
         version = None
         if skill.is_file():
-            for line in skill.read_text(encoding="utf-8", errors="replace").splitlines()[:12]:
-                if line.startswith("version:"): version = line.split(":", 1)[1].strip(); break
+            in_metadata = False
+            frontmatter = skill.read_text(encoding="utf-8").split("---", 2)
+            for line in frontmatter[1].splitlines() if len(frontmatter) == 3 else []:
+                if line.startswith("version:") or (in_metadata and line.startswith("  version:")):
+                    version = line.split(":", 1)[1].strip().strip("\"'")
+                    break
+                if line and not line[0].isspace():
+                    in_metadata = line == "metadata:"
         source_versions[name] = version
     return {"schema":"novel-os-portable.v1", "version":VERSION,
             "built_at":datetime.now(timezone.utc).isoformat(timespec="seconds"),
             "skills":PACKAGE_SKILLS, "skill_count":len(PACKAGE_SKILLS), "source_skill_versions":source_versions,
             "runtime_build":runtime_build(root),
-            "runtime_requirements":{"baseline":"LLM skill/document loader","automated":"Python >=3.10 + persistent UTF-8 storage + process runner + branch-scoped cross-process lock (or explicit single-writer mode) + writable WORLD_DATABASE_ROOT/WORLD_DATABASE_WORK_ROOT and SPECIAL_OBJECT_DATABASE_ROOT/SPECIAL_OBJECT_DATABASE_WORK_ROOT when those databases are enabled","graph_optional":"networkx; graphifyy for HTML/community/Cypher export","host_adapter":"replace Minis-only model review adapter outside Minis; preserve behavior Prediction Lock/resolution, calibrated confidence gate, single production authority, seven Gates, candidate-bound TransitionAuthorization, typed semantic events, Quality Eval v2, project readiness, schema migrations, fail-closed routing, durable model activities, replay contracts, storylet solver, event integrity, memory/context and temporal Graph projection"},
+            "runtime_requirements":{"baseline":"LLM skill/document loader","automated":"Python >=3.10 + persistent UTF-8 storage + process runner + branch-scoped cross-process lock (or explicit single-writer mode) + writable WORLD_DATABASE_ROOT/WORLD_DATABASE_WORK_ROOT and SPECIAL_OBJECT_DATABASE_ROOT/SPECIAL_OBJECT_DATABASE_WORK_ROOT when those databases are enabled","graph_optional":"networkx; graphifyy for HTML/community/Cypher export","host_adapter":"use the coordinator MCP/JSON/Python interface; configure --adapter-command or NOVEL_OS_REVIEW_COMMAND for independent review outside Minis; preserve behavior Prediction Lock/resolution, calibrated confidence gate, single production authority, seven Gates, candidate-bound TransitionAuthorization, typed semantic events, Quality Eval v2, project readiness, schema migrations, fail-closed routing, durable model activities, replay contracts, storylet solver, event integrity, memory/context and temporal Graph projection"},
             "python":"stdlib core; optional graph packages", "files":files,
             "distribution_notices":distribution_notices(root),
             "exclusions":["private projects", "databases", "secrets", ".git", ".env", "caches"]}

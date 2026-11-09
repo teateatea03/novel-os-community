@@ -1,12 +1,17 @@
 ---
 name: novel-operating-system
-version: 2.15.9
+metadata:
+  version: "2.16.1"
 description: 當使用者要求寫長篇小說、續寫／重寫章節、建立小說專案、補完／研究斷更或未完成小說、推演原作者意圖與替代結局、打造故事世界、建立／保存／更新／查詢小說世界資料庫、世界觀知識庫、世界設定圖譜、地點／派系／資源／規則資料庫、建立／保存／更新／查詢／比較特殊物資料庫（道具、鎧甲、機體、機器人、載具、武器、神器、裝置與裝備系統）、深挖角色、分析人物行為、設計文風、管理時間線與伏筆、建立角色資料庫或關係圖譜、或要求讓小說文字更像人寫、去除 AI 味、校準台灣繁中與角色聲音時使用。這是整套 Novel OS 的單一入口：先協調角色主體分類（real／novel／anime／film／other）與版本正典，再自動協調特殊物版本／能力／限制／生命週期、未完成作品證據與分支、長篇連續性、角色研究、行為心理、世界觀設計、世界資料庫持久化、風格、人味編輯、Graphify 關係圖譜、可追溯角色資料庫與持久互動狀態；正文、正典、世界資料、特殊物狀態、作者意圖證據、權利狀態與作者決策以可驗證的專案檔案持續管理。
 ---
 
 # Novel Operating System
 
 此技能是小說系統的**唯一入口與調度層**。依需求呼叫相鄰專業技能；不需要每個任務都啟用全部模組，但任何會改變正典的工作都必須維持狀態、來源與可追溯性。
+
+## 通用代理介面
+
+宿主可用 `scripts/novel_os_cli.py` 的 MCP stdio、JSON CLI 或 `novel_os.NovelOS` Python dispatcher 接入，無須綁定 Minis。接入、工具清單、權限與審稿橋接契約見 [agent-integration.md](references/agent-integration.md)。先用 `novel_os_status` 確認實際能力，再按需讀取協作技能；工具可用不代表模型能力探測通過。沒有程序／持久檔案能力時維持 document mode，不得宣稱執行過 gate。新介面不提供正典提交或作者核准工具；既有 Production Authority 與 Gates 繼續適用。
 
 ## 現實狀態與連續性強制層
 每次章節或互動回合，先載入 `novel-reality-state-engine`：從事件帳本與 Graphify 影響子圖計算時間／資源／生理負荷／認知容量，生成 Reality Card，依 Feeling → Thought → Action 推導角色的可行反應，再生成正文。生成後必須跑 Reality Gate；Gate 未通過時不得把草稿寫入正典。記憶摘要不能取代狀態計算，角色的身體反應不等於慾望、信任或同意。

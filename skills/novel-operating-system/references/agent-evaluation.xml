@@ -1,0 +1,45 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!-- Read-only agent evaluation cases. Expected answers are source-contract facts,
+     not measured model quality. A live runner/provider is intentionally not selected. -->
+<evaluation>
+  <qa_pair>
+    <question>Discover the installed skills, read their coordinator and the guide for integrating agents. Which skill must a newly integrated host load before selecting collaborators? Return its exact directory name.</question>
+    <answer>novel-operating-system</answer>
+  </qa_pair>
+  <qa_pair>
+    <question>Compare the coordinator's memory policy with its long-form collaborator's source-bound context workflow. What is the default policy identifier that preserves addresses for source text outside the context window?</question>
+    <answer>lossless-addressable</answer>
+  </qa_pair>
+  <qa_pair>
+    <question>Read both the coordinator and interactive-fiction workflow. Without an explicit author request, which branch mode governs optional random direction cards? Return the exact mode.</question>
+    <answer>off</answer>
+  </qa_pair>
+  <qa_pair>
+    <question>Compare the general agent guide with the coordinator's model task authority rules. What boolean field in the review bridge request records that a model has no state commit authority?</question>
+    <answer>may_commit_state</answer>
+  </qa_pair>
+  <qa_pair>
+    <question>Read the agent integration guide and long-form writing instructions. An independent model produces anchored review findings, but the author has not accepted them. Which output status must not be promoted directly to canon?</question>
+    <answer>machine_suggestion</answer>
+  </qa_pair>
+  <qa_pair>
+    <question>Compare the coordinator's cross-version character research rules with the character researcher. Which named audit is required before combining differing adaptations into one personality?</question>
+    <answer>VERSION_CONTRADICTION_AUDIT</answer>
+  </qa_pair>
+  <qa_pair>
+    <question>Read the coordinator and graph collaborator's naming rules. Which auxiliary property allows a Traditional Chinese name lookup while preserving the original label?</question>
+    <answer>properties.name_zh</answer>
+  </qa_pair>
+  <qa_pair>
+    <question>Read the coordinator's model execution section and its capability collaborator. Which lowest model level may render an approved manifest only after the relevant measured task probes pass?</question>
+    <answer>L1</answer>
+  </qa_pair>
+  <qa_pair>
+    <question>Read the coordinator and the behavior consultant's prediction workflow. What named record must exist before a major irreversible character decision, so later outcomes cannot be backfilled as a prior forecast?</question>
+    <answer>Prediction Lock</answer>
+  </qa_pair>
+  <qa_pair>
+    <question>Read the coordinator's research routing and the public web researcher. May unreviewed crawler candidates be inserted into the authoritative graph without evidence review? Return true or false.</question>
+    <answer>false</answer>
+  </qa_pair>
+</evaluation>

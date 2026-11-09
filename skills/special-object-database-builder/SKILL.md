@@ -1,6 +1,7 @@
 ---
 name: special-object-database-builder
-version: 1.0.0
+metadata:
+  version: "1.0.0"
 description: 當使用者要求建立／保存／更新／查詢／比較小說、漫畫、動畫、電影、遊戲或原創作品中的特殊物資料庫時使用，包含小叮噹／哆啦A夢道具、鋼鐵人各代鎧甲、鋼彈／機動戰士／機體、機器人、載具、武器、神器、裝置、裝備系統與具人格的機械生命體。以 Graphify 相容 property graph 持久化特殊物、版本／變體、模組、能力、規格量測、能源與消耗、資格與限制、弱點與反制、製造／設計、持有／操作者、位置、損傷／維修／升級、事件、章節與來源證據；強制分離作品、媒體、季別、宇宙、時間線與正典，不把同名改編物靜默合併。支援特殊物比較、依賴／影響查詢、小說章前物件交接、章後狀態同步、快照、衝突版本、驗證與 HTML／Mermaid／GraphML／Cypher 匯出。與 novel-world-database-builder 分工：世界資料庫保存世界層資源／規則／制度，special-object-database-builder 保存物件本體與生命週期；需要設計或合理性檢查時搭配 novel-worldbuilding-architect，跨章索引搭配 knowledge-relationship-graph 與 long-form-novel-writer。
 ---
 

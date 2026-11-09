@@ -27,6 +27,7 @@ class ProjectRootTests(unittest.TestCase):
             cwd.mkdir()
             env = os.environ.copy()
             env["HOME"] = str(home)
+            env["USERPROFILE"] = str(home)  # pathlib.expanduser uses USERPROFILE on Windows
             env.pop("NOVEL_PROJECTS_ROOT", None)
             env.pop("PYTHONPATH", None)
             command = [sys.executable, str(script), "--title", "Synthetic Demo", "--slug", "synthetic-demo"]
