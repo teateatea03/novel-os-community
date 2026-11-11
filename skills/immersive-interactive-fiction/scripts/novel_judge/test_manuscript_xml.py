@@ -61,10 +61,11 @@ class ManuscriptXmlTests(unittest.TestCase):
             root = Path(td)
             body = '# 合成章節\n繁中 & < > " \' 😀\t\n\r\u0085\ud7ff\ue000\ufffd\U00010000\U0010ffff'
             a = self.make_project(root, body, 'Synthetic & <Title> 😀')
+            source_before = (root / 'chapters/01.md').read_bytes()
             report = export_manuscript(a)
             self.assertEqual(report['document_count'], 1)
             with zipfile.ZipFile(report['epub_path']) as zf:
                 for name in zf.namelist():
                     if name.endswith(('.xhtml', '.opf', '.xml')):
                         ElementTree.fromstring(zf.read(name))
-            self.assertEqual((root / 'chapters/01.md').read_bytes(), body.encode('utf-8'))
+            self.assertEqual((root / 'chapters/01.md').read_bytes(), source_before)
