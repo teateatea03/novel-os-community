@@ -13,6 +13,16 @@ from .canonical import now_iso, sha256_json
 
 EXPORT_SCHEMA = "minis.manuscript-export.v1"
 _MD_HEADING = re.compile(r"^#\s+(.+)$", re.M)
+_XML_FORBIDDEN = re.compile(r"[^\x09\x0a\x0d\x20-\ud7ff\ue000-\ufffd\U00010000-\U0010ffff]")
+
+
+def _validate_xml_text(title: str, docs: list[dict[str, Any]]) -> None:
+    """Reject XML 1.0-invalid input before creating or replacing any export."""
+    if _XML_FORBIDDEN.search(title):
+        raise ValueError("Publication title contains a character forbidden by XML 1.0")
+    for doc in docs:
+        if _XML_FORBIDDEN.search(doc["title"]) or _XML_FORBIDDEN.search(doc["text"]):
+            raise ValueError("Manuscript document contains a character forbidden by XML 1.0")
 
 
 def _collect_documents(project_root: Path) -> list[dict[str, Any]]:
@@ -123,6 +133,7 @@ def export_manuscript(adapter: Any, *, output_dir: str | Path | None = None) -> 
             meta = {}
     title = str(meta.get("title") or adapter.project_id)
     docs = _collect_documents(root)
+    _validate_xml_text(title, docs)
     out = Path(output_dir) if output_dir else (root / "workbench" / "exports")
     out.mkdir(parents=True, exist_ok=True)
     md_path = out / f"{adapter.project_id}.md"
