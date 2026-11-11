@@ -1,6 +1,7 @@
 ---
 name: novel-system-exporter
-version: 2.10.1
+metadata:
+  version: "2.11.1"
 description: 當使用者要求匯出／分享／移植整套小說系統、把小說寫作工作流交給其他 AI、建立可安裝的小說技能包、在新環境自動部署長篇小說／斷更小說補完／角色研究／世界觀／行為校準／關係圖譜／互動小說能力，或要求「小說系統匯出技能」「novel OS export」「portable novel skill」時使用。將已驗證的小說系統封裝為可攜 Skill bundle，安裝後以 novel-operating-system 作為單一入口，自動佈置其餘協作技能與本地專案骨架；匯出時必須先說明目標 AI 框架所需的 Skills runtime、檔案／shell／Python、圖譜、持久儲存、模型審稿與研究工具依賴，並給出可執行的 adapter／降級步驟；不匯出使用者私人小說內容，除非另行明確要求。
 ---
 

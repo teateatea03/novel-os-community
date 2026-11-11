@@ -1,6 +1,7 @@
 ---
 name: human-behavior-personality-consultant
-version: 1.4.0
+metadata:
+  version: "1.4.0"
 description: 當使用者要求分析人物行為是否合理、預測角色反應、校準心理轉折，或當非真人角色正典資訊不足但小說仍需要其行動、台詞、關係發展與內在邏輯時使用。先鎖定角色實例、版本與正典缺口；再判定 HUMAN_BASELINE／HUMAN_DERIVED／ANTHROPOMORPHIC_ANALOGY／NONHUMAN_MODEL 等心智架構，以 given circumstances、scene objective、playable action、人類行為基準率與競爭 formulation 生成可測試候選。心理學只能補可寫性，不得把提案倒灌成原作事實；重大小說節點仍使用 Prediction Lock、反事實與章後校準。
 ---
 

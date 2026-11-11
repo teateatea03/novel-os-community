@@ -1,19 +1,14 @@
 from __future__ import annotations
 
 import json
-import errno
 import os
 import shutil
 import tempfile
-import time
 from contextlib import contextmanager
 from pathlib import Path
 from typing import Any, Iterable
 
-try:
-    import fcntl
-except ImportError:  # pragma: no cover - non-POSIX host adapter must replace this
-    fcntl = None
+from .file_lock import exclusive_file_lock
 
 from .canonical import canonical_json, now_iso, refresh_state_hash, sha256_json
 from .durability import crash_failpoint, fsync_directory
@@ -93,28 +88,11 @@ class FileStore:
     def transaction_lock(self, *, timeout: float = 10.0):
         """Serialize writers for one branch across processes.
 
-        POSIX hosts use flock. Other hosts must provide an equivalent adapter;
-        silently running without a real lock is forbidden for production use.
+        POSIX uses flock; Windows uses msvcrt byte-range locks.
+        Unsupported hosts fail closed instead of silently disabling locking.
         """
-        if fcntl is None:
-            raise RuntimeError("cross-process file locking is unavailable; install a host lock adapter")
-        self.lock_path.parent.mkdir(parents=True, exist_ok=True)
-        with self.lock_path.open("a+", encoding="utf-8") as fh:
-            deadline = time.monotonic() + max(0.0, float(timeout))
-            while True:
-                try:
-                    fcntl.flock(fh.fileno(), fcntl.LOCK_EX | fcntl.LOCK_NB)
-                    break
-                except OSError as exc:
-                    if exc.errno not in {errno.EACCES, errno.EAGAIN, errno.EPERM}:
-                        raise
-                    if time.monotonic() >= deadline:
-                        raise TimeoutError(f"branch transaction lock timeout: {self.branch_id}")
-                    time.sleep(0.025)
-            try:
-                yield
-            finally:
-                fcntl.flock(fh.fileno(), fcntl.LOCK_UN)
+        with exclusive_file_lock(self.lock_path, timeout=timeout):
+            yield
 
     def _read_json(self, path: Path, default: Any = None) -> Any:
         if not path.exists():

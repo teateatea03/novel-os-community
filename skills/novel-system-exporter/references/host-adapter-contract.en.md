@@ -7,6 +7,8 @@
 
 This contract is for integrators of AI frameworks other than Minis. Novel OS is not a plugin that can acquire file access, model access, or cross-conversation memory simply by uploading a ZIP. The host must provide the following capabilities for the deployment to qualify as automated.
 
+The coordinator now ships an executable agent interface: MCP stdio, JSON CLI, Python dispatch and native tool-schema exports. In a source checkout the guide is under `skills/novel-operating-system/references/agent-integration.md`; in a payload it is under `skills/novel-operating-system/references/agent-integration.md`, and after installation under `novel-operating-system/references/agent-integration.md`. Use the path matching the deployment layout. The facade does not replace the full host obligations below. Skill versions now use standard `metadata.version`; optional invocation hints are retained as metadata for host adapters.
+
 ## A. Minimum interfaces the host should provide
 
 | Capability | Minimum operations | Novel OS use | If unavailable |
@@ -78,7 +80,7 @@ If the host provides browser/search tools, the router must record search results
 
 ### Second-model/sub-agent review
 
-`long-form-novel-writer/scripts/independent_review.py` currently calls Minis's `minis-model-use`. Non-Minis frameworks must do one of the following:
+`long-form-novel-writer/scripts/independent_review.py` accepts `--adapter-command` or `NOVEL_OS_REVIEW_COMMAND`: a host-configured JSON argv array. The bridge reads a `novel-os.review-request.v1` JSON request on stdin and returns `{"text":"raw review"}` on stdout. Without this setting it retains Minis's `minis-model-use` for backward compatibility. Non-Minis frameworks must do one of the following:
 
 1. Write a framework adapter that accepts `role`, `prompt`, and `max_tokens`, calls another model/sub-agent, and saves the raw text and parsed JSON under `reviews/`; or
 2. Disable independent review, use local gates/manual checklists instead, and mark “second model not run” in the handoff.

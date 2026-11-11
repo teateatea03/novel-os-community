@@ -101,7 +101,12 @@ class GapPlannerTests(unittest.TestCase):
             outside = Path(d) / 'data'
             outside.write_text('[]')
             (self.root / 'claims.jsonl').unlink()
-            (self.root / 'claims.jsonl').symlink_to(outside)
+            try:
+                (self.root / 'claims.jsonl').symlink_to(outside)
+            except OSError as error:
+                if getattr(error, 'winerror', None) == 1314:
+                    self.skipTest('Windows symlink privilege unavailable')
+                raise
             with self.assertRaises(ValueError):
                 plan(self.root)
 
