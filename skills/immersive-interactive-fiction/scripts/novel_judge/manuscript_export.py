@@ -8,6 +8,7 @@ import re
 import zipfile
 from datetime import datetime, timezone
 from pathlib import Path
+from tempfile import TemporaryDirectory
 from typing import Any
 
 from .canonical import sha256_json
@@ -140,10 +141,8 @@ def export_manuscript(adapter: Any, *, output_dir: str | Path | None = None) -> 
     out.mkdir(parents=True, exist_ok=True)
     md_path = out / f"{adapter.project_id}.md"
     epub_path = out / f"{adapter.project_id}.epub"
-    md_path.write_text(_markdown_book(title, docs, frozen=freeze), encoding="utf-8")
     # EPUB 3 requires UTC, second precision, and a trailing Z.
     generated_at = datetime.now(timezone.utc).strftime("%Y-%m-%dT%H:%M:%SZ")
-    _write_epub(epub_path, title, docs, modified=generated_at)
     report = {
         "schema": EXPORT_SCHEMA,
         "generated_at": generated_at,
@@ -158,5 +157,14 @@ def export_manuscript(adapter: Any, *, output_dir: str | Path | None = None) -> 
         "note": "複本匯出；不修改 chapters／scenes／事件正典",
     }
     report["report_hash"] = sha256_json({k: v for k, v in report.items() if k != "report_hash"})
-    (out / "export-report.json").write_text(json.dumps(report, ensure_ascii=False, indent=2) + "\n", encoding="utf-8")
+    report_path = out / "export-report.json"
+    # Finish generating every artifact before replacing a previous export.
+    # The same-filesystem replaces are per file, not a multi-file transaction.
+    with TemporaryDirectory(prefix=".manuscript-export-", dir=out) as tmp:
+        stage = Path(tmp)
+        (stage / md_path.name).write_text(_markdown_book(title, docs, frozen=freeze), encoding="utf-8")
+        _write_epub(stage / epub_path.name, title, docs, modified=generated_at)
+        (stage / report_path.name).write_text(json.dumps(report, ensure_ascii=False, indent=2) + "\n", encoding="utf-8")
+        for target in (md_path, epub_path, report_path):
+            (stage / target.name).replace(target)
     return report
