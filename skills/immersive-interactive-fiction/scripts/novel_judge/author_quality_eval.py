@@ -6,6 +6,22 @@ from typing import Any
 from .canonical import now_iso,sha256_json
 
 SCHEMA='minis.author-quality-eval.v2';FIXTURE_SCHEMA='minis.author-quality-fixture.v2'
+def _explicit_acceptance_stats(rows:list[dict[str,Any]])->dict[str,Any]:
+ """First acceptance among explicit accepts with a known nonnegative round.
+
+ Unknown rounds are excluded from the denominator, never counted as failures
+ or successes. This is accepted-only evidence, not pass@1 over all attempts.
+ """
+ explicit=[r for r in rows if r.get('explicit') is True]
+ accepts=[r for r in explicit if r.get('decision')=='accept']
+ known=[r for r in accepts if type(r.get('revision_round')) is int and r['revision_round']>=0]
+ return {'explicit_feedback_count':len(explicit),'explicit_accept_count':len(accepts),
+         'explicit_accept_known_round_count':len(known),
+         'explicit_accept_unknown_round_count':len(accepts)-len(known),
+         'explicit_accept_round_coverage':len(known)/len(accepts) if accepts else None,
+         'explicit_author_pass_at_1':round(sum(r['revision_round']==0 for r in known)/len(known),6) if known else None,
+         'explicit_author_pass_at_1_denominator':'explicit accepts with known nonnegative integer revision_round'}
+
 def sha(p:Path):return hashlib.sha256(p.read_bytes()).hexdigest()
 def _adapter_for_root(project_root:str|Path):
  try:
@@ -85,8 +101,9 @@ def build_project_fixtures(project_root:str|Path,output:str|Path,*,minimum:int=5
   from .author_feedback import read_author_feedback
   for f in read_author_feedback(adapter.store) if adapter is not None else []:
    lineage=f"feedback:{f.get('scene_id') or f.get('turn_id') or f['candidate_hash']}"
-   rr=f.get('revision_round');passed=f['decision']=='accept' and (rr in {None,0})
-   records.append({'schema':FIXTURE_SCHEMA,'fixture_id':f['event_id'],'kind':'explicit_author_feedback','turn_id':f.get('turn_id'),'lineage_id':lineage,'split':_split(lineage),'candidate_hash':f['candidate_hash'],'author_decision':f['decision'],'gate_pass':f.get('gate_pass'),'explicit_author_decision':True,'explicit_pass_at_1':passed if f['decision']=='accept' else False,'revision_rounds_to_accept':rr if f['decision']=='accept' else None,'categories':f.get('reason_codes') or ['other'],'changed_spans':f.get('changed_spans',[]),'evidence':{'feedback_event_hash':f['event_hash']}})
+   rr=f.get('revision_round');explicit=f.get('explicit') is True
+   passed=_explicit_acceptance_stats([f])['explicit_author_pass_at_1']
+   records.append({'schema':FIXTURE_SCHEMA,'fixture_id':f['event_id'],'kind':'explicit_author_feedback' if explicit else 'observed_author_feedback','turn_id':f.get('turn_id'),'lineage_id':lineage,'split':_split(lineage),'candidate_hash':f['candidate_hash'],'author_decision':f['decision'],'gate_pass':f.get('gate_pass'),'explicit_author_decision':explicit,'explicit_pass_at_1':bool(passed) if passed is not None else None,'revision_rounds_to_accept':rr if f['decision']=='accept' else None,'categories':f.get('reason_codes') or ['other'],'changed_spans':f.get('changed_spans',[]),'evidence':{'feedback_event_hash':f['event_hash'],'source_explicit':f.get('explicit')}})
  except (OSError,ValueError,KeyError):pass
  # Workflow observations remain proxies and are excluded from author truth.
  adapter=_adapter_for_root(root)
@@ -116,10 +133,10 @@ def production_quality_telemetry(project_root:str|Path)->dict[str,Any]:
  by_turn={str(x.get('turn_id')):x for x in feedback if x.get('turn_id')}
  for row in rows:
   if str(row['turn_id']) in by_turn:row['author_decision']=by_turn[str(row['turn_id'])]['decision']
- explicit_accept=[x for x in feedback if x.get('explicit') and x.get('decision')=='accept'];explicit_first=[x for x in explicit_accept if x.get('revision_round') in {None,0}]
+ acceptance=_explicit_acceptance_stats(feedback)
  active=[x for x in rows if str(x.get('created_at') or '')>=str(typed_activated)] if typed_activated else []
  typed_coverage=round(sum(bool(x.get('semantic_delta_hash')) for x in active)/len(active),6) if active else None
- return {'schema':'minis.production-quality-telemetry.v2','canonical_turn_count':len(rows),'coverage_last_turn':rows[-1]['turn_id'] if rows else None,'explicit_feedback_count':len(feedback),'explicit_accept_count':len(explicit_accept),'explicit_author_pass_at_1':round(len(explicit_first)/len(explicit_accept),6) if explicit_accept else None,'workflow_commit_proxy':None,'typed_semantic_coverage_since_activation':typed_coverage,'typed_semantic_activation':typed_activated,'typed_semantic_event_count_since_activation':len(active),'rows':rows}
+ return {'schema':'minis.production-quality-telemetry.v2','canonical_turn_count':len(rows),'coverage_last_turn':rows[-1]['turn_id'] if rows else None,**acceptance,'workflow_commit_proxy':None,'typed_semantic_coverage_since_activation':typed_coverage,'typed_semantic_activation':typed_activated,'typed_semantic_event_count_since_activation':len(active),'rows':rows}
 def evaluate_fixture_dir(path:str|Path,*,split:str|None=None)->dict[str,Any]:
  p=Path(path);records=[]
  for q in p.glob('*.json'):
@@ -127,14 +144,15 @@ def evaluate_fixture_dir(path:str|Path,*,split:str|None=None)->dict[str,Any]:
   value=json.loads(q.read_text());
   if value.get('schema') in {FIXTURE_SCHEMA,'minis.author-quality-fixture.v1'}:records.append(value)
  if split:records=[r for r in records if r.get('split')==split]
- explicit=[r for r in records if r.get('kind')=='explicit_author_feedback'];accepts=[r for r in explicit if r.get('author_decision')=='accept'];pairs=[r for r in records if r.get('kind') in {'observed_revision_pair','pairwise_revision'}];proxies=[r for r in records if r.get('kind') in {'workflow_commit_proxy','committed_pass_proxy'}]
+ explicit=[r for r in records if r.get('kind')=='explicit_author_feedback' and r.get('explicit_author_decision') is True];accepts=[r for r in explicit if r.get('author_decision')=='accept'];pairs=[r for r in records if r.get('kind') in {'observed_revision_pair','pairwise_revision'}];proxies=[r for r in records if r.get('kind') in {'workflow_commit_proxy','committed_pass_proxy'}]
  labels=[r for r in records if r.get('kind')=='curated_quality_label'];joint=[r for r in explicit if r.get('gate_pass') is not None]
  cm={'true_positive':0,'false_positive':0,'true_negative':0,'false_negative':0,'unlabeled':len(records)-len(joint)}
  for r in joint:
   g=bool(r['gate_pass']);a=r.get('author_decision')=='accept';cm['true_positive' if g and a else 'false_positive' if g else 'false_negative' if a else 'true_negative']+=1
  voice=[r for r in pairs if set(r.get('categories',[]))&{'character_voice','human_voice'}]
- rounds=[r.get('revision_rounds_to_accept') for r in accepts if isinstance(r.get('revision_rounds_to_accept'),int)]
- report={'schema':SCHEMA,'fixture_count':len(records),'split':split or 'all','evidence_counts':{'explicit_author_feedback':len(explicit),'curated_quality_labels':len(labels),'observed_revision_pairs':len(pairs),'workflow_proxies':len(proxies)},'metrics':{'explicit_author_pass_at_1':round(sum(bool(r.get('explicit_pass_at_1')) for r in accepts)/len(accepts),6) if accepts else None,'explicit_revision_rounds_mean':round(statistics.mean(rounds),4) if rounds else None,'observed_revision_pair_rate':round(len(pairs)/len({r.get('lineage_id',r.get('turn_id')) for r in records if r.get('lineage_id') or r.get('turn_id')}),6) if records else None,'workflow_commit_proxy_pass_at_1':round(sum(bool(r.get('proxy_pass_at_1',r.get('pass_at_1'))) for r in proxies)/len(proxies),6) if proxies else None,'author_edit_distance_mean':round(statistics.mean(r['diff']['normalized_edit_distance'] for r in pairs),6) if pairs else None,'pairwise_fixture_count':len(pairs),'character_voice_pairwise_fixture_count':len(voice),'gate_confusion_explicit_only':cm},'claims':{'quality_improved':False,'reason':'baseline only; improvement requires unseen hidden production evidence'},'limitations':['workflow proxies are reported separately and never enter explicit_author_pass_at_1','observed file revisions are lineage-deduplicated but are not automatically explicit reasons','Gate calibration uses only feedback with a joint Gate outcome'],'evaluated_at':now_iso()};report['report_hash']=sha256_json(report);return report
+ rounds=[r['revision_rounds_to_accept'] for r in accepts if type(r.get('revision_rounds_to_accept')) is int and r['revision_rounds_to_accept']>=0]
+ acceptance=_explicit_acceptance_stats([{'explicit':True,'decision':r.get('author_decision'),'revision_round':r.get('revision_rounds_to_accept')} for r in explicit])
+ report={'schema':SCHEMA,'fixture_count':len(records),'split':split or 'all','evidence_counts':{'explicit_author_feedback':len(explicit),'curated_quality_labels':len(labels),'observed_revision_pairs':len(pairs),'workflow_proxies':len(proxies)},'metrics':{**acceptance,'explicit_revision_rounds_mean':round(statistics.mean(rounds),4) if rounds else None,'observed_revision_pair_rate':round(len(pairs)/len({r.get('lineage_id',r.get('turn_id')) for r in records if r.get('lineage_id') or r.get('turn_id')}),6) if records else None,'workflow_commit_proxy_pass_at_1':round(sum(bool(r.get('proxy_pass_at_1',r.get('pass_at_1'))) for r in proxies)/len(proxies),6) if proxies else None,'author_edit_distance_mean':round(statistics.mean(r['diff']['normalized_edit_distance'] for r in pairs),6) if pairs else None,'pairwise_fixture_count':len(pairs),'character_voice_pairwise_fixture_count':len(voice),'gate_confusion_explicit_only':cm},'claims':{'quality_improved':False,'reason':'baseline only; improvement requires unseen hidden production evidence'},'limitations':['workflow proxies are reported separately and never enter explicit_author_pass_at_1','observed file revisions are lineage-deduplicated but are not automatically explicit reasons','Gate calibration uses only feedback with a joint Gate outcome'],'evaluated_at':now_iso()};report['report_hash']=sha256_json(report);return report
 def refresh_quality_evaluation(adapter:Any)->dict[str,Any]:
  out=adapter.project_root/'benchmarks/author-quality-hidden';manifest=build_project_fixtures(adapter.project_root,out);all_report=evaluate_fixture_dir(out);hidden=evaluate_fixture_dir(out,split='hidden_test');report={**all_report,'manifest_hash':manifest['manifest_hash'],'hidden_test':hidden,'telemetry':production_quality_telemetry(adapter.project_root),'source_state_hash':(adapter.store.load_state() or {}).get('state_hash'),'source_event_head':(adapter.store.load_state() or {}).get('events_head')};report['report_hash']=sha256_json({k:v for k,v in report.items() if k!='report_hash'});adapter.store._atomic_json(out/'baseline-report.json',report);return report
 
