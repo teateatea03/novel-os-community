@@ -43,3 +43,10 @@ python3 scripts/independent_review.py --root PROJECT --check-review PROJECT/revi
 安全界線：這些 hash 是來源一致性檢查，不是經認證的數位簽章；`--check-review` 不能認證任意手改報告或語義正確性。路徑檢查拒絕靜態 traversal／absolute／symlink 與非 canonical 別名，但不是用來防禦惡意程序同時替換檔案系統的 sandbox。
 
 來源檢查以每次呼叫為界：同一 canonical 檔案在該次檢查只讀取／hash 一次，但逐一核對所有預期 fingerprint；相同檔案若有互相衝突的 hash，不會挑選其中一個而放行。CLI 合併相同檔案與 hash 的重複 binding，保留其字元範圍；模型呼叫前、回傳後與日後重查之間不共用快取，因此任何其間改動仍會標 stale。
+
+
+## beta-reader：首次出場名詞
+
+按 [讀者資訊管理](reader-information.md) 區分眼前可追蹤的類別／行動效果與刻意保留的真相，參照 [讀者帳本](../templates/reader-ledger.md) 的可選紀錄。先查實際提供的前文與別名，不強制定義、不為陌生化或不可靠敘事自動判錯；意圖或上下文缺證據則寫 `unknown`。
+
+此項只給非阻斷閱讀建議。可用雙證據時以既有 `category: reader` 提出 issue；缺第二段、只有一句不透明敘述或不知道前文時，放入 `questions`，不可用虛構引文證明資訊不存在。沿用 v2 的原文引用、來源 hash、freshness 與語義未驗證界線；不新增字數／新詞數量 gate、詞典或每章人工批准。最小修正可為補一個行動後果，也可建議保留原文與懸念。文件中的合成例子是人工討論素材，離線契約測試不能證明模型能判對這些文學情境。

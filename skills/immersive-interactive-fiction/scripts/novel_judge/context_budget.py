@@ -122,7 +122,8 @@ def _source(raw: dict[str, Any], index: int, *, preserve_text: bool = False) -> 
     if tier not in {"CORE", "ACTIVE", "EVIDENCE", "ARCHIVE"}:
         tier = "EVIDENCE"
     text = value.get("text", "")
-    if preserve_text:
+    # Author-selected source excerpts may require exact text even in lossy mode.
+    if preserve_text or value.get("preserve_text") is True:
         rendered = text
         tokens = estimate_tokens(text)
         return {"source_id": sid, "tier": tier, "priority": int(value.get("priority", 0)),
