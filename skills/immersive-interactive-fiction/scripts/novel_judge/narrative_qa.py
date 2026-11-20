@@ -85,10 +85,74 @@ def detect_unexplained_death_resume(text: str) -> list[dict[str, Any]]:
     return out
 
 
+def _pov_narration(text: str) -> list[tuple[str, int, int]]:
+    """Mask quotes/headings before sentence splitting, retaining source offsets.
+
+    This is lexical dialogue exclusion, not semantic narrator inference. An
+    unbalanced or mismatched quote leaves the remaining boundary unknown. Mask
+    that uncertain suffix while preserving earlier, certain narration.
+    """
+    chars = list(text)
+    for match in re.finditer(r"(?m)^ {0,3}#{1,6}(?:[ \t]+|$)[^\n]*", text):
+        chars[match.start():match.end()] = " " * (match.end() - match.start())
+    source = "".join(chars)
+    pairs = {"「": "」", "『": "』", "“": "”", "‘": "’", '\"': '\"', "'": "'"}
+    closers = set(pairs.values())
+    stack = []
+    slash_count = 0
+    for index, char in enumerate(source):
+        escaped = slash_count % 2 == 1
+        slash_count = slash_count + 1 if char == "\\" else 0
+        # A trailing s-apostrophe may use the outer single-quote mark.
+        # Require a following English word and a later closing mark in the
+        # same sentence, without crossing another quote opener or line.
+        possessive = (char in {"'", "’"} and index > 0
+                      and source[index - 1] in "sS"
+                      and re.match(r"[ \t]+[A-Za-z][^.!?\n‘’'\"]*[.!?]?(?<!\s)" + re.escape(char) + r"(?!\w)",
+                                   source[index + 1:]) is not None)
+        # Ordinary contractions/possessives outside a matching quote remain
+        # lexical apostrophes; actual single-quote closures still delimit.
+        apostrophe = (char in {"'", "’"} and index > 0 and index + 1 < len(source)
+                      and source[index - 1].isascii() and source[index - 1].isalnum()
+                      and ((source[index + 1].isascii() and source[index + 1].isalnum())
+                           or possessive or not stack or stack[-1] != char))
+        was_quoted = bool(stack)
+        delimiter = not escaped and not apostrophe
+        if delimiter and stack and char == stack[-1]:
+            stack.pop()
+        elif delimiter and char in pairs:
+            stack.append(pairs[char])
+        elif delimiter and char in closers:
+            chars[index:] = ["\n" if c == "\n" else " " for c in source[index:]]
+            break  # uncertain suffix; retain completed narration before it
+        if was_quoted or stack:
+            chars[index] = "\n"  # offset-preserving boundary, never join narration across a quote
+    # An unclosed opener already masked its entire suffix during traversal.
+    masked = "".join(chars)
+    sentences = []
+    for match in re.finditer(r"[^。！？!?；;\n]+[。！？!?；;]?", masked):
+        raw = match.group(0)
+        sent = raw.strip()
+        if sent:
+            begin = match.start() + len(raw) - len(raw.lstrip())
+            end = match.end() - (len(raw) - len(raw.rstrip()))
+            sentences.append((sent, begin, end))
+    return sentences
+
+
 def detect_pov_drift(text: str) -> list[dict[str, Any]]:
-    sents = _sentences(text)
+    narration = _pov_narration(text)
+    sents = [row[0] for row in narration]
     if len(sents) < 2:
         return []
+
+    def narration_span(index: int) -> dict[str, Any]:
+        _, start, end = narration[index]
+        # Point to actual narrative evidence, never a heading or an earlier
+        # identical phrase inside dialogue. Bound quote and offsets together.
+        end = min(end, start + 180)
+        return {"start": start, "end": end, "quote": text[start:end]}
+
     flags = []
     for sent in sents:
         present = []
@@ -96,35 +160,33 @@ def detect_pov_drift(text: str) -> list[dict[str, Any]]:
             present.append("1")
         if _POV_2.search(sent):
             present.append("2")
-        if _POV_3.search(sent) and not re.search(r"^[「\"“].*[」\"”]$", sent.strip()):
-            # third-person mentions are common; only count as focal if sentence starts with them or has cognition verbs
-            if re.search(r"^(他|她|他們|她們)", sent.strip()) or re.search(r"(心想|覺得|知道|看見自己|意識到)", sent):
+        if _POV_3.search(sent):
+            # Third-person mentions are common; retain the existing focal cue.
+            if re.search(r"^(他|她|他們|她們)", sent) or re.search(r"(心想|覺得|知道|看見自己|意識到)", sent):
                 present.append("3")
         flags.append(set(present))
     used = set().union(*flags) if flags else set()
-    # Drift: first person narration plus second-person address and third-person self-cognition nearby.
     joined = "\n".join(sents)
     if {"1", "2", "3"}.issubset(used) or (
         "1" in used and "2" in used and re.search(r"(他|她)看見自己", joined)
     ):
-        quote = joined[:180]
+        first = next(i for i, flag in enumerate(flags) if "1" in flag)
         return [_finding(
             "POV_DRIFT", "P1",
             "同一短段混用第一／第二／第三人稱焦點，疑似 POV 漂移或視角越權",
             confidence="high",
             evidence=[{"personas": sorted(used), "sentences": sents[:6]}],
-            span=_span(text, sents[0]) or {"quote": quote},
+            span=narration_span(first),
             repair="統一場景焦點人物與人稱；必要時切段並標明視角轉換",
             blocks_commit=False,
         )]
-    # Local adjacent sentence person flip with cognition claim
-    for a, b in zip(sents, sents[1:]):
+    for i, (a, b) in enumerate(zip(sents, sents[1:])):
         if _POV_1.search(a) and re.search(r"(他|她)看見自己|你知道", b):
             return [_finding(
                 "POV_DRIFT", "P1",
                 "相鄰句從第一人稱跳到他人自我觀察或第二人稱全知，疑似 POV 漂移",
                 evidence=[{"a": a, "b": b}],
-                span=_span(text, a),
+                span=narration_span(i),
                 repair="保留單一焦點；不要同時寫『我』的行動與『他看見自己／你知道』的全知",
                 blocks_commit=False,
             )]
