@@ -1,5 +1,5 @@
 from __future__ import annotations
-import json, tempfile, unittest, zipfile
+import json, subprocess, sys, tempfile, unittest, zipfile
 from pathlib import Path
 from datetime import datetime, timezone
 from unittest.mock import patch
@@ -117,6 +117,57 @@ class AuthorDeskTests(unittest.TestCase):
             self.assertTrue(zipfile.is_zipfile(epub))
             self.assertFalse(report["canon_write"])
             self.assertTrue((Path(td) / "interactive" / "scenes" / "T0001.md").is_file())
+
+    def test_export_cli_uses_leading_title_once_in_epub(self):
+        # Synthetic regression fixture only.
+        with tempfile.TemporaryDirectory() as td:
+            root = Path(td)
+            self.adapter(root)
+            scenes = root / "interactive" / "scenes"
+            fixtures = {
+                "T0001": "# 合成場景 & <門>\n\n一行正文。\n# 內文小節\n",
+                "T0002": "沒有標題的第一行。\n第二行。\n",
+                "T0003": "# 只有章名",
+                "T0004": "先出現的正文。\n# 刻意放在後面的標題\n",
+                "T0005": "#\t有定位字元的合成標題\n保留這行。",
+            }
+            sources = {}
+            for scene_id, text in fixtures.items():
+                path = scenes / f"{scene_id}.md"
+                path.write_bytes(text.encode("utf-8"))
+                sources[path] = path.read_bytes()
+
+            result = subprocess.run(
+                [sys.executable, "-m", "novel_judge.cli", "export-manuscript", str(root)],
+                cwd=Path(__file__).resolve().parents[1],
+                check=True, capture_output=True, encoding="utf-8",
+            )
+            report = json.loads(result.stdout)
+            ns = {"x": "http://www.w3.org/1999/xhtml"}
+            expected = [
+                ("合成場景 & <門>", "\n一行正文。\n# 內文小節\n"),
+                ("T0002", fixtures["T0002"]),
+                ("只有章名", ""),
+                ("刻意放在後面的標題", fixtures["T0004"]),
+                ("有定位字元的合成標題", "保留這行。"),
+            ]
+            with zipfile.ZipFile(report["epub_path"]) as zf:
+                for index, (title, expected_body) in enumerate(expected, start=1):
+                    with self.subTest(title=title):
+                        page = ET.fromstring(zf.read(f"OEBPS/text/doc{index:04d}.xhtml"))
+                        self.assertEqual([h.text for h in page.findall("x:body/x:h1", ns)], [title])
+                        body = "".join(page.find("x:body/x:p", ns).itertext())
+                        self.assertEqual(body, expected_body)
+                nav = ET.fromstring(zf.read("OEBPS/nav.xhtml"))
+                self.assertEqual([a.text for a in nav.findall(".//x:a", ns)], [title for title, _ in expected])
+            md = Path(report["markdown_path"]).read_text(encoding="utf-8")
+            self.assertNotIn("\n# 合成場景", md)
+            self.assertIn("\n# 內文小節\n", md)
+            self.assertIn(fixtures["T0002"].rstrip(), md)
+            self.assertIn(fixtures["T0004"].rstrip(), md)
+            self.assertIn(fixtures["T0005"], md)
+            self.assertFalse(report["canon_write"])
+            self.assertEqual({path: path.read_bytes() for path in sources}, sources)
 
     def test_epub_has_required_utc_modified_metadata(self):
         # Original synthetic fixture; agent-test, not author acceptance.
