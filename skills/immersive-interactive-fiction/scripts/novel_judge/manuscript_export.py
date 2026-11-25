@@ -56,6 +56,15 @@ def _collect_documents(project_root: Path) -> list[dict[str, Any]]:
     return docs
 
 
+def _body_without_leading_title(doc: dict[str, Any]) -> str:
+    """Remove only the first-line heading already emitted as this document's title."""
+    text = doc["text"]
+    first_line, _, body = text.partition("\n")
+    heading = _MD_HEADING.fullmatch(first_line) if first_line.startswith(("# ", "#\t")) else None
+    title = heading.group(1).strip() if heading else ""
+    return body if title and title == doc["title"] else text
+
+
 def _markdown_book(title: str, docs: list[dict[str, Any]], *, frozen: bool) -> str:
     lines = [f"# {title}", "", f"_匯出複本，非正式正典。frozen={frozen}_", ""]
     for doc in docs:
@@ -121,7 +130,10 @@ def _write_epub(path: Path, title: str, docs: list[dict[str, Any]], *, modified:
         zf.writestr("OEBPS/nav.xhtml", nav)
         for doc in docs:
             item_id = f"doc{doc['index']:04d}"
-            zf.writestr(f"OEBPS/text/{item_id}.xhtml", _xhtml(doc["title"], doc["text"]))
+            zf.writestr(
+                f"OEBPS/text/{item_id}.xhtml",
+                _xhtml(doc["title"], _body_without_leading_title(doc)),
+            )
 
 
 def export_manuscript(adapter: Any, *, output_dir: str | Path | None = None) -> dict[str, Any]:
