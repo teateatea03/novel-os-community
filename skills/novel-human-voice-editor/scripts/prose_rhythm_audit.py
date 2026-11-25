@@ -53,6 +53,23 @@ def cls(n, mean):
     if n >= mean*1.45: return "long"
     return "medium"
 
+def text_outside_quotes(sentence: str) -> str | None:
+    """Mask corner-quoted text without joining adjacent words; decline malformed rows."""
+    closers = {"「": "」", "『": "』"}
+    stack: list[str] = []
+    outside: list[str] = []
+    for char in sentence:
+        if char in closers:
+            stack.append(closers[char])
+            outside.append(" ")
+        elif char in ("」", "』"):
+            if not stack or stack.pop() != char:
+                return None
+            outside.append(" ")
+        else:
+            outside.append(" " if stack else char)
+    return None if stack else "".join(outside)
+
 def issue(code, severity, idxs, text, note):
     return {"code":code,"severity":severity,"sentence_indices":[i+1 for i in idxs],
             "loci":[{"sentence":i+1,"excerpt":text[i][:100]} for i in idxs],"note":note}
@@ -92,7 +109,10 @@ def analyze(raw: str, source="text"):
                 '短句連續出現；確認每一拍都有壓力、焦點或角色認知功能。'))
         i=max(i+1,j)
     # dialogue lines followed repeatedly by explicit speech tags can create a stutter.
-    tag_idxs=[i for i,r in enumerate(rows) if r['dialogue'] and TAG.search(r['text'])]
+    tag_idxs=[]
+    for i, r in enumerate(rows):
+        if r['dialogue'] and TAG.search(text_outside_quotes(r['text']) or ""):
+            tag_idxs.append(i)
     for a,b in zip(tag_idxs,tag_idxs[1:]):
         if b==a+1:
             chain=[a,b]; k=b+1

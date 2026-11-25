@@ -1,7 +1,7 @@
 ---
 name: novel-human-voice-editor
 metadata:
-  version: "1.1.0"
+  version: "1.1.1"
   user-invocable: "true"
   argument-hint: "<文字或章節路徑> [diagnose|light|deep|dialogue|calibrate|chapter-gate]"
 description: |
@@ -144,6 +144,8 @@ python3 scripts/human_voice_audit.py --file path/to/chapter.md --format json
 - 身體動作與沉默的使用方式。
 
 不要讓所有人都變得更機智、更幽默、更會講潛台詞。有人會說錯，有人會只談工作，有人會把關心藏在命令裡；差異要來自人物，而不是隨機加怪句。
+
+遇到角色重複、短回話或不同對象的語氣落差，先用同一場景中的原台詞核對：這個說法是人物的習慣、當下壓力或在迴避什麼，還是讓讀者誤認說話者、讀錯情緒？若要改，對照朗讀原句和改句；只有在說話者、關係、未明說的意圖及視角都保住時，才留下修改。無法確定時留編輯註，不替作者改掉。
 
 ### Pass D：調整人類節奏
 

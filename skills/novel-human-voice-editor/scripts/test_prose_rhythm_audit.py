@@ -24,6 +24,26 @@ class ProseRhythmAuditTests(unittest.TestCase):
     def test_dialogue_tag_stutter(self):
         self.assertIn('DIALOGUE_TAG_STUTTER', codes(run('她說：「好。」她說：「等等。」她說：「你先坐。」')))
 
+    def test_quoted_repetition_is_not_a_narration_tag(self):
+        for text in (
+            '「我說過。」「我說過兩次。」「我說過不用再提。」',
+            '「我說『等等』啊。」「我說『別急』啊。」「我說『先坐』啊。」',
+        ):
+            with self.subTest(text=text):
+                report = run(text)
+                self.assertEqual(len(report['sentences']), 3)
+                self.assertTrue(all(row['dialogue'] for row in report['sentences']))
+                self.assertNotIn('DIALOGUE_TAG_STUTTER', codes(report))
+
+    def test_narration_tags_outside_quoted_speech_still_count(self):
+        text = '她說：「我剛才說『先等』啊。」「好，」他說。「坐這裡，」她說。'
+        issues = [i for i in run(text)['issues'] if i['code'] == 'DIALOGUE_TAG_STUTTER']
+        self.assertEqual([i['sentence_indices'] for i in issues], [[1, 2, 3]])
+
+    def test_malformed_quotes_do_not_count_as_tag_evidence(self):
+        text = '她說：「好。」』她說：「等等。」』她說：「你先坐。」』'
+        self.assertNotIn('DIALOGUE_TAG_STUTTER', codes(run(text)))
+
     def test_small_passage_no_rhythm_verdict(self):
         d=run('她看著門。')
         self.assertEqual(d['summary']['sentences'],1)

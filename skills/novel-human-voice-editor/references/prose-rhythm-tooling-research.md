@@ -1,6 +1,6 @@
 # 語言節奏工具：採用來源、實作邊界與調整原則
 
-更新：2026-08-24。這是 `novel-human-voice-editor` 的按需參考；處理的是**中文小說的句子／段落／對話節奏**，不是情節速度，也不是 AI 作者偵測。
+更新：2026-11-25。這是 `novel-human-voice-editor` 的按需參考；處理的是**中文小說的句子／段落／對話節奏**，不是情節速度，也不是 AI 作者偵測。
 
 ## 已驗證且採用的外部輪子
 
@@ -54,6 +54,13 @@ python3 scripts/prose_rhythm_audit.py \
 | `REPEATED_OPENER_RUN` | 重複是刻意聲音還是生成模板？ | 改變焦點／起句；角色慣用法可保留 |
 | `SHORT_BEAT_RUN` | 每個短拍是否有壓力、焦點或認知功能？ | 合併無功能短句，或讓一拍真正落地 |
 | `DIALOGUE_TAG_STUTTER` | tag 是否把台詞切成停走？ | 改 tag 位置，或用 POV／有功能的動作維持說話者辨識 |
+
+## 對話標籤只看引號外
+
+- [教育部《重訂標點符號手冊》引號](https://language.moe.gov.tw/001/upload/files/site_content/m0001/hau/h6.htm) 區分外層「」和內層『』，也提醒同一種引號可標引文、對話或特別詞語。
+- [Editors Canada 文體編輯標準 C3.1、C5](https://editors.ca/publications/professional-editorial-standards/stylistic-editing/) 以作者意圖、視角、語域和敘事效果判斷是否動筆；[CIEP 小說風格表](https://www.ciep.uk/resource/fiction-style-sheets.html) 可參考如何保留已建立的角色與用語習慣。這些是編修判準，不是繁中句法或用詞規則。
+
+`DIALOGUE_TAG_STUTTER` 只把同一個句子片段中成對「」或『』之外的疑似標籤納入複核。不把「我說過」之類的角色台詞本身當作敘述標籤；有巢狀引述一起保護。若分句切在未閉合引號內，或引號失配，該句片段不提供此項提示的證據。這不驗證說話者、不跨句重建對話，也不會略過其他節奏檢查。來源只供研究參考，程式與測例皆為本專案原創。
 
 ## 朗讀標記（不可由靜態工具取代）
 
